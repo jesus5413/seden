@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "201927803020",
+    "firebase_url": "https://messaging-system-d7d58.firebaseio.com",
+    "project_id": "messaging-system-d7d58",
+    "storage_bucket": "messaging-system-d7d58.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:201927803020:android:0d2e2f8d33e43796",
+        "android_client_info": {
+          "package_name": "com.group.seden"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "201927803020-6276qph8aqap7qhlm8sj2ve3qg6gfuuk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.group.seden",
+            "certificate_hash": "5d2b3c99b5d4118fb7c88e93c9f783a76d8d170e"
+          }
+        },
+        {
+          "client_id": "201927803020-9mg2tg5kejmbm7i5kbg69lh43ib4p5vl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsJZTYM4U3N8RlNQkTzgPMfxx5qPYU4W0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "201927803020-9mg2tg5kejmbm7i5kbg69lh43ib4p5vl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
