@@ -1,0 +1,1 @@
+This Android application lets users send encrypted messages to other users. The receiving user must decrypt the message with a decrypt key.
