@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.group.seden.Database.Database;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -58,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void signIn(String email, String password){
 
-
-
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>(){
                     @Override
@@ -88,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Database.Database.storeUserInDBChild(email, password, userName);
+                    Database.storeUserInDBChild(email, password, userName);
                     System.out.println("created accounf");
                 }else{
                     System.out.println("user exists already");

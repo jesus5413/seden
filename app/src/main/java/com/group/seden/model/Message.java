@@ -1,13 +1,15 @@
 /**
  * @author Isaac Buitrago
  *
- * This class stores the users message. A message can be a text string, image, file, or video.
+ * This class is used to store a message.
+ * A message can consist of text, an image, a file, or a video.
+ * A message can also be deleted.
  */
  package com.group.seden.model;
 
 public class Message{
 
-   private String message;  // the users message
+    private String message;  // the users message
 
     private String senderid; // the username of the sender
 
@@ -40,11 +42,5 @@ public class Message{
         this.message = null;
     }
 
-    /**
-     * Sends the message to Firebase Cloud Messaging
-     */
-    public void send()
-    {
 
-    }
 }

@@ -1,4 +1,4 @@
-package com.group.seden.model;
+package com.group.seden.Database;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 
