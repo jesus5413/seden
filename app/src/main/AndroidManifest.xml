@@ -10,14 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".seden.controller.SignInActivity">
+        <activity android:name=".controller.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".seden.controller.CreateAccountActivity">
+        <activity android:name=".controller.CreateAccountActivity">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -27,7 +27,7 @@
             <!-- </intent-filter> -->
 
         </activity>
-        <activity android:name=".seden.controller.AppActivity"></activity>
+        <activity android:name=".controller.AppActivity"></activity>
     </application>
 
 </manifest>

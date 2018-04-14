@@ -1,4 +1,4 @@
-package com.group.seden.seden.controller;
+package com.group.seden.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.group.seden.R;
 
 
-import com.group.seden.seden.controller.Database.Database;
+import com.group.seden.Database.Database;
 
 public class AppActivity extends AppCompatActivity {
     private Toolbar mToolBar;

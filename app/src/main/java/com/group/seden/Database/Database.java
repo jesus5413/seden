@@ -1,4 +1,4 @@
-package com.group.seden.seden.controller.Database;
+package com.group.seden.Database;
 
 
 import com.google.firebase.database.DatabaseReference;
