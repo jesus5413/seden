@@ -39,7 +39,9 @@ public class AppActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
         if(item.getItemId() == R.id.main_logout_button){
-            FirebaseAuth.getInstance().signOut();
+            FirebaseAuth.getInstance().signOut(); // signs out the user
+
+            //goes to the sign in view
             Intent startIntent = new Intent(AppActivity.this, SignInActivity.class);
             startActivity(startIntent);
             finish();
