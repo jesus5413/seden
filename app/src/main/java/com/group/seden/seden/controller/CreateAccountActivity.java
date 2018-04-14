@@ -1,4 +1,4 @@
-package com.group.seden.controller;
+package com.group.seden.seden.controller;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.group.seden.R;
+import com.group.seden.seden.controller.Database.Database;
 
 public class CreateAccountActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -54,7 +55,7 @@ public class CreateAccountActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Database.Database.storeUserInDBChild(email, password, userName);
+                    Database.storeUserInDBChild(email, password, userName);
                     System.out.println("account created");
                 }else {
                     System.out.println("user exists");

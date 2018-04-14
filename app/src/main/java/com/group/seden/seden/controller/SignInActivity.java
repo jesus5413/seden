@@ -1,4 +1,4 @@
-package com.group.seden.controller;
+package com.group.seden.seden.controller;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.group.seden.R;
 
-import Database.Database;
+import com.group.seden.seden.controller.Database.Database;
 
 public class SignInActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
