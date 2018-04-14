@@ -14,7 +14,7 @@ public class Database {
 
     private static DatabaseReference mDatabase;
     //private static DatabaseReference userChild;
-
+    public static String sysAdmin;
 
     /**
      * Stores user info when they create an account. They will have a unique ID which stores in the database as well.
