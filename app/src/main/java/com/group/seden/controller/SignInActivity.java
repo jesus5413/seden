@@ -1,5 +1,6 @@
 package com.group.seden.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.group.seden.R;
 
 public class SignInActivity extends AppCompatActivity {
@@ -19,11 +21,14 @@ public class SignInActivity extends AppCompatActivity {
     private Button logIn;
     private EditText email;
     private EditText password;
+    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Sign In");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         logIn = (Button) findViewById(R.id.logInButton);
         email = (EditText) findViewById(R.id.emailEditText);
         password = (EditText) findViewById(R.id.paswwordEditText);
@@ -35,6 +40,21 @@ public class SignInActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        currentUser =  mAuth.getCurrentUser();
+
+        // checks to see if there is a user, and if there is, go to the main app.
+        if(currentUser != null){
+            Intent startIntent = new Intent(SignInActivity.this, AppActivity.class);
+            startActivity(startIntent);
+            finish();
+        }
+
+    }
+
 
 
 
@@ -66,6 +86,9 @@ public class SignInActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task){
                         if(task.isSuccessful()){
                             System.out.println("logged in");
+                            Intent startIntent = new Intent(SignInActivity.this, AppActivity.class);
+                            startActivity(startIntent);
+                            finish();
                         }else{
                             System.out.println("user doesnt exist");
                             Toast.makeText(SignInActivity.this, "Please ask admin for an account", Toast.LENGTH_LONG).show();
