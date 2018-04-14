@@ -1,4 +1,4 @@
-package com.group.seden;
+package com.group.seden.controller;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,8 +12,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.group.seden.R;
 
-public class MainActivity extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Button logIn;
     private EditText email;
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                             System.out.println("logged in");
                         }else{
                             System.out.println("user doesnt exist");
-                            Toast.makeText(MainActivity.this, "Please ask admin for an account", Toast.LENGTH_LONG).show();
+                            Toast.makeText(SignInActivity.this, "Please ask admin for an account", Toast.LENGTH_LONG).show();
                         }
 
                         if(!task.isSuccessful()){
