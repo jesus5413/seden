@@ -18,8 +18,6 @@ public class MainActivity extends AppCompatActivity {
     private Button logIn;
     private EditText email;
     private EditText password;
-    private EditText userName;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +26,11 @@ public class MainActivity extends AppCompatActivity {
         logIn = (Button) findViewById(R.id.logInButton);
         email = (EditText) findViewById(R.id.emailEditText);
         password = (EditText) findViewById(R.id.paswwordEditText);
-        userName = (EditText) findViewById(R.id.userNameEditText);
+
 
         mAuth = FirebaseAuth.getInstance();
         logInHandle(logIn);
+
 
 
     }
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 // logging in database code here
 
                 signIn(email.getText().toString(), password.getText().toString());
-                //signUp(email.getText().toString(), password.getText().toString(), userName.getText().toString());
+
 
             }
         });
@@ -82,27 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void signUp(final String email, final String password, final String userName){
 
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Database.Database.storeUserInDBChild(email, password, userName);
-                    System.out.println("created accounf");
-                }else{
-                    System.out.println("user exists already");
-                }
-                if(!task.isSuccessful()){
-                    System.out.println("there was some error");
-                }
-
-            }
-        });
-
-
-
-    }
 
 
 

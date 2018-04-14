@@ -29,8 +29,9 @@ public class Database {
         childInfo.put("UserName", userName);
         childInfo.put("Email", email);
         childInfo.put("Password", password);
-        childInfo.put("UniqueID", mDatabase.push().getKey());
-        mDatabase.child("users").push().setValue(childInfo); // this points to the database, then to the users node and then stores a new node in the users nodes with a unique ID.
+        String tempuID = mDatabase.push().getKey();
+        childInfo.put("UniqueID", tempuID);
+        mDatabase.child("users").child(tempuID).setValue(childInfo); // this points to the database, then to the users node and then stores a new node in the users nodes with a unique ID.
 
     }
 
