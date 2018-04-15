@@ -1,17 +1,18 @@
 /**
  * @author Isaac Buitrago
  *
- * This class is used to store a message.
- * A message can consist of text, an image, a file, or a video.
- * A message can also be deleted.
+ * This class stores the users message. A message can be a text string, image, file, or video.
  */
  package com.group.seden.model;
 
+
 public class Message{
 
-    private String message;  // the users message
+   private String message;  // the users message
 
     private String senderid; // the username of the sender
+
+    private int timer = 5;
 
 
     public String getSenderid()
@@ -34,13 +35,33 @@ public class Message{
         this.message = message;
     }
 
+    public void setDeleteTime(int timer){
+        this.timer = timer;
+    }
+
+    public int getDeleteTime(int timer){
+        return this.timer;
+    }
+
     /**
      *  Deletes a message
      */
-    public void delete()
+    public Boolean delete()
     {
-        this.message = null;
+
+        new TimeOut(this, timer);
+        if (this.getMessage() == null)
+            return true;
+        else
+            return false;
     }
 
+    /**
+     * Sends the message to Firebase Cloud Messaging
+     */
+    public void send()
+    {
+
+    }
 
 }
