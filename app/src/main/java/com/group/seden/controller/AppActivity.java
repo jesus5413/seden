@@ -2,6 +2,8 @@ package com.group.seden.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -15,7 +17,10 @@ import com.group.seden.Database.Database;
 
 public class AppActivity extends AppCompatActivity {
     private Toolbar mToolBar;
-
+    private FirebaseAuth mAuth;
+    private ViewPager mViewPager;
+    private SectionsPagerAdapter mAdapter;
+    private TabLayout mTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +30,16 @@ public class AppActivity extends AppCompatActivity {
         mToolBar = (Toolbar) findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolBar); // sets the toolbar layout to the main ap so it can be used
         getSupportActionBar().setTitle("Seden"); // sets the view title
+        mAuth = FirebaseAuth.getInstance();
         if(Database.sysAdmin != "sysAdmin@yahho.com"){
-
-
-
         }
 
+        mViewPager = (ViewPager) findViewById(R.id.tabPager);
+        mAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+        mViewPager.setAdapter(mAdapter);
+        mTabLayout = (TabLayout)findViewById(R.id.main_tabs);
+        mTabLayout.setupWithViewPager(mViewPager);
 
     }
 
