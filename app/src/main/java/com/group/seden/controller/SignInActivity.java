@@ -1,4 +1,4 @@
-package com.group.seden.controller;
+package com.group.seden;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -17,8 +17,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.group.seden.R;
+//import com.group.seden.Database;
 
-import com.group.seden.Database.Database;
+//import com.group.seden.Database.Database;
 
 public class SignInActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -101,7 +102,7 @@ public class SignInActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task){
                         if(task.isSuccessful()){
-                            Database.sysAdmin = email;
+                            //Database.sysAdmin = email;
                             System.out.println("logged in");
                             // goes to the main app
                             logInProgress.dismiss();
@@ -124,15 +125,6 @@ public class SignInActivity extends AppCompatActivity {
                 });
 
     }
-
-
-
-
-
-
-
-
-
 
 
 
