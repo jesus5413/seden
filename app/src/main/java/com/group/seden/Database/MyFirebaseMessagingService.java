@@ -1,4 +1,4 @@
-package com.group.seden.model;
+package com.group.seden.Database;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 
@@ -6,4 +6,5 @@ import com.google.firebase.messaging.FirebaseMessagingService;
  * @author Isaac Buitrago
  */
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
+
 }
