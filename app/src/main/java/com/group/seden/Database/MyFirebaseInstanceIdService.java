@@ -1,9 +1,8 @@
 package com.group.seden.Database;
 
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
-//import com.group.seden.model.UserSession;
+import com.group.seden.model.UserSession;
 
 /**
  * Manages the registration token for the client app instance
