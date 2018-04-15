@@ -46,9 +46,14 @@ public class Message{
     /**
      *  Deletes a message
      */
-    public void delete()
+    public Boolean delete()
     {
+
         new TimeOut(this, timer);
+        if (this.getMessage() == null)
+            return true;
+        else
+            return false;
     }
 
     /**
