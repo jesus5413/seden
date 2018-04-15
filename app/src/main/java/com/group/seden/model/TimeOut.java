@@ -14,7 +14,7 @@ public class TimeOut {
 
         timer = new Timer();
         this.message = message;
-        timer.schedule(new deleteTask(message), seconds*1000);
+        timer.schedule(new deleteTask(message), seconds*60*1000);
     }
 
     class deleteTask extends TimerTask {

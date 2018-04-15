@@ -12,7 +12,7 @@ public class Message{
 
     private String senderid; // the username of the sender
 
-    private int timer = 5*60;
+    private int timer = 5;
 
 
     public String getSenderid()
