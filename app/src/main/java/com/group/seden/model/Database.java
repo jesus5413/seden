@@ -1,50 +1,84 @@
-package com.group.seden.model;
+package com.group.seden.Database;
 
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.group.seden.model.Message;
+import com.group.seden.model.UserSession;
+
+import java.util.HashMap;
 
 /**
+ * Class to store data in the database.
+ * It is also used to send Messages to a device and
+ * receive messages from another device.
+ * @author JesusNieto
  * @author Isaac Buitrago
- *
- * Singleton class that handles the connection to the Firebase database.
- * It is used to handle the sending of Message to a device and the
- * receiving of a message from another device.
  */
-public class Database {
+public class Database extends FirebaseMessagingService{
 
-    private MyFirebaseMessagingService messgingService; // used to receive a message
-
-    private MyFirebaseInstanceIdService instanceId;     // used to generate the user's Firebase instance id
-
-    private static Database instance;                   // reference to Database
-
-    // There should only be one instance to the Database in the app
-    private Database(){}
+    private static DatabaseReference mDatabase;
+    //private static DatabaseReference userChild;
 
     /**
-     *
-     * @return Single Database instance
+     * Stores user info when they create an account. They will have a unique ID and
+     * token which will be stored in the database as well.
+     * @param email
+     * @param password
+     * @param userName
+     * example: database/users/user
      */
-    public static synchronized Database getInstance()
+    public static void storeUserInDBChild(String email, String password, String userName){
+        mDatabase = FirebaseDatabase.getInstance().getReference(); // this points to the main database
+        HashMap<String, String> childInfo = new HashMap<String, String>();  // creating hashmap to store data to commit to the users node
+        childInfo.put("UserName", userName);
+        childInfo.put("Email", email);
+        childInfo.put("Password", password);
+        childInfo.put("UniqueID", mDatabase.push().getKey());
+        mDatabase.child("users").push().setValue(childInfo); // this points to the database, then to the users node and then stores a new node in the users nodes with a unique ID.
+
+    }
+
+    /**
+     * Used to update the registration token in the Database once the token is regenerated.
+     */
+
+    public static void updateUserTokenInDB(String token)
     {
-        if(instance == null)
-        {
-          instance = new Database();
-        }
-        return(instance);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        //mDatabase.child("users")
     }
 
     /**
      * Sends a message upstream to the Firebase server
      * @param message for the recipient
      */
-    public void sendMessage(Message message)
-    {
-        FirebaseMessaging.getInstance().send(
-                new RemoteMessage.Builder(SENDER_ID)
-                        .setMessageId(id)
-                        .addData(message.getSenderid(), message.getMessage())
-                        .build());
+    public void sendMessage(Message message) {
+//        FirebaseMessaging.getInstance().send(
+//                new RemoteMessage.Builder(SENDER_ID)
+//                        .setMessageId(id)
+//                        .addData(message.getSenderid(), message.getMessage())
+//                        .build());
     }
 
-}
+    @Override
+    public void onMessageReceived(RemoteMessage remoteMessage)
+    {
+        if(remoteMessage.getData().isEmpty())
+        {
+            //TODO: delete this message
+        }
+
+        //Decrypt remoteMessage.getData()
+        //Take this data and put it into message.string() or we can keep it as a remoteMessage
+        //Send this 'remoteMessage.getData().get("m")' to a String, and send it to the controller
+        //The controller will send it to the view and the message will be displayed on screen
+
+        // RETURN a Message with the given Data in it
+        
+    }// END onMessageReceived()
+
+}// END MODEL CLASS Database
