@@ -44,7 +44,6 @@ public class Database {
     /**
      * Used to update the registration token in the Database once the token is regenerated.
      */
-
     public static void updateUserTokenInDB(String token)
     {
         mDatabase = FirebaseDatabase.getInstance().getReference();
