@@ -21,7 +21,7 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
     {
         //Store InstanceID token and update it in the database
         token = FirebaseInstanceId.getInstance().getToken();
-       // Database.updateUserTokenInDB(token);
+        //Database.updateUserTokenInDB(token);
     }
 
     public static String getToken()
