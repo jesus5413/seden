@@ -55,6 +55,7 @@ public class SignInActivity extends AppCompatActivity {
 
         // checks to see if there is a user, and if there is, go to the main app.
         if(currentUser != null){
+
             Intent startIntent = new Intent(SignInActivity.this, AppActivity.class);
             startActivity(startIntent);
             finish();

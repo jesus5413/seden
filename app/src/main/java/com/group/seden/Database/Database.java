@@ -23,15 +23,15 @@ public class Database {
      * @param userName
      * example: database/users/user
      */
-    public static void storeUserInDBChild(String email, String password, String userName){
+    public static void storeUserInDBChild(String email, String password, String userName, String uID){
         mDatabase = FirebaseDatabase.getInstance().getReference(); // this points to the main database
         HashMap<String, String> childInfo = new HashMap<String, String>();  // creating hashmap to store data to commit to the users node
         childInfo.put("UserName", userName);
         childInfo.put("Email", email);
         childInfo.put("Password", password);
-        String tempuID = mDatabase.push().getKey();
-        childInfo.put("UniqueID", tempuID);
-        mDatabase.child("users").child(tempuID).setValue(childInfo); // this points to the database, then to the users node and then stores a new node in the users nodes with a unique ID.
+        //String tempuID = mDatabase.push().getKey();
+        childInfo.put("UniqueID", uID);
+        mDatabase.child("users").child(uID).setValue(childInfo); // this points to the database, then to the users node and then stores a new node in the users nodes with a unique ID.
 
     }
 

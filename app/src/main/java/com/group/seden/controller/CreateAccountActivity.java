@@ -11,11 +11,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.group.seden.Database.Database;
 import com.group.seden.R;
 
 public class CreateAccountActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
     private Button createButton;
     private EditText email;
     private EditText userName;
@@ -55,7 +57,9 @@ public class CreateAccountActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Database.storeUserInDBChild(email, password, userName);
+                    currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    String uId = currentUser.getUid();
+                    Database.storeUserInDBChild(email, password, userName, uId);
                     System.out.println("account created");
                 }else {
                     System.out.println("user exists");

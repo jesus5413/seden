@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.group.seden.R;
 
 
@@ -22,6 +23,7 @@ public class AppActivity extends AppCompatActivity {
     private SectionsPagerAdapter mAdapter;
     private TabLayout mTabLayout;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //setTitle("Welcome to Seden");
@@ -31,8 +33,9 @@ public class AppActivity extends AppCompatActivity {
         setSupportActionBar(mToolBar); // sets the toolbar layout to the main ap so it can be used
         getSupportActionBar().setTitle("Seden"); // sets the view title
         mAuth = FirebaseAuth.getInstance();
-        if(Database.sysAdmin != "sysAdmin@yahho.com"){
-        }
+        ;
+//        if(Database.sysAdmin != "sysAdmin@yahho.com"){
+//        }
 
         mViewPager = (ViewPager) findViewById(R.id.tabPager);
         mAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
