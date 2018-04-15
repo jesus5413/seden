@@ -33,7 +33,7 @@ public class AppActivity extends AppCompatActivity {
         setSupportActionBar(mToolBar); // sets the toolbar layout to the main ap so it can be used
         getSupportActionBar().setTitle("Seden"); // sets the view title
         mAuth = FirebaseAuth.getInstance();
-        ;
+
 //        if(Database.sysAdmin != "sysAdmin@yahho.com"){
 //        }
 
