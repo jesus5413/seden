@@ -34,8 +34,7 @@ public class AppActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Seden"); // sets the view title
         mAuth = FirebaseAuth.getInstance();
 
-//        if(Database.sysAdmin != "sysAdmin@yahho.com"){
-//        }
+
 
         mViewPager = (ViewPager) findViewById(R.id.tabPager);
         mAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
