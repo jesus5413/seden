@@ -1,8 +1,12 @@
 package com.group.seden.Database;
 
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.group.seden.model.UserSession;
 
 import java.util.HashMap;
 
@@ -13,7 +17,7 @@ import java.util.HashMap;
 public class Database {
 
     private static DatabaseReference mDatabase;
-    //private static DatabaseReference userChild;
+    private static UserSession userInfo;
     public static String sysAdmin;
 
     /**
@@ -34,6 +38,7 @@ public class Database {
         mDatabase.child("users").child(userName).setValue(childInfo); // this points to the database, then to the users node and then stores a new node in the users nodes with a unique ID.
 
     }
+
 
 
 
