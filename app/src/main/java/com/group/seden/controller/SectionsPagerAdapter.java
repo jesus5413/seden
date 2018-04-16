@@ -45,7 +45,7 @@ class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return "Chat Inbox";
 
             case 1:
-                return "Requests";
+                return "Contact List";
 
             default:
                 return null;
