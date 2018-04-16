@@ -113,7 +113,7 @@ public class SignInActivity extends AppCompatActivity {
      * @param email
      * @param password
      */
-    private void userNameCheck(final String email, String password){
+    private void userNameCheck(final String email, final String password){
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -125,7 +125,7 @@ public class SignInActivity extends AppCompatActivity {
                     temp = dataSnapshot.getValue(UserSession.class);
                     userInfo = temp;
                     System.out.println(userInfo.getUserName());
-                    trueSignIn(userInfo.getEmail(), userInfo.getPassword());
+                    trueSignIn(userInfo.getEmail(), password);
                 }else{
                     System.out.println("some error, user doesnt exists");
                     logInProgress.hide();
@@ -164,8 +164,9 @@ public class SignInActivity extends AppCompatActivity {
                             startActivity(startIntent);
                             finish();
                         }else{
-                            System.out.println("user doesnt exist -- sign in");
-                            Toast.makeText(SignInActivity.this, "Please ask admin for an account", Toast.LENGTH_LONG).show();
+                            System.out.println("user doesnt exist or password is wrong -- sign in");
+                            logInProgress.hide();
+                            Toast.makeText(SignInActivity.this, "Please ask admin for an account or check your credentials", Toast.LENGTH_LONG).show();
                         }
                     }
 
