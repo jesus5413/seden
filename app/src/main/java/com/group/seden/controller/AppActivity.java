@@ -51,6 +51,14 @@ public class AppActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu){
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.main_menu, menu);
+        MenuItem createButton = menu.findItem(R.id.main_CreateAccount_button);
+
+//            if(UICheckers.createButtonChecker(Database.sysAdmin) == true){
+//                createButton.setVisible(false);
+//
+//            }else{
+//                createButton.setVisible(true);
+//            }
 //        MenuItem createButton = menu.findItem(R.id.main_CreateAccount_button);
 //        if(Database.sysAdmin.compareTo("sysAdmin@yahho.com")){
 //            createButton.setVisible(false);

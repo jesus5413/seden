@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.group.seden.Database.Database;
 import com.group.seden.R;
 import com.group.seden.model.UserSession;
 
@@ -89,7 +90,7 @@ public class SignInActivity extends AppCompatActivity {
                 System.out.println("tapped");
                 // logging in database code here
 
-                if(!TextUtils.isEmpty(userName.getText().toString()) || !TextUtils.isEmpty(password.getText().toString())){
+                if(!TextUtils.isEmpty(userName.getText().toString()) && !TextUtils.isEmpty(password.getText().toString())){
 
                     logInProgress.setTitle("Logging In");
                     logInProgress.setMessage("Checking Credentials");
@@ -124,6 +125,7 @@ public class SignInActivity extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     temp = dataSnapshot.getValue(UserSession.class);
                     userInfo = temp;
+                    Database.sysAdmin = userInfo;
                     System.out.println(userInfo.getUserName());
                     trueSignIn(userInfo.getEmail(), password);
                 }else{
