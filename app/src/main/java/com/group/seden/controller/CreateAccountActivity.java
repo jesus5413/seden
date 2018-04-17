@@ -58,6 +58,11 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     }
 
+
+    /**
+     * This functions controls the on click handle for the button
+     * @param button
+     */
     private void createAccountHandle(Button button){
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +87,13 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * checks to see if the username exists already in the database and if it doesnt,
+     * it calls the create account method
+     * @param userName
+     * @param password
+     * @param email
+     */
     private void userNameChecker(final String userName, final String password, final String email){
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -110,6 +121,12 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Creates the account
+     * @param email
+     * @param password
+     * @param userName
+     */
     private void createAccount(final String email, final String password, final String userName){
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -135,6 +152,10 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * re logs in the sys admin to the application again
+     * @param user
+     */
     private void tempLogIn(UserSession user){
         mAuth.signInWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override

@@ -16,6 +16,10 @@ import com.group.seden.R;
 
 import com.group.seden.Database.Database;
 
+/**
+ * This is the controller class for the main app view
+ *
+ */
 public class AppActivity extends AppCompatActivity {
     private Toolbar mToolBar;
     private FirebaseAuth mAuth;

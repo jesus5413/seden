@@ -26,6 +26,8 @@ import com.group.seden.R;
 import com.group.seden.model.UserSession;
 
 /**
+ *
+ * This is the controller class for the sign in UI
  * @author jesusnieto
  */
 public class SignInActivity extends AppCompatActivity {
@@ -65,7 +67,6 @@ public class SignInActivity extends AppCompatActivity {
     public void onStart(){
         super.onStart();
         currentUser =  mAuth.getCurrentUser();
-
         // checks to see if there is a user, and if there is, go to the main app.
         if(currentUser != null){
 
