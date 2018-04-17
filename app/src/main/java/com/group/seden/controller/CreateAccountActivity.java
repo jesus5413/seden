@@ -41,6 +41,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     private ProgressDialog logInProgress;
     private UserSession userInfo;
     private DatabaseReference mDatabase;
+    private String uID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,11 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     }
 
+
+    /**
+     * This functions controls the on click handle for the button
+     * @param button
+     */
     private void createAccountHandle(Button button){
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +88,13 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * checks to see if the username exists already in the database and if it doesnt,
+     * it calls the create account method
+     * @param userName
+     * @param password
+     * @param email
+     */
     private void userNameChecker(final String userName, final String password, final String email){
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -110,21 +122,28 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Creates the account
+     * @param email
+     * @param password
+     * @param userName
+     */
     private void createAccount(final String email, final String password, final String userName){
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+
                     currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     String uId = currentUser.getUid();
                     Database.storeUserInDBChild(email, password, userName, uId);
                     System.out.println("account created");
+
                     FirebaseAuth.getInstance().signOut();
-                    tempLogIn(Database.sysAdmin);
+
+                    tempLogIn("sysAdmin@yahoo.com", "sysAdmin");
                     logInProgress.dismiss();
-                    Intent startIntent = new Intent(CreateAccountActivity.this, AppActivity.class);
-                    startActivity(startIntent);
-                    finish();
+
                 }else {
                     System.out.println("user exists/email has been used before");
                     logInProgress.hide();
@@ -135,12 +154,23 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     }
 
-    private void tempLogIn(UserSession user){
-        mAuth.signInWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+    /**
+     * re logs in the sys admin to the application again
+     * @param email
+     * @param Password
+     */
+    private void tempLogIn(String email, String Password){
+        mAuth.signInWithEmailAndPassword(email, Password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    System.out.println("successful login");
+                    currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    String uId = currentUser.getUid();
+                    Intent startIntent = new Intent(CreateAccountActivity.this, AppActivity.class);
+                    startIntent.putExtra("uID", uId);
+                    startActivity(startIntent);
+                    finish();
+                    System.out.println("----------------successful login");
                 }else{
                     System.out.println("ERROR");
                 }
