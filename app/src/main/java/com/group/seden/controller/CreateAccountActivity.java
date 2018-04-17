@@ -144,11 +144,6 @@ public class CreateAccountActivity extends AppCompatActivity {
                     tempLogIn("sysAdmin@yahoo.com", "sysAdmin");
                     logInProgress.dismiss();
 
-                    uId = "eKdbub51mzb0owVqvta63wKzihN2";
-                    Intent startIntent = new Intent(CreateAccountActivity.this, AppActivity.class);
-                    startIntent.putExtra("uID", uId);
-                    startActivity(startIntent);
-                    finish();
                 }else {
                     System.out.println("user exists/email has been used before");
                     logInProgress.hide();
@@ -169,7 +164,13 @@ public class CreateAccountActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    System.out.println("successful login");
+                    currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    String uId = currentUser.getUid();
+                    Intent startIntent = new Intent(CreateAccountActivity.this, AppActivity.class);
+                    startIntent.putExtra("uID", uId);
+                    startActivity(startIntent);
+                    finish();
+                    System.out.println("----------------successful login");
                 }else{
                     System.out.println("ERROR");
                 }
