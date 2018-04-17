@@ -41,6 +41,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     private ProgressDialog logInProgress;
     private UserSession userInfo;
     private DatabaseReference mDatabase;
+    private String uID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,9 +138,11 @@ public class CreateAccountActivity extends AppCompatActivity {
                     Database.storeUserInDBChild(email, password, userName, uId);
                     System.out.println("account created");
                     FirebaseAuth.getInstance().signOut();
-                    tempLogIn(Database.sysAdmin);
+                    tempLogIn("sysAdmin@yahoo.com", "sysAdmin");
                     logInProgress.dismiss();
+                    uId = "eKdbub51mzb0owVqvta63wKzihN2";
                     Intent startIntent = new Intent(CreateAccountActivity.this, AppActivity.class);
+                    startIntent.putExtra("uID", uId);
                     startActivity(startIntent);
                     finish();
                 }else {
@@ -154,10 +157,11 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     /**
      * re logs in the sys admin to the application again
-     * @param user
+     * @param email
+     * @param Password
      */
-    private void tempLogIn(UserSession user){
-        mAuth.signInWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+    private void tempLogIn(String email, String Password){
+        mAuth.signInWithEmailAndPassword(email, Password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){

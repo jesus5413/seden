@@ -39,6 +39,8 @@ public class SignInActivity extends AppCompatActivity {
     private ProgressDialog logInProgress;
     private DatabaseReference mDatabase;
     private UserSession userInfo;
+    private String uID;
+    private int counter = 0;
 
 
     @Override
@@ -69,8 +71,10 @@ public class SignInActivity extends AppCompatActivity {
         currentUser =  mAuth.getCurrentUser();
         // checks to see if there is a user, and if there is, go to the main app.
         if(currentUser != null){
+            uID = currentUser.getUid();
 
             Intent startIntent = new Intent(SignInActivity.this, AppActivity.class);
+            startIntent.putExtra("uID", uID);
             startActivity(startIntent);
             finish();
         }
@@ -82,7 +86,7 @@ public class SignInActivity extends AppCompatActivity {
      * this is the login handle when button is pressed
      * @param button
      */
-    private void logInHandle(Button button){
+    private void logInHandle(final Button button){
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +94,12 @@ public class SignInActivity extends AppCompatActivity {
 
                 System.out.println("tapped");
                 // logging in database code here
+
+                if(counter >= 2 ){
+                    button.setEnabled(false);
+                    Toast.makeText(SignInActivity.this, "You've been locked out of the app for failed attempts. Restart the app.", Toast.LENGTH_LONG).show();
+
+                }
 
                 if(!TextUtils.isEmpty(userName.getText().toString()) && !TextUtils.isEmpty(password.getText().toString())){
 
@@ -99,7 +109,12 @@ public class SignInActivity extends AppCompatActivity {
                     logInProgress.show();
 
                     userNameCheck(userName.getText().toString(), password.getText().toString());
+                    counter++;
 
+                }else{
+                    Toast.makeText(SignInActivity.this, "Please input username/password.", Toast.LENGTH_SHORT).show();
+
+                    counter++;
                 }
             }
         });
@@ -160,10 +175,13 @@ public class SignInActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task){
                         if(task.isSuccessful()){
+                            currentUser =  mAuth.getCurrentUser();
+                            uID = currentUser.getUid();
                             System.out.println("logged in");
                             // goes to the main app
                             logInProgress.dismiss();
                             Intent startIntent = new Intent(SignInActivity.this, AppActivity.class);
+                            startIntent.putExtra("uID", uID);
                             startActivity(startIntent);
                             finish();
                         }else{

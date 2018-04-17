@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,6 +27,9 @@ public class AppActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private SectionsPagerAdapter mAdapter;
     private TabLayout mTabLayout;
+    private Intent intent;
+    private String uID;
+
 
 
     @Override
@@ -37,6 +41,11 @@ public class AppActivity extends AppCompatActivity {
         setSupportActionBar(mToolBar); // sets the toolbar layout to the main ap so it can be used
         getSupportActionBar().setTitle("Seden"); // sets the view title
         mAuth = FirebaseAuth.getInstance();
+
+        intent = getIntent();
+        uID = intent.getExtras().getString("uID");
+
+
 
 
 
@@ -56,6 +65,13 @@ public class AppActivity extends AppCompatActivity {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.main_menu, menu);
         MenuItem createButton = menu.findItem(R.id.main_CreateAccount_button);
+
+        if(uID.equals("eKdbub51mzb0owVqvta63wKzihN2")){
+            createButton.setVisible(true);
+        }else{
+            createButton.setVisible(false);
+
+        }
 
 //            if(UICheckers.createButtonChecker(Database.sysAdmin) == true){
 //                createButton.setVisible(false);
