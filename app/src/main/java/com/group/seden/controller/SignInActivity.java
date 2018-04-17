@@ -141,7 +141,6 @@ public class SignInActivity extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     temp = dataSnapshot.getValue(UserSession.class);
                     userInfo = temp;
-                    Database.sysAdmin = userInfo;
                     System.out.println(userInfo.getUserName());
                     trueSignIn(userInfo.getEmail(), password);
                 }else{

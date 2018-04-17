@@ -133,13 +133,17 @@ public class CreateAccountActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+
                     currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     String uId = currentUser.getUid();
                     Database.storeUserInDBChild(email, password, userName, uId);
                     System.out.println("account created");
+
                     FirebaseAuth.getInstance().signOut();
+
                     tempLogIn("sysAdmin@yahoo.com", "sysAdmin");
                     logInProgress.dismiss();
+
                     uId = "eKdbub51mzb0owVqvta63wKzihN2";
                     Intent startIntent = new Intent(CreateAccountActivity.this, AppActivity.class);
                     startIntent.putExtra("uID", uId);

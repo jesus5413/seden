@@ -66,29 +66,12 @@ public class AppActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         MenuItem createButton = menu.findItem(R.id.main_CreateAccount_button);
 
-        if(uID.equals("eKdbub51mzb0owVqvta63wKzihN2")){
+        if(uID.equals("eKdbub51mzb0owVqvta63wKzihN2")){  // checks to disable or enable button for sysAdmin
             createButton.setVisible(true);
         }else{
             createButton.setVisible(false);
 
         }
-
-//            if(UICheckers.createButtonChecker(Database.sysAdmin) == true){
-//                createButton.setVisible(false);
-//
-//            }else{
-//                createButton.setVisible(true);
-//            }
-//        MenuItem createButton = menu.findItem(R.id.main_CreateAccount_button);
-//        if(Database.sysAdmin.compareTo("sysAdmin@yahho.com")){
-//            createButton.setVisible(false);
-//
-//        }
-//        if(Database.sysAdmin.equals("sysAdmin@yahho.com")){
-//            createButton.setVisible(true);
-//
-//        }
-
 
         return true;
     }
