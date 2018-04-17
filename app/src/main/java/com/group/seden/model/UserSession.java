@@ -8,64 +8,72 @@ package com.group.seden.model;
  */
 public class UserSession {
 
-    private String userEmail;   // email of the authenticated user
+    private String Email;   // email of the authenticated user
 
-    private String username;    // username of the authenticated user
+    private String Password;    // username of the authenticated user
 
-    private String uniqueId;    // key of the User's node in the Database
+    private String UniqueID;    // key of the User's node in the Database
+
+    private String UserName;
 
     private static UserSession instance;   // reference to the session
 
     /**
      * Constructor should only be called once
      */
-    private UserSession(){}
+    public UserSession(){
+
+    }
 
     /**
      *
      * @return reference to the UserSession
      */
-    public static UserSession getInstance()
-    {
-        if(instance == null)
-        {
-            instance = new UserSession();
-        }
-
-        return(instance);
-    }
+//    public static UserSession getInstance()
+//    {
+//        if(instance == null)
+//        {
+//            instance = new UserSession();
+//        }
+//
+//        return(instance);
+//    }
 
     /**
      *
      * Getters and Setters for global information
      */
-    public String getUserEmail()
+    public String getEmail()
     {
-        return userEmail;
+        return Email;
     }
 
-    public void setUserEmail(String userEmail)
+    public void setEmail(String userEmail)
     {
-        this.userEmail = userEmail;
+        this.Email = userEmail;
     }
 
-    public String getUsername()
+    public String getUserName()
     {
-        return username;
+        return UserName;
     }
 
-    public void setUsername(String username)
+    public void setUserName(String username)
     {
-        this.username = username;
+        this.UserName = username;
     }
 
-    public String getUniqueId()
+    public String getUniqueID()
     {
-        return uniqueId;
+        return UniqueID;
     }
 
-    public void setUniqueId(String uniqueId)
+    public void setUniqueID(String uniqueId)
     {
-        this.uniqueId = uniqueId;
+        this.UniqueID = uniqueId;
     }
+
+    public String getPassword() { return Password; }
+
+    public void setPassword(String password) { this.Password = password; }
 }

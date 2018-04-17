@@ -1,8 +1,12 @@
 package com.group.seden.Database;
 
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.group.seden.model.UserSession;
 
 import java.util.HashMap;
 
@@ -13,8 +17,8 @@ import java.util.HashMap;
 public class Database {
 
     private static DatabaseReference mDatabase;
-    //private static DatabaseReference userChild;
-    public static String sysAdmin;
+    private static UserSession userInfo;
+    public static UserSession sysAdmin;
 
     /**
      * Stores user info when they create an account. They will have a unique ID which stores in the database as well.
@@ -31,9 +35,10 @@ public class Database {
         childInfo.put("Password", password);
         //String tempuID = mDatabase.push().getKey();
         childInfo.put("UniqueID", uID);
-        mDatabase.child("users").child(uID).setValue(childInfo); // this points to the database, then to the users node and then stores a new node in the users nodes with a unique ID.
+        mDatabase.child("users").child(userName).setValue(childInfo); // this points to the database, then to the users node and then stores a new node in the users nodes with a unique ID.
 
     }
+
 
 
 
