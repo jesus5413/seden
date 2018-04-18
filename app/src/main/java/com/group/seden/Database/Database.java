@@ -6,6 +6,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.group.seden.model.Message;
 import com.group.seden.model.UserSession;
 
 import java.util.HashMap;
@@ -19,6 +20,7 @@ public class Database {
     private static DatabaseReference mDatabase;
     private static UserSession userInfo;
     public static UserSession sysAdmin;
+    private static final String SENDER_ID = "201927803020"; // used to id senders that can send messages to client app
 
     /**
      * Stores user info when they create an account. They will have a unique ID which stores in the database as well.
@@ -36,6 +38,15 @@ public class Database {
         //String tempuID = mDatabase.push().getKey();
         childInfo.put("UniqueID", uID);
         mDatabase.child("users").child(userName).setValue(childInfo); // this points to the database, then to the users node and then stores a new node in the users nodes with a unique ID.
+
+    }
+
+    /**
+     * Used to send a message to the indicated user id within the message
+     * @param message to send to a remote device
+     */
+    public static void sendMessage(Message message)
+    {
 
     }
 

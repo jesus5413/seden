@@ -8,21 +8,27 @@
 
 public class Message{
 
-   private String message;  // the users message
+    private String message;     // the users message
 
-    private String senderid; // the username of the sender
+    private String senderId;    // the username of the sender
+
+    private String recipientId; // thee recipient of the message
 
     private int timer = 5;
 
 
+    /**
+     * getters and setters for message
+     * @return
+     */
     public String getSenderid()
     {
-        return senderid;
+        return senderId;
     }
 
     public void setSenderid(String senderid)
     {
-        this.senderid = senderid;
+        this.senderId = senderid;
     }
 
     public String getMessage()
@@ -43,6 +49,16 @@ public class Message{
         return this.timer;
     }
 
+    public String getRecipientId()
+    {
+        return recipientId;
+    }
+
+    public void setRecipientId(String recipientId)
+    {
+        this.recipientId = recipientId;
+    }
+
     /**
      *  Deletes a message
      */
@@ -54,14 +70,6 @@ public class Message{
             return true;
         else
             return false;
-    }
-
-    /**
-     * Sends the message to Firebase Cloud Messaging
-     */
-    public void send()
-    {
-
     }
 
 }
