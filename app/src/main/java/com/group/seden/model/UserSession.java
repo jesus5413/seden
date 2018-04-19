@@ -8,13 +8,13 @@ package com.group.seden.model;
  */
 public class UserSession {
 
-    private String Email;   // email of the authenticated user
+    private String Email;       // email of the authenticated user
 
     private String Password;    // username of the authenticated user
 
     private String UniqueID;    // key of the User's node in the Database
 
-    private String UserName;
+    private String UserName;    //username of the currently authenticated user
 
     private static UserSession instance;   // reference to the session
 
@@ -29,15 +29,15 @@ public class UserSession {
      *
      * @return reference to the UserSession
      */
-//    public static UserSession getInstance()
-//    {
-//        if(instance == null)
-//        {
-//            instance = new UserSession();
-//        }
-//
-//        return(instance);
-//    }
+    public static UserSession getInstance()
+    {
+        if(instance == null)
+        {
+            instance =  new UserSession();
+        }
+
+        return (instance);
+    }
 
     /**
      *

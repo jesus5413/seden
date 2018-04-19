@@ -46,6 +46,8 @@ public class Database {
      */
     public static void sendMessage(Message message)
     {
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("messages");
+
 
     }
 

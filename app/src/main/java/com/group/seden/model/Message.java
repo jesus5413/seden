@@ -10,9 +10,9 @@ public class Message{
 
     private String message;     // the users message
 
-    private String senderId;    // the username of the sender
+    private String senderId;    // uniqueId of the sender
 
-    private String recipientId; // thee recipient of the message
+    private String recipientId; // uniqueId of the recipient
 
     private int timer = 5;
 

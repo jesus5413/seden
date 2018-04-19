@@ -17,7 +17,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.group.seden.R;
-
+import com.group.seden.model.UserSession;
 import com.group.seden.Database.Database;
 
 public class SignInActivity extends AppCompatActivity {
@@ -95,13 +95,34 @@ public class SignInActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Signs in the user and initiates a UserSession
+     *
+     * @param email
+     * @param password
+     */
     private void signIn(final String email, String password){
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>(){
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task){
                         if(task.isSuccessful()){
-                            Database.sysAdmin = email;
+
+                            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+                            UserSession session = UserSession.getInstance();
+
+                            String uniqueId = currentUser.getUid();
+
+                            String username = currentUser.getDisplayName();
+
+                            session.setEmail(email);
+
+                            session.setUniqueID(uniqueId);
+
+                            session.setUserName(username);
+
+                           // Database.sysAdmin = email;
                             System.out.println("logged in");
                             // goes to the main app
                             logInProgress.dismiss();
