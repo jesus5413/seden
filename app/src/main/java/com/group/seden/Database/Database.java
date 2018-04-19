@@ -20,7 +20,6 @@ public class Database {
     private static DatabaseReference mDatabase;
     private static UserSession userInfo;
     public static UserSession sysAdmin;
-    private static final String SENDER_ID = "201927803020"; // used to id senders that can send messages to client app
 
     /**
      * Stores user info when they create an account. They will have a unique ID which stores in the database as well.
