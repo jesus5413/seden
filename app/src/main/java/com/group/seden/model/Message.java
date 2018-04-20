@@ -1,10 +1,11 @@
-/**
+ /**
  * @author Isaac Buitrago
  *
  * This class stores the users message. A message can be a text string, image, file, or video.
  */
  package com.group.seden.model;
 
+import static com.group.seden.model.Encrypt.*;
 
 public class Message{
 
@@ -13,6 +14,7 @@ public class Message{
     private String senderid; // the username of the sender
 
     private int timer = 5;
+
 
 
     public String getSenderid()
@@ -50,10 +52,7 @@ public class Message{
     {
 
         new TimeOut(this, timer);
-        if (this.getMessage() == null)
-            return true;
-        else
-            return false;
+        return this.getMessage() == null;
     }
 
     /**
