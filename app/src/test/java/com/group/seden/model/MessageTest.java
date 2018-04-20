@@ -11,8 +11,7 @@ public class MessageTest {
     @Test
     public void delete() throws Exception {
         int seconds = 5;
-        Message message = new Message();
-        message.setMessage("test");
+        Message message = new Message("test");
         message.setDeleteTime(seconds);
         System.out.println("Message: " + message.getMessage());
         message.delete();

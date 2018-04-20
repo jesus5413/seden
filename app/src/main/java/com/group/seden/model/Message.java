@@ -5,9 +5,7 @@
  */
  package com.group.seden.model;
 
-import static com.group.seden.model.Encrypt.*;
-
-public class Message{
+ public class Message{
 
    private String message;  // the users message
 
@@ -16,32 +14,41 @@ public class Message{
     private int timer = 5;
 
 
+    public Message(String message){
+        this.message = message;
+    }
 
     public String getSenderid()
     {
+
         return senderid;
     }
 
     public void setSenderid(String senderid)
     {
+
         this.senderid = senderid;
     }
 
     public String getMessage()
     {
+
         return message;
     }
 
     public void setMessage(String message)
     {
+
         this.message = message;
     }
 
     public void setDeleteTime(int timer){
+
         this.timer = timer;
     }
 
     public int getDeleteTime(int timer){
+
         return this.timer;
     }
 
