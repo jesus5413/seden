@@ -45,7 +45,7 @@ public class Message{
         this.timer = timer;
     }
 
-    public int getDeleteTime(int timer){
+    public int getDeleteTime(){
         return this.timer;
     }
 

@@ -3,6 +3,7 @@ package com.group.seden.Database;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -43,16 +44,35 @@ public class Database {
     /**
      * Used to send a message to the indicated user id within the message
      * @param message to send to a remote device
+     * @return true if the message was successfully sent, otherwise throws DatabaseException
      */
-    public static void sendMessage(Message message)
+    public static boolean sendMessage(Message message) throws DatabaseException
     {
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("messages");
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        HashMap<String, String> childInfo = new HashMap<>();
+        childInfo.put("Message", message.getMessage());
+        childInfo.put("SenderId", message.getSenderid());
+        childInfo.put("RecipientId", message.getRecipientId());
+        childInfo.put("DeleteTime", Integer.toString(message.getDeleteTime()));
 
+        String messageChild = mDatabase.push().getKey();   // generate
+
+        mDatabase.child("messages").child(messageChild).setValue(childInfo, new DatabaseReference.CompletionListener() {
+
+            @Override
+            public void onComplete(DatabaseError error, DatabaseReference ref)
+            {
+
+                if(error == null)
+                {
+                    error.toException();
+                }
+
+            }
+        });
+
+        return (true);
     }
-
-
-
-
 
 }
