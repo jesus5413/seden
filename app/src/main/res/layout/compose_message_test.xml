@@ -23,14 +23,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="179dp"
-        android:layout_height="50dp"
-        android:background="@drawable/message_bubble"
-        android:padding="8dp"
-        android:text="What's up" />
-
     <LinearLayout
         android:id="@+id/messageLinearLayout"
         android:layout_width="0dp"
