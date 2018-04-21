@@ -16,17 +16,31 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.group.seden.Database.Database;
 import com.group.seden.R;
 import com.group.seden.model.UserSession;
-import com.group.seden.Database.Database;
 
+/**
+ *
+ * This is the controller class for the sign in UI
+ * @author jesusnieto
+ */
 public class SignInActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Button logIn;
-    private EditText email;
+    private EditText userName;
     private EditText password;
     private FirebaseUser currentUser;
     private ProgressDialog logInProgress;
+    private DatabaseReference mDatabase;
+    private UserSession userInfo;
+    private String uID;
+    private int counter = 0;
 
 
     @Override
@@ -36,7 +50,7 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         logIn = (Button) findViewById(R.id.logInButton);
-        email = (EditText) findViewById(R.id.emailEditText);
+        userName = (EditText) findViewById(R.id.emailEditText);
         password = (EditText) findViewById(R.id.passwordEditText);
 
 
@@ -48,15 +62,19 @@ public class SignInActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * checks if there is a signed in user already.
+     */
     @Override
     public void onStart(){
         super.onStart();
         currentUser =  mAuth.getCurrentUser();
-
         // checks to see if there is a user, and if there is, go to the main app.
         if(currentUser != null){
+            uID = currentUser.getUid();
 
             Intent startIntent = new Intent(SignInActivity.this, AppActivity.class);
+            startIntent.putExtra("uID", uID);
             startActivity(startIntent);
             finish();
         }
@@ -64,9 +82,11 @@ public class SignInActivity extends AppCompatActivity {
     }
 
 
-
-
-    private void logInHandle(Button button){
+    /**
+     * this is the login handle when button is pressed
+     * @param button
+     */
+    private void logInHandle(final Button button){
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,86 +95,102 @@ public class SignInActivity extends AppCompatActivity {
                 System.out.println("tapped");
                 // logging in database code here
 
-                if(!TextUtils.isEmpty(email.getText().toString()) || !TextUtils.isEmpty(password.getText().toString())){
+                if(counter >= 2 ){
+                    button.setEnabled(false);
+                    Toast.makeText(SignInActivity.this, "You've been locked out of the app for failed attempts. Restart the app.", Toast.LENGTH_LONG).show();
+
+                }
+
+                if(!TextUtils.isEmpty(userName.getText().toString()) && !TextUtils.isEmpty(password.getText().toString())){
 
                     logInProgress.setTitle("Logging In");
                     logInProgress.setMessage("Checking Credentials");
                     logInProgress.setCancelable(false);
                     logInProgress.show();
 
-                    signIn(email.getText().toString(), password.getText().toString());
+                    userNameCheck(userName.getText().toString(), password.getText().toString());
+                    counter++;
 
+                }else{
+                    Toast.makeText(SignInActivity.this, "Please input username/password.", Toast.LENGTH_SHORT).show();
+
+                    counter++;
                 }
-
-
-
-
             }
         });
 
 
     }
 
+
     /**
-     * Signs in the user and initiates a UserSession
-     *
+     * Checks for the username if it's in the database
+     * if it is, then it calls the sign in method and signs in the
+     * user.
      * @param email
      * @param password
      */
-    private void signIn(final String email, String password){
+    private void userNameCheck(final String email, final String password){
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        mDatabase.child("users").child(email).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UserSession temp;
+                if(dataSnapshot.exists()){
+                    temp = dataSnapshot.getValue(UserSession.class);
+                    userInfo = temp;
+                    System.out.println(userInfo.getUserName());
+                    trueSignIn(userInfo.getEmail(), password);
+                }else{
+                    System.out.println("some error, user doesnt exists");
+                    logInProgress.hide();
+                    Toast.makeText(SignInActivity.this, "Please ask admin for an account or check your credentials.", Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("some error, user doesnt exists");
+                logInProgress.hide();
+                Toast.makeText(SignInActivity.this, "Please ask admin for an account or check your credentials.", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+    }
+
+    /**
+     * signs in the user with email and password.
+     * Moves the view to the main app.
+     * @param email
+     * @param password
+     */
+    private void trueSignIn(String email, String password){
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>(){
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task){
                         if(task.isSuccessful()){
-
-                            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
-                            UserSession session = UserSession.getInstance();
-
-                            String uniqueId = currentUser.getUid();
-
-                            String username = currentUser.getDisplayName();
-
-                            session.setEmail(email);
-
-                            session.setUniqueID(uniqueId);
-
-                            session.setUserName(username);
-
-                           // Database.sysAdmin = email;
+                            currentUser =  mAuth.getCurrentUser();
+                            uID = currentUser.getUid();
                             System.out.println("logged in");
                             // goes to the main app
                             logInProgress.dismiss();
                             Intent startIntent = new Intent(SignInActivity.this, AppActivity.class);
+                            startIntent.putExtra("uID", uID);
                             startActivity(startIntent);
                             finish();
                         }else{
-                            System.out.println("user doesnt exist");
+                            System.out.println("user doesnt exist or password is wrong -- sign in");
                             logInProgress.hide();
-                            Toast.makeText(SignInActivity.this, "Please ask admin for an account", Toast.LENGTH_LONG).show();
+                            Toast.makeText(SignInActivity.this, "Please ask admin for an account or check your credentials", Toast.LENGTH_LONG).show();
                         }
-
-                        if(!task.isSuccessful()){
-                             System.out.println("some error");
-                        }
-
-
                     }
 
                 });
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }
