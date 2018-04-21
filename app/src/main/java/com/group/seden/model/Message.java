@@ -5,7 +5,7 @@
  */
  package com.group.seden.model;
 
-import static com.group.seden.model.Encrypt.*;
+import static com.group.seden.model.Encryption.*;
 
 public class Message{
 
