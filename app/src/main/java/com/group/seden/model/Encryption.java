@@ -1,5 +1,13 @@
 package com.group.seden.model;
 
+/**
+ * @author robbie neuhaus
+ *
+ * This class encrypts/decrypts messages using a user defined key.
+ * Use Encryption.encrypt(String message, long key) to encrypt a message,
+ * and Encryption.decrypt(String message, long key) to decrypt a message.
+ */
+
 import java.util.Random;
 
 public class Encryption {
