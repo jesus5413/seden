@@ -2,7 +2,6 @@ package com.group.seden.model;
 
 import java.util.Random;
 
-
 public class Encryption {
 
     //Encrypts a message passed to it by passing it to "swapChars" and then "cypher".
@@ -10,12 +9,12 @@ public class Encryption {
     public static void encrypt(Message msg, long seed) {
         char[] message;
         Random randomNo = new Random();
-        message = msg.getMessage().toCharArray();
+        message = msg.getMsgText().toCharArray();
         randomNo.setSeed(seed);
         int[] randomNos = setRandomNos(message.length, randomNo);
         String swapMessage = swapChars(message, randomNos);
-        String encryptedMessage = (cypher(swapMessage, randomNo.nextInt(25)));
-        msg.setMessage(encryptedMessage);
+        String encryptedMessage = (cypher(swapMessage, randomNo.nextInt(24) + 1));
+        msg.setMsgText(encryptedMessage);
     }
 
     //Decrypts a message passed to it by passing it to "reverseSwapChars" and then "cypher".
@@ -23,12 +22,12 @@ public class Encryption {
     public static void decrypt(Message msg, long seed) {
         char[] message;
         Random randomNo = new Random();
-        message = msg.getMessage().toCharArray();
+        message = msg.getMsgText().toCharArray();
         randomNo.setSeed(seed);
         int[] randomNos = setRandomNos(message.length, randomNo);
         String swapMessage = reverseSwapChars(message, randomNos);
-        String decryptedMessage = (cypher(swapMessage, 26 - randomNo.nextInt(25)));
-        msg.setMessage(decryptedMessage);
+        String decryptedMessage = (cypher(swapMessage, 25 - randomNo.nextInt(24)));
+        msg.setMsgText(decryptedMessage);
     }
 
     //Returns an array of size "length" of randomly generated numbers.
