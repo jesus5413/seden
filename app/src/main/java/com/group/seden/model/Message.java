@@ -1,34 +1,30 @@
-/**
+ /**
  * @author Isaac Buitrago
  *
  * This class stores the users message. A message can be a text string, image, file, or video.
  */
  package com.group.seden.model;
 
+import static com.group.seden.model.Encrypt.*;
 
 public class Message{
 
-    private String message;     // the users message
+   private String message;  // the users message
 
-    private String senderId;    // uniqueId of the sender
-
-    private String recipientId; // uniqueId of the recipient
+    private String senderid; // the username of the sender
 
     private int timer = 5;
 
 
-    /**
-     * getters and setters for message
-     * @return
-     */
+
     public String getSenderid()
     {
-        return senderId;
+        return senderid;
     }
 
     public void setSenderid(String senderid)
     {
-        this.senderId = senderid;
+        this.senderid = senderid;
     }
 
     public String getMessage()
@@ -45,18 +41,8 @@ public class Message{
         this.timer = timer;
     }
 
-    public int getDeleteTime(){
+    public int getDeleteTime(int timer){
         return this.timer;
-    }
-
-    public String getRecipientId()
-    {
-        return recipientId;
-    }
-
-    public void setRecipientId(String recipientId)
-    {
-        this.recipientId = recipientId;
     }
 
     /**
@@ -66,10 +52,15 @@ public class Message{
     {
 
         new TimeOut(this, timer);
-        if (this.getMessage() == null)
-            return true;
-        else
-            return false;
+        return this.getMessage() == null;
+    }
+
+    /**
+     * Sends the message to Firebase Cloud Messaging
+     */
+    public void send()
+    {
+
     }
 
 }
