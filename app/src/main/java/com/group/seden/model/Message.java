@@ -15,7 +15,7 @@ public class Message{
 
     private boolean isEncrypted = false;
 
-    private int timer = 5;
+    private int timer = 5*60;
 
 
     public Message() {
