@@ -51,9 +51,9 @@ public class Database {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         HashMap<String, String> childInfo = new HashMap<>();
-        childInfo.put("Message", message.getMessage());
-        childInfo.put("SenderId", message.getSenderid());
-        childInfo.put("RecipientId", message.getRecipientId());
+        childInfo.put("Message", message.getMsgText());
+        childInfo.put("SenderId", message.getSenderID());
+        childInfo.put("RecipientId", message.getRecipientID());
         childInfo.put("DeleteTime", Integer.toString(message.getDeleteTime()));
 
         String messageChild = mDatabase.push().getKey();   // generate

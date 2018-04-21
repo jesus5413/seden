@@ -17,9 +17,9 @@ public class DatabaseTest
     @BeforeClass
     public static void init()
     {
-        message.setMessage("Test123");
-        message.setSenderid("1235454");
-        message.setRecipientId("12334566");
+        message.setMsgText("Test123");
+        message.setSenderID("1235454");
+        message.setRecipientID("12334566");
         message.setDeleteTime(3);
     }
 
