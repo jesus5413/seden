@@ -9,40 +9,67 @@ import static com.group.seden.model.Encryption.*;
 
 public class Message{
 
-   private String message;  // the users message
+    private String msgText;     // the users message
 
-    private String senderid; // the username of the sender
+    private String senderId;    // the username of the sender
+
+    private String recipientId; // the id of the receiver of the message
 
     private int timer = 5;
 
-
-
-    public String getSenderid()
+    /**
+     * Constructor that accepts an initial Message
+     * @param msgText message to be sent
+     */
+    public Message(String msgText)
     {
-        return senderid;
+        this.msgText = msgText;
     }
 
-    public void setSenderid(String senderid)
+    /**
+     * Default constructor
+     */
+    public Message(){}
+
+
+    public String getMsgText()
     {
-        this.senderid = senderid;
+        return msgText;
     }
 
-    public String getMessage()
+    public void setMsgText(String msgText)
     {
-        return message;
+        this.msgText = msgText;
     }
 
-    public void setMessage(String message)
+    public String getSenderId()
     {
-        this.message = message;
+        return senderId;
     }
 
-    public void setDeleteTime(int timer){
+    public void setSenderId(String senderid)
+    {
+        this.senderId = senderid;
+    }
+
+    public void setDeleteTime(int timer)
+    {
         this.timer = timer;
     }
 
-    public int getDeleteTime(int timer){
+    public int getDeleteTime()
+    {
         return this.timer;
+    }
+
+    public String getRecipientId()
+    {
+        return recipientId;
+    }
+
+    public void setRecipientId(String recipientId)
+    {
+        this.recipientId = recipientId;
     }
 
     /**
@@ -52,15 +79,8 @@ public class Message{
     {
 
         new TimeOut(this, timer);
-        return this.getMessage() == null;
+        return this.getMsgText() == null;
     }
 
-    /**
-     * Sends the message to Firebase Cloud Messaging
-     */
-    public void send()
-    {
-
-    }
 
 }

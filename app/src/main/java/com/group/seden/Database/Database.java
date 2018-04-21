@@ -1,12 +1,10 @@
 package com.group.seden.Database;
 
 
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.group.seden.model.Message;
 import com.group.seden.model.UserSession;
 
@@ -14,7 +12,8 @@ import java.util.HashMap;
 
 /**
  * Class to store data in the database
- * @JesusNieto
+ * @author JesusNieto
+ * @author Isaac Buitrago
  */
 public class Database {
 
@@ -51,8 +50,8 @@ public class Database {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         HashMap<String, String> childInfo = new HashMap<>();
-        childInfo.put("Message", message.getMessage());
-        childInfo.put("SenderId", message.getSenderid());
+        childInfo.put("Message", message.getMsgText());
+        childInfo.put("SenderId", message.getSenderId());
         childInfo.put("RecipientId", message.getRecipientId());
         childInfo.put("DeleteTime", Integer.toString(message.getDeleteTime()));
 
