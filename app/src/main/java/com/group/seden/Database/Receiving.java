@@ -30,8 +30,8 @@ public class Receiving {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated
 
-                Message msg = dataSnapshot.getValue(Message.class);
-                System.out.printf("Message object is : %s\n", msg);
+                String str = dataSnapshot.getValue(String.class);
+                System.out.printf("Message object is : %s\n", str);
 
                 /*
                 msg.setIsEncrypted(true);
