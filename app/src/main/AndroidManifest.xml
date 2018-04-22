@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controller.SendMessageActivity">
+        <activity android:name=".controller.SendMessageActivity"> <!-- Needs to be SignInActivity-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,6 +43,7 @@
 
         </activity>
         <activity android:name=".controller.AppActivity" />
+        <!-- Line below should be uncomment-->
        <!-- <activity android:name=".controller.SignInActivityActivity" /> -->
         <activity android:name=".controller.ReadMessage" />
         <activity android:name=".controller.SendMessagePopupMenu" />
