@@ -11,18 +11,17 @@ public class MessageTest {
     @Test
     public void delete() throws Exception {
         int seconds = 5;
-        Message message = new Message();
-        message.setMessage("test");
+        Message message = new Message("test");
         message.setDeleteTime(seconds);
-        System.out.println("Message: " + message.getMessage());
+        System.out.println("Message: " + message.getMsgText());
         message.delete();
         System.out.println("Deleting Message");
         Thread.sleep((seconds + 1) * 1000);
-        if (message.getMessage() != null)
-            System.out.println("Message failed to delete: " + message.getMessage());
+        if (message.getMsgText() != null)
+            System.out.println("Message failed to delete: " + message.getMsgText());
         else
-            System.out.println("Message Deleted: " + message.getMessage());
-        assert(message.getMessage() == null);
+            System.out.println("Message Deleted: " + message.getMsgText());
+        assert(message.getMsgText() == null);
     }
 
 }

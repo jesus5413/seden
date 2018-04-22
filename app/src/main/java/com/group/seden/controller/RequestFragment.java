@@ -11,6 +11,7 @@ import com.group.seden.R;
 
 /**
  * A simple {@link Fragment} subclass.
+ * Controller for the Contact list
  */
 public class RequestFragment extends Fragment {
 

@@ -14,7 +14,7 @@ public class TimeOut {
 
         timer = new Timer();
         this.message = message;
-        timer.schedule(new deleteTask(message), seconds*60*1000);
+        timer.schedule(new deleteTask(message), seconds*1000);
     }
 
     class deleteTask extends TimerTask {
@@ -26,7 +26,7 @@ public class TimeOut {
         }
 
         public void run() {
-            this.message.setMessage(null);
+            this.message.setMsgText(null);
             timer.cancel(); //Terminate the timer thread
         }
     }

@@ -11,6 +11,8 @@ import com.group.seden.R;
 
 /**
  * A simple {@link Fragment} subclass.
+ *
+ * Controller for the ChatInbox
  */
 public class ChatFragment extends Fragment {
 

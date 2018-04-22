@@ -19,7 +19,7 @@ import com.group.seden.Database.Database;
 
 /**
  * This is the controller class for the main app view
- *
+ * @author JesusNieto
  */
 public class AppActivity extends AppCompatActivity {
     private Toolbar mToolBar;
@@ -79,21 +79,23 @@ public class AppActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
-        if(item.getItemId() == R.id.main_logout_button){
-            FirebaseAuth.getInstance().signOut(); // signs out the user
 
-            //goes to the sign in view
-            Intent startIntent = new Intent(AppActivity.this, SignInActivity.class);
+        // goes to the create account activity
+        if(item.getItemId() == R.id.main_CreateAccount_button)
+        {
+            Intent startIntent = new Intent(AppActivity.this, CreateAccountActivity.class);
             startActivity(startIntent);
             finish();
         }
 
-        // goes to the create account activity;
-        if(item.getItemId() == R.id.main_CreateAccount_button){
-            Intent startIntent = new Intent(AppActivity.this, CreateAccountActivity.class);
+        // logs out the user
+        if(item.getItemId() == R.id.main_logout_button)
+        {
+            FirebaseAuth.getInstance().signOut(); // signs out the user
+            //goes to the sign in view
+            Intent startIntent = new Intent(AppActivity.this, SignInActivity.class);
             startActivity(startIntent);
             finish();
-
         }
 
         return true;
