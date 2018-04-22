@@ -23,6 +23,7 @@ public class Encryption {
         String swapMessage = swapChars(message, randomNos);
         String encryptedMessage = (cypher(swapMessage, randomNo.nextInt(24) + 1));
         msg.setMsgText(encryptedMessage);
+        msg.setIsEncrypted(true);
     }
 
     //Decrypts a message passed to it by passing it to "reverseSwapChars" and then "cypher".
@@ -36,6 +37,7 @@ public class Encryption {
         String swapMessage = reverseSwapChars(message, randomNos);
         String decryptedMessage = (cypher(swapMessage, 25 - randomNo.nextInt(24)));
         msg.setMsgText(decryptedMessage);
+        msg.setIsEncrypted(false);
     }
 
     //Returns an array of size "length" of randomly generated numbers.
