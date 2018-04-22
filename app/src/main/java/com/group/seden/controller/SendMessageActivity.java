@@ -60,8 +60,6 @@ public class SendMessageActivity extends AppCompatActivity {
 
                 message.setRecipientID("cROCGICa8iN42AVgjmW2b5vhPr72"); // hardcoded recipient Id for now
 
-                message.setDeleteTime(5);
-
                 message.setIsEncrypted(true);
 
                 System.out.println("Sending");

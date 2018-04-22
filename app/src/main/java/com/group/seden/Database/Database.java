@@ -43,8 +43,9 @@ public class Database {
     }
 
     /**
-     * Used to send a message to the indicated user id within the message
-     * @param message to send to a remote device
+     * Used to send a message to a recipient. It is assumed that
+     * all the fields of the message are set and valid.
+     * @param message to send to a remote device, all fields must be set
      * @return true if the message was successfully sent, otherwise throws DatabaseException
      */
     public static void sendMessage(Message message) throws DatabaseException
