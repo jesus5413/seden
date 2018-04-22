@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +23,9 @@ import com.group.seden.Database.Database;
  * @author JesusNieto
  */
 public class AppActivity extends AppCompatActivity {
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mRecyclerAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
     private Toolbar mToolBar;
     private FirebaseAuth mAuth;
     private ViewPager mViewPager;
@@ -38,12 +42,14 @@ public class AppActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_app);
         mToolBar = (Toolbar) findViewById(R.id.main_page_toolbar);
+        mRecyclerView = (RecyclerView) findViewById(R.id.inboxRecycler);
         setSupportActionBar(mToolBar); // sets the toolbar layout to the main ap so it can be used
         getSupportActionBar().setTitle("Seden"); // sets the view title
         mAuth = FirebaseAuth.getInstance();
 
         intent = getIntent();
         uID = intent.getExtras().getString("uID");
+        mRecyclerView.setHasFixedSize(true);
 
 
 

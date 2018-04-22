@@ -87,6 +87,10 @@ public class Message{
         return this.timer;
     }
 
+    public String toString(){
+        return getSenderID() + getMsgText() + getRecipientID() + getDeleteTime() + getIsEncrypted();
+    }//END toString()
+
 
     /**
      *  Deletes a message

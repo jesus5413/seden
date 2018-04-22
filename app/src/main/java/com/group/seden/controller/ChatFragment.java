@@ -17,10 +17,6 @@ import com.group.seden.R;
  */
 public class ChatFragment extends Fragment {
 
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-
     public ChatFragment() {
         // Required empty public constructor
     }
