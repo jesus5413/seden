@@ -39,12 +39,20 @@ public class SendMessageActivity extends AppCompatActivity{
     private boolean keyChecked;
     private String keyString;
 
+    //pass into dialog to return
+    public static Boolean usePassword;
+    public static Long password;
+
     private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_message);
+
+        //initialize global variables for dialog
+        usePassword = false;
+        password = null;
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
@@ -74,6 +82,7 @@ public class SendMessageActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
 
+                System.out.println("password " + password + "boolean is" + usePassword );
                 //pulls the text from text input and converts it to a string
                 EditText messageContent = (EditText) findViewById(R.id.textInputLayout);
                 String messageString = messageContent.getText().toString();
