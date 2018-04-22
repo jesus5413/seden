@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -42,21 +43,25 @@ public class AppActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_app);
         mToolBar = (Toolbar) findViewById(R.id.main_page_toolbar);
-        mRecyclerView = (RecyclerView) findViewById(R.id.inboxRecycler);
+        //mRecyclerView = (RecyclerView) findViewById(R.id.inboxRecycler);
         setSupportActionBar(mToolBar); // sets the toolbar layout to the main ap so it can be used
         getSupportActionBar().setTitle("Seden"); // sets the view title
         mAuth = FirebaseAuth.getInstance();
 
         intent = getIntent();
         uID = intent.getExtras().getString("uID");
-        mRecyclerView.setHasFixedSize(true);
+       // mRecyclerView.setHasFixedSize(true);
 
 
 
 
+        mLayoutManager = new LinearLayoutManager(this);
+       // mRecyclerView.setLayoutManager(mLayoutManager);
+        //mAdapter = new MyAdapter("our string");
 
         mViewPager = (ViewPager) findViewById(R.id.tabPager);
         mAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
 
         mViewPager.setAdapter(mAdapter);
         mTabLayout = (TabLayout)findViewById(R.id.main_tabs);
