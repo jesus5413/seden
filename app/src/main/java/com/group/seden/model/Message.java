@@ -1,8 +1,8 @@
 /**
-* @author Isaac Buitrago
-*
-* This class stores the users message. A message can be a text string, image, file, or video.
-*/
+ * @author Isaac Buitrago
+ *
+ * This class stores the users message. A message can be a text string, image, file, or video.
+ */
 package com.group.seden.model;
 
 public class Message{
@@ -15,15 +15,22 @@ public class Message{
 
     private boolean isEncrypted = false;
 
-    private int timer = 5;
-
-
-    public Message() {
+    private int timer = 5*60;
+    /**
+     * Constructor that accepts an initial Message
+     * @param msgText message to be sent
+     */
+    public Message(String msgText)
+    {
+        this.msgText = msgText;
     }
 
-    public Message(String text) {
-        this.msgText = text;
-    }
+    /**
+     * Default constructor
+     */
+    public Message(){}
+
+
 
     public Message(String senderID, String recipientID, String message){
         this.msgText = message;
@@ -70,27 +77,24 @@ public class Message{
         this.msgText = text;
     }
 
-    public void setDeleteTime(int timer){
+    public void setDeleteTime(int timer)
+    {
         this.timer = timer;
     }
 
-    public int getDeleteTime(int timer){
+    public int getDeleteTime()
+    {
         return this.timer;
     }
 
+
     /**
-    *  Deletes a message
-    */
+     *  Deletes a message
+     */
     public Boolean delete() {
         new TimeOut(this, timer);
         return this.getMsgText() == null;
     }
 
-    /**
-    * Sends the message to Firebase Cloud Messaging
-    */
-    public void send() {
-
-    }
 
 }

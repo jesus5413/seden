@@ -6,12 +6,6 @@
         android:id="@+id/main_CreateAccount_button"
         android:title="Create Account" />
     <item
-        android:id="@+id/main_setting_button"
-        android:title="Account Settings" />
-    <item
-        android:id="@+id/main_allUsers_button"
-        android:title="All Users" />
-    <item
         android:id="@+id/main_logout_button"
         android:title="@string/log_out" />
 </menu>

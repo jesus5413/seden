@@ -3,16 +3,19 @@ package com.group.seden.Database;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.group.seden.model.Message;
 import com.group.seden.model.UserSession;
 
 import java.util.HashMap;
 
 /**
  * Class to store data in the database
- * @JesusNieto
+ * @author JesusNieto
+ * @author Isaac Buitrago
  */
 public class Database {
 
@@ -39,8 +42,38 @@ public class Database {
 
     }
 
+    /**
+     * Used to send a message to a recipient. It is assumed that
+     * all the fields of the message are set and valid.
+     * @param message to send to a remote device, all fields must be set
+     * @return true if the message was successfully sent, otherwise throws DatabaseException
+     */
+    public static void sendMessage(Message message) throws DatabaseException
+    {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        HashMap<String, String> childInfo = new HashMap<>();
+        childInfo.put("Message", message.getMsgText());
+        childInfo.put("SenderId", message.getSenderID());
+        childInfo.put("RecipientId", message.getRecipientID());
+        childInfo.put("DeleteTime", Integer.toString(message.getDeleteTime()));
+        childInfo.put("Encrypted", String.valueOf(message.getIsEncrypted()));
 
+        String messageChild = mDatabase.push().getKey();   // generate
 
+        mDatabase.child("messages").child(messageChild).setValue(childInfo, new DatabaseReference.CompletionListener() {
+
+            @Override
+            public void onComplete(DatabaseError error, DatabaseReference ref)
+            {
+
+                if(error != null)
+                {
+                    error.toException();
+                }
+
+            }
+        });
+    }
 
 }
