@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".controller.ReadMessage">
+
+    <TextView
+        android:id="@+id/senderTextView"
+        android:layout_width="157dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="43dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="43dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/replyButton1"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="11dp" />
+
+    <Button
+        android:id="@+id/replyButton1"
+        android:layout_width="161dp"
+        android:layout_height="wrap_content"
+        android:text="Reply"
+        tools:layout_editor_absoluteX="208dp"
+        tools:layout_editor_absoluteY="11dp" />
+
+    <TextView
+        android:id="@+id/messageContent1"
+        android:layout_width="360dp"
+        android:layout_height="474dp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="74dp" />
+</android.support.constraint.ConstraintLayout>
