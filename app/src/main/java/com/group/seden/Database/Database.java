@@ -56,6 +56,7 @@ public class Database {
         childInfo.put("SenderId", message.getSenderID());
         childInfo.put("RecipientId", message.getRecipientID());
         childInfo.put("DeleteTime", Integer.toString(message.getDeleteTime()));
+        childInfo.put("Encrypted", String.valueOf(message.getIsEncrypted()));
 
         String messageChild = mDatabase.push().getKey();   // generate
 
@@ -65,7 +66,7 @@ public class Database {
             public void onComplete(DatabaseError error, DatabaseReference ref)
             {
 
-                if(error == null)
+                if(error != null)
                 {
                     error.toException();
                 }
