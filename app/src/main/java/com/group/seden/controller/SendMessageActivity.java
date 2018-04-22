@@ -112,7 +112,7 @@ public class SendMessageActivity extends AppCompatActivity{
                 builder.setView(inflater.inflate(R.layout.activity_decrypt_options_dialog, null));
 
                 final AlertDialog dialog = builder.create();
-                dialog.show();
+                dialog.show()
 */
                 DecryptOptionsDialog decryptOptionsDialog = new DecryptOptionsDialog();
                 decryptOptionsDialog.show(getFragmentManager(), null);
