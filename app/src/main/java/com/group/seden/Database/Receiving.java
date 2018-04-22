@@ -30,9 +30,9 @@ public class Receiving {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated
-
-                HashMap<String, String> hm = dataSnapshot.getValue(HashMap.class);
-                System.out.printf("Message object is : %s\n", hm);
+                Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+                //HashMap<String, String> hm = dataSnapshot.getValue(HashMap.class);
+                System.out.printf("Message object is : %s\n", map);
 
                 /*
                 msg.setIsEncrypted(true);
