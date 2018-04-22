@@ -15,6 +15,13 @@ import android.widget.Toast;
 import com.group.seden.R;
 import com.group.seden.model.Message;
 
+
+/*
+
+    Paul Murray
+    controller for activity_send_message
+
+ */
 public class SendMessageActivity extends AppCompatActivity{
 
     private Button sendMessageButton;
@@ -27,6 +34,8 @@ public class SendMessageActivity extends AppCompatActivity{
     private boolean timeChecked;
     private boolean keyChecked;
     private String keyString;
+
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,23 +102,22 @@ public class SendMessageActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
 
-                /*
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(SendMessageActivity.this);
                 LayoutInflater inflater = SendMessageActivity.this.getLayoutInflater();
                 builder.setView(inflater.inflate(R.layout.activity_decrypt_options_dialog, null));
-
                 builder.create().show();
-                */
-                // use
+
+                /*// use
                 final EncryptionDialog dialog=new EncryptionDialog();
                 dialog.onButtonAccept =new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(v.getContext(), dialog.edit_text.getText(), Toast.LENGTH_SHORT).show();
                     }
-                };
+                };*/
 
-                dialog.show(getFragmentManager(),null);
+                //dialog.show(getFragmentManager(),null);
 
 
                 // Inflate and set the layout for the dialog
@@ -137,7 +145,12 @@ public class SendMessageActivity extends AppCompatActivity{
                 LayoutInflater inflater = SendMessageActivity.this.getLayoutInflater();
                 builder.setView(inflater.inflate(R.layout.activity_decrypt_options_dialog, null));
 
-                builder.create().show();
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                dialog.setOnDismissListener();
+                Button acceptButton = (Button)findViewById(R.id.acceptButton1);
+
+                acceptHandle(acceptButton);
 
                 // Inflate and set the layout for the dialog
                 // Pass null as the parent view because its going in the dialog layout
@@ -151,6 +164,32 @@ public class SendMessageActivity extends AppCompatActivity{
             }
         });
 
-    }
+    } // end of finish encrpyt handle
+
+
+
+
+
+
+    //when send button is pressed fill in and send message class to database
+    private void acceptHandle(Button button){
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+               // dialog.dismiss();
+
+                System.out.println("Sending");
+                //send message code here
+                Context context = getApplicationContext();
+                CharSequence text = "Accept Click Working";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        });
+
+    } // end of accept handle
 
 }
