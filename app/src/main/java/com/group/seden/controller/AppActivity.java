@@ -14,6 +14,7 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.group.seden.Database.Receiving;
 import com.group.seden.R;
 
 
@@ -47,6 +48,8 @@ public class AppActivity extends AppCompatActivity {
         setSupportActionBar(mToolBar); // sets the toolbar layout to the main ap so it can be used
         getSupportActionBar().setTitle("Seden"); // sets the view title
         mAuth = FirebaseAuth.getInstance();
+
+        Receiving.getMessages("banana");
 
         intent = getIntent();
         uID = intent.getExtras().getString("uID");

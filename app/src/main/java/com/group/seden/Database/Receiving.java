@@ -19,7 +19,7 @@ public class Receiving {
     private Message message;
     private UserSession session;
 
-    public void getMessages(String uID) {
+    public static void getMessages(String uID) {
         //final Message msg = new Message();
         myRef = FirebaseDatabase.getInstance().getReference().child("messages");
 
