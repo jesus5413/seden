@@ -81,15 +81,6 @@ public class AppActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
 
-
-        // goes to the create account activity
-        if(item.getItemId() == R.id.main_CreateAccount_button){
-            Intent startIntent = new Intent(AppActivity.this, CreateAccountActivity.class);
-            startActivity(startIntent);
-            finish();
-
-        }
-
         // goes to SendMessageActivity
         if(item.getItemId() == R.id.main_ComposeMessage_button){
             Intent startIntent = new Intent(AppActivity.this, SendMessageActivity.class);

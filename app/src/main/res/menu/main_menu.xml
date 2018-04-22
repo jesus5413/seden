@@ -5,11 +5,6 @@
     <item
         android:id="@+id/main_CreateAccount_button"
         android:title="Create Account" />
-
-    <item
-        android:id="@+id/main_ComposeMessage_button"
-        android:title="Compose message" />
-
     <item
         android:id="@+id/main_logout_button"
         android:title="@string/log_out" />
