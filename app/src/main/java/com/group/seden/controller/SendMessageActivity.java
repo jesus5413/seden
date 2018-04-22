@@ -92,20 +92,23 @@ public class SendMessageActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
 
-                //System.out.println("password " + password + "boolean is" + usePassword );
                 //pulls the text from text input and converts it to a string
                 EditText messageContent = (EditText) findViewById(R.id.messageField);
-
                 String messageString = messageContent.getText().toString();
+
+                //Declares values for message success/fail toast
                 Context context = getApplicationContext();
                 CharSequence text = "";
-
                 int duration = Toast.LENGTH_SHORT;
 
+                //Initializes sessionID
                 session = UserSession.getInstance();
 
+                //Message object to send
                 Message message;
 
+                //If encryption key is used, constructs message with key is tru.
+                //Otherwise, constructs message with key false.
                 if (usePassword == true) {
                     message = new Message(session.getUniqueID(), recipientID,
                             messageString, usePassword);
@@ -114,6 +117,7 @@ public class SendMessageActivity extends AppCompatActivity{
                     message = new Message(session.getUniqueID(), recipientID,
                             messageString);
 
+                //Tries to send message to database
                 try {
                     Database.sendMessage(message);
                     System.out.println("Successful");
