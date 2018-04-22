@@ -19,8 +19,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseException;
 import com.group.seden.Database.Database;
 import com.group.seden.R;
-import com.group.seden.model.Message;
-import com.group.seden.model.UserSession;
+import com.group.seden.model.*;
 
 /*
 
@@ -50,6 +49,9 @@ public class SendMessageActivity extends AppCompatActivity{
     private Message message;
     private UserSession session;
 
+    //The ID of the recipient of the message
+    private String recipientID = "user001";
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -64,9 +66,11 @@ public class SendMessageActivity extends AppCompatActivity{
         Intent intent = getIntent();
         String message = intent.getStringExtra(ReadMessage.SENDER_EXTRA);
 
+
         outGoingMessage = new Message();
         outGoingMessage.setSenderID("user000");
         outGoingMessage.setRecipientID("user000");
+
 
         //set id of GUI components
         TextView messageRecipient = (TextView)findViewById(R.id.recieveTextView1);
@@ -88,53 +92,41 @@ public class SendMessageActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
 
-                System.out.println("password " + password + "boolean is" + usePassword );
+                //System.out.println("password " + password + "boolean is" + usePassword );
                 //pulls the text from text input and converts it to a string
-                EditText messageContent = (EditText) findViewById(R.id.textInputLayout);
+                EditText messageContent = (EditText) findViewById(R.id.messageField);
 
                 String messageString = messageContent.getText().toString();
-
-
-
-                System.out.println("Sending");
-                //send message code here
                 Context context = getApplicationContext();
-
-                CharSequence text = "Your message was sent !";
+                CharSequence text = "";
 
                 int duration = Toast.LENGTH_SHORT;
 
                 session = UserSession.getInstance();
 
-                message = new Message(messageString);
+                Message message;
 
-                message.setSenderID(session.getUniqueID());
-
-                message.setRecipientID("cROCGICa8iN42AVgjmW2b5vhPr72"); // hardcoded recipient Id for now
-
-                message.setIsEncrypted(true);
-
-                System.out.println("Sending");
+                if (usePassword == true) {
+                    message = new Message(session.getUniqueID(), recipientID,
+                            messageString, usePassword);
+                    Encryption.encrypt(message, password);
+                }else
+                    message = new Message(session.getUniqueID(), recipientID,
+                            messageString);
 
                 try {
                     Database.sendMessage(message);
-
+                    System.out.println("Successful");
+                    text = "You message was successfully sent!";
                 } catch(DatabaseException e) {
-
-                    text = "Your message could not reach the recipient, Please try again";
+                    System.out.println("Unsuccessful");
+                    text = "Message sending failure! ";
                 } finally {
-
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
+                    finish();
                 }
 
-
-                //fill in message object
-                outGoingMessage.setMsgText(messageString);
-
-                //Database.sendMessage(outgoingMessage);
-
-                finish();
             }
         });
 
