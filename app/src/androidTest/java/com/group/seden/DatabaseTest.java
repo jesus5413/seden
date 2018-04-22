@@ -26,8 +26,8 @@ public class DatabaseTest
         FirebaseApp.initializeApp(appContext);
 
         message.setMsgText("Test123");
-        message.setSenderId("1235454");
-        message.setRecipientId("12334566");
+        message.setSenderID("1235454");
+        message.setRecipientID("12334566");
         message.setDeleteTime(3);
     }
 

@@ -47,7 +47,7 @@ public class Database {
      * @param message to send to a remote device
      * @return true if the message was successfully sent, otherwise throws DatabaseException
      */
-    public static boolean sendMessage(Message message) throws DatabaseException
+    public static void sendMessage(Message message) throws DatabaseException
     {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -72,8 +72,6 @@ public class Database {
 
             }
         });
-
-        return (true);
     }
 
 }
