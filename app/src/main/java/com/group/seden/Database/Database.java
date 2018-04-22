@@ -1,10 +1,12 @@
 package com.group.seden.Database;
 
 
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.group.seden.model.Message;
 import com.group.seden.model.UserSession;
 
@@ -51,8 +53,8 @@ public class Database {
 
         HashMap<String, String> childInfo = new HashMap<>();
         childInfo.put("Message", message.getMsgText());
-        childInfo.put("SenderId", message.getSenderId());
-        childInfo.put("RecipientId", message.getRecipientId());
+        childInfo.put("SenderId", message.getSenderID());
+        childInfo.put("RecipientId", message.getRecipientID());
         childInfo.put("DeleteTime", Integer.toString(message.getDeleteTime()));
 
         String messageChild = mDatabase.push().getKey();   // generate
