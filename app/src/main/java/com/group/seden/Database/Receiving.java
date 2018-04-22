@@ -11,6 +11,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.group.seden.model.Message;
 import com.group.seden.model.UserSession;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Receiving {
@@ -30,8 +31,8 @@ public class Receiving {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated
 
-                String str = dataSnapshot.getValue(String.class);
-                System.out.printf("Message object is : %s\n", str);
+                HashMap<String, String> hm = dataSnapshot.getValue(HashMap.class);
+                System.out.printf("Message object is : %s\n", hm);
 
                 /*
                 msg.setIsEncrypted(true);
