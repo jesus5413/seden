@@ -21,7 +21,7 @@ public class Receiving {
 
     public void getMessages(String uID) {
         //final Message msg = new Message();
-        myRef = FirebaseDatabase.getInstance().getReference().child("messages").child(uID);
+        myRef = FirebaseDatabase.getInstance().getReference().child("messages");
 
 
         myRef.addValueEventListener(new ValueEventListener() {
@@ -29,6 +29,7 @@ public class Receiving {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated
+
                 Message msg = dataSnapshot.getValue(Message.class);
                 System.out.printf("Message object is : %s\n", msg);
 
