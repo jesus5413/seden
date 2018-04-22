@@ -21,23 +21,20 @@ public class UserSession {
     /**
      * Constructor should only be called once
      */
-    public UserSession(){
-
-    }
+    private UserSession(){ }
 
     /**
-     *
      * @return reference to the UserSession
      */
-//    public static UserSession getInstance()
-//    {
-//        if(instance == null)
-//        {
-//            instance = new UserSession();
-//        }
-//
-//        return(instance);
-//    }
+    public static UserSession getInstance()
+    {
+        if(instance == null)
+        {
+            instance =  new UserSession();
+        }
+
+        return(instance);
+    }
 
     /**
      *
