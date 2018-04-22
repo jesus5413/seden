@@ -1,6 +1,7 @@
 package com.group.seden.controller;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -147,7 +148,14 @@ public class SendMessageActivity extends AppCompatActivity{
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
-                dialog.setOnDismissListener();
+                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        // TODO Auto-generated method stub
+
+                    }
+                });
                 Button acceptButton = (Button)findViewById(R.id.acceptButton1);
 
                 acceptHandle(acceptButton);
@@ -177,9 +185,8 @@ public class SendMessageActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
 
-               // dialog.dismiss();
 
-                System.out.println("Sending");
+                System.out.println("Accept Clicked");
                 //send message code here
                 Context context = getApplicationContext();
                 CharSequence text = "Accept Click Working";
@@ -187,6 +194,7 @@ public class SendMessageActivity extends AppCompatActivity{
 
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
+                dialog.dismiss();
             }
         });
 
