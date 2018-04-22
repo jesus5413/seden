@@ -19,7 +19,8 @@ import com.group.seden.Database.Database;
 
 /**
  * This is the controller class for the main app view
- *
+ * @author JesusNieto
+ * @author Isaac Buitrago
  */
 public class AppActivity extends AppCompatActivity {
     private Toolbar mToolBar;
@@ -44,6 +45,10 @@ public class AppActivity extends AppCompatActivity {
 
         intent = getIntent();
         uID = intent.getExtras().getString("uID");
+
+
+
+
 
         mViewPager = (ViewPager) findViewById(R.id.tabPager);
         mAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -75,7 +80,7 @@ public class AppActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
-        // goes to the create account activity;
+
 
         // goes to the create account activity
         if(item.getItemId() == R.id.main_CreateAccount_button){
