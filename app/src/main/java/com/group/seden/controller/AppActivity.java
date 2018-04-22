@@ -92,7 +92,7 @@ public class AppActivity extends AppCompatActivity {
         if(item.getItemId() == R.id.main_CreateAccount_button){
             Intent startIntent = new Intent(AppActivity.this, CreateAccountActivity.class);
             startActivity(startIntent);
-            finish();
+
 
         }
 
