@@ -26,8 +26,8 @@ public class MessageTest {
             i++;
             System.out.println("Message " + i + ": " + msg.getMsgText());
         }
-        messages.TimeOutDeleteMessage(message2);
-        messages.TimeOutDeleteMessage(message1);
+        messages.TimeOutDelete(message1);
+        messages.TimeOutDelete(message3);
         System.out.println("Deleting Message");
         Thread.sleep((seconds + 2) * 1000);
         i = 0;

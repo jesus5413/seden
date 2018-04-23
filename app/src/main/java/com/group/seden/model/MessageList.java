@@ -3,6 +3,7 @@ package com.group.seden.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+
 public class MessageList implements Iterable<Message> {
     private ArrayList<Message> messages= new ArrayList<>();
 
@@ -14,22 +15,12 @@ public class MessageList implements Iterable<Message> {
         this.messages.add(message);
     }
 
-    public void TimeOutDeleteMessage(Message message) {
-        message.TimeOutDelete(this);
+    public void TimeOutDelete(Message message) {
+        new TimeOut(message, message.getDeleteTime(), this);
     }
 
     public void deleteMessage(Message message) {
-        message.delete();
-        this.removeMessage();
-    }
-    
-    public void removeMessage() {
-        for (Message msg : this.messages){
-            if (msg.getMsgText() == null) {
-                this.messages.remove(msg);
-                break;
-            }
-        }
+        this.getMessageList().remove(message);
     }
 
     @Override
