@@ -130,8 +130,7 @@ public class SendMessageActivity extends AppCompatActivity{
                         Toast toast = Toast.makeText(context, text, duration);
                         toast.show();
                         finish();
-                    }
-                else {
+                    } else {
                     text = "Please enter a message before clicking send.";
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
