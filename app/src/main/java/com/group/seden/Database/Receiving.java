@@ -36,11 +36,11 @@ public class Receiving {
                 //HashMap<String, String> hm = dataSnapshot.getValue(HashMap.class);
 
                 Message msg = new Message();
-                msg.setRecipientID(map.get("RecipientId").toString());
-                msg.setDeleteTime(Integer.parseInt(map.get("DeleteTime").toString()));
-                msg.setSenderID(map.get("SenderId").toString());
-                msg.setIsEncrypted(Boolean.getBoolean(map.get("Encrypted").toString()));
-                msg.setMsgText(map.get("Message").toString());
+                msg.setRecipientID((String) map.get("RecipientId"));
+                msg.setDeleteTime((Integer.parseInt((String) map.get("DeleteTime").toString())));
+                msg.setSenderID((String) map.get("SenderId").toString());
+                msg.setIsEncrypted(Boolean.getBoolean((String) map.get("Encrypted").toString()));
+                msg.setMsgText((String) map.get("Message").toString());
 
                 if(session.getUserName().equals(msg.getRecipientID())){
                     messagesList.add(msg);
