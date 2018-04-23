@@ -107,6 +107,9 @@ public class SendMessageActivity extends AppCompatActivity{
                 //Message object to send
                 Message message;
 
+                if (password == null)
+                    usePassword = false;
+
                 //If encryption key is used, constructs message with key is tru.
                 //Otherwise, constructs message with key false.
                 if (usePassword == true) {
