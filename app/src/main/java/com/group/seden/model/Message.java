@@ -88,13 +88,14 @@ public class Message{
     }
 
 
-    /**
-     *  Deletes a message
-     */
-    public Boolean delete() {
-        new TimeOut(this, timer);
-        return this.getMsgText() == null;
+    //Deletes a message after a certain amount of time
+    public void TimeOutDelete(MessageList messages) {
+        new TimeOut(this, timer, messages);
     }
 
+    //Deletes a message immediately
+    public void delete() {
+        this.setMsgText(null);
+    }
 
 }

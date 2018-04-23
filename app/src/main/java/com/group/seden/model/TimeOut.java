@@ -10,23 +10,30 @@ import java.util.TimerTask;
 public class TimeOut {
     private Timer timer;
     private Message message;
-    public TimeOut(Message message, int seconds) {
+    private MessageList messages;
+
+    public TimeOut(Message message, int seconds, MessageList messages) {
 
         timer = new Timer();
         this.message = message;
-        timer.schedule(new deleteTask(message), seconds*1000);
+        this.messages = messages;
+        timer.schedule(new deleteTask(message, messages), seconds*1000);
+
     }
 
     class deleteTask extends TimerTask {
 
         Message message;
+        MessageList messages;
 
-        deleteTask(Message message){
+        deleteTask(Message message, MessageList messages){
             this.message = message;
+            this.messages = messages;
         }
 
         public void run() {
             this.message.setMsgText(null);
+            this.messages.removeMessage();
             timer.cancel(); //Terminate the timer thread
         }
     }
