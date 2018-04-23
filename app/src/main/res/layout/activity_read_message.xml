@@ -6,7 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:fitsSystemWindows="true"
+    android:gravity="top|fill"
     android:orientation="vertical"
     android:padding="0dp"
     android:paddingLeft="16dp"
@@ -16,6 +17,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center|fill"
         android:orientation="horizontal"
         android:padding="0dp"
         android:paddingTop="0dp">
@@ -38,7 +41,11 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="500dp">
+        android:layout_gravity="fill_vertical"
+        android:layout_weight="10"
+        android:background="@drawable/back"
+        android:fillViewport="false"
+        android:fitsSystemWindows="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,11 +55,11 @@
             <TextView
                 android:id="@+id/messageContentTextView1"
                 android:layout_width="match_parent"
-                android:layout_height="480dp"
+                android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/back"
-                android:text="Message Content here" />
+                android:minHeight="300dp"
+                android:text="Message Content" />
         </LinearLayout>
     </ScrollView>
 
@@ -60,6 +67,7 @@
         android:id="@+id/decryptLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
         <EditText

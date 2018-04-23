@@ -3,6 +3,7 @@ package com.group.seden.controller;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -34,10 +35,19 @@ public class ReadMessage extends AppCompatActivity {
 
     private Message tempMessage;
 
+    //number of decrypt attempts
+    private int decryptTry;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_message);
+
+        //allow window to readjust when keyboard comes up
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE| WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+        // initialize decrypt tries
+        decryptTry = 0;
 
         //place holders
         messageSender = "user000";
@@ -82,11 +92,22 @@ public class ReadMessage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                decryptTry++;
+                // if the user exceeds the number of decryption tries
+                if(decryptTry > 3){
+                    finish();
+                }else{
+                    //otherwise make a toast
+
+                }
+
                 //get password from password input box
                 if (!passwordEnter.getText().toString().equals(""))
                     passwordLong = Long.parseLong(passwordEnter.getText().toString());
 
                 Encryption.decrypt(tempMessage,passwordLong);
+
+
             }
 
 
