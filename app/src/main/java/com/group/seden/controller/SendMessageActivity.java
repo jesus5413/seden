@@ -62,6 +62,7 @@ public class SendMessageActivity extends AppCompatActivity{
         String message = intent.getStringExtra(ReadMessage.SENDER_EXTRA);
 
 
+        //temporary message code
         outGoingMessage = new Message();
         outGoingMessage.setSenderID("user000");
         outGoingMessage.setRecipientID("user000");
@@ -71,6 +72,7 @@ public class SendMessageActivity extends AppCompatActivity{
         TextView messageRecipient = (TextView)findViewById(R.id.recieveTextView1);
         messageRecipient.setText(outGoingMessage.getRecipientID());
 
+        //find id of buttons from
         Button sendMessageButton = (Button)findViewById(R.id.sendMessageButton1);
         Button encryptButton = (Button)findViewById(R.id.encryptButton1);
         //calls class to handle button press
@@ -140,15 +142,7 @@ public class SendMessageActivity extends AppCompatActivity{
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("create alter");
-                /*
-                AlertDialog.Builder builder = new AlertDialog.Builder(SendMessageActivity.this);
-                LayoutInflater inflater = SendMessageActivity.this.getLayoutInflater();
-                builder.setView(inflater.inflate(R.layout.activity_decrypt_options_dialog, null));
 
-                final AlertDialog dialog = builder.create();
-                dialog.show()
-*/
                 EncryptOptionsDialog encryptOptionsDialog = new EncryptOptionsDialog();
                 encryptOptionsDialog.show(getFragmentManager(), null);
 
