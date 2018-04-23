@@ -1,36 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.ReadMessage">
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="0dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="20dp">
 
-    <TextView
-        android:id="@+id/senderTextView"
-        android:layout_width="157dp"
-        android:layout_height="44dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="43dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="43dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/replyButton1"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="11dp" />
-
-    <Button
-        android:id="@+id/replyButton1"
-        android:layout_width="161dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Reply"
-        tools:layout_editor_absoluteX="208dp"
-        tools:layout_editor_absoluteY="11dp" />
+        android:orientation="horizontal"
+        android:padding="0dp"
+        android:paddingTop="0dp">
 
-    <TextView
-        android:id="@+id/messageContent1"
-        android:layout_width="360dp"
-        android:layout_height="474dp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="74dp" />
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/senderNameTextView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="From:" />
+
+        <Button
+            android:id="@+id/replyButton1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:text="Reply" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="500dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/messageContentTextView1"
+                android:layout_width="match_parent"
+                android:layout_height="480dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/back"
+                android:text="Message Content here" />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/decryptLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/enterPasswordEditText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="numberPassword" />
+
+        <Button
+            android:id="@+id/decryptButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Decrypt" />
+    </LinearLayout>
+</LinearLayout>
