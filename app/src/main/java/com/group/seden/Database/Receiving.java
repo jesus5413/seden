@@ -11,6 +11,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.group.seden.model.Message;
 import com.group.seden.model.UserSession;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,11 +19,12 @@ public class Receiving {
 
     private static DatabaseReference myRef;
     private Message message;
-    private UserSession session;
+    static private UserSession session = UserSession.getInstance();
 
-    public static void getMessages(String uID) {
+    public static ArrayList<Message> getMessages() {
         //final Message msg = new Message();
         myRef = FirebaseDatabase.getInstance().getReference().child("messages");
+        final ArrayList<Message> messagesList = new ArrayList<>();
 
 
         myRef.addValueEventListener(new ValueEventListener() {
@@ -32,7 +34,17 @@ public class Receiving {
                 // whenever data at this location is updated
                 Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
                 //HashMap<String, String> hm = dataSnapshot.getValue(HashMap.class);
-                System.out.printf("Message object is : %s\n", map);
+
+                Message msg = new Message();
+                msg.setRecipientID(map.get("RecipientId").toString());
+                msg.setDeleteTime(Integer.parseInt(map.get("DeleteTime").toString()));
+                msg.setSenderID(map.get("SenderId").toString());
+                msg.setIsEncrypted(Boolean.getBoolean(map.get("Encrypted").toString()));
+                msg.setMsgText(map.get("Message").toString());
+
+                if(session.getUserName().equals(msg.getRecipientID())){
+                    messagesList.add(msg);
+                }
 
                 /*
                 msg.setIsEncrypted(true);
@@ -52,6 +64,6 @@ public class Receiving {
             }
         });
 
-        return;
+        return messagesList;
     }// END getMessage() method
 }// END MODEL CLASS Receiving

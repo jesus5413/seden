@@ -19,6 +19,9 @@ import com.group.seden.R;
 
 
 import com.group.seden.Database.Database;
+import com.group.seden.model.Message;
+
+import java.util.ArrayList;
 
 /**
  * This is the controller class for the main app view
@@ -35,6 +38,7 @@ public class AppActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
     private Intent intent;
     private String uID;
+    ArrayList<Message> ourMessages = Receiving.getMessages();
 
 
 
@@ -49,14 +53,14 @@ public class AppActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Seden"); // sets the view title
         mAuth = FirebaseAuth.getInstance();
 
-        Receiving.getMessages("banana");
 
         intent = getIntent();
         uID = intent.getExtras().getString("uID");
        // mRecyclerView.setHasFixedSize(true);
 
-
-
+        for(Message msg:ourMessages){
+            System.out.printf("This is our message: %s\n", msg);
+        }
 
         mLayoutManager = new LinearLayoutManager(this);
        // mRecyclerView.setLayoutManager(mLayoutManager);
