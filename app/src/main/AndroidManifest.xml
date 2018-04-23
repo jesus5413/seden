@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controller.SendMessageActivity"> <!-- Needs to be SignInActivity-->
+        <activity android:name=".controller.SignInActivity"> <!-- Needs to be SignInActivity-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
