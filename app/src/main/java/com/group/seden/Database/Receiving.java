@@ -35,16 +35,19 @@ public class Receiving {
                 Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
                 //HashMap<String, String> hm = dataSnapshot.getValue(HashMap.class);
 
-                Message msg = new Message();
-                msg.setRecipientID(map.get("RecipientId").toString());
-                msg.setDeleteTime(Integer.parseInt(map.get("DeleteTime").toString()));
-                msg.setSenderID(map.get("SenderId").toString());
-                msg.setIsEncrypted(Boolean.getBoolean(map.get("Encrypted").toString()));
-                msg.setMsgText(map.get("Message").toString());
+            Message msg = new Message();
+            for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+                msg.setRecipientID((String) messageSnapshot.child("RecipientId").getValue());
+                msg.setMsgText((String) messageSnapshot.child("Message").getValue());
+            }
 
-                if(session.getUserName().equals(msg.getRecipientID())){
+            System.out.println(msg);
+
+            if (session.getUserName() != null) {
+                if (session.getUserName().equals(msg.getRecipientID())) {
                     messagesList.add(msg);
                 }
+            }
 
                 /*
                 msg.setIsEncrypted(true);

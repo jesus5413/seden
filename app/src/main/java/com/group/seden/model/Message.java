@@ -46,7 +46,7 @@ public class Message{
     }
 
     public String getSenderID() {
-        return senderID;
+        return this.senderID;
     }
 
     public void setSenderID(String senderID) {
@@ -54,7 +54,7 @@ public class Message{
     }
 
     public String getRecipientID() {
-        return recipientID;
+        return this.recipientID;
     }
 
     public void setRecipientID(String senderID) {
@@ -62,7 +62,7 @@ public class Message{
     }
 
     public boolean getIsEncrypted() {
-        return isEncrypted;
+        return this.isEncrypted;
     }
 
     public void setIsEncrypted(boolean isEncrypted) {
@@ -70,7 +70,7 @@ public class Message{
     }
 
     public String getMsgText() {
-        return msgText;
+        return this.msgText;
     }
 
     public void setMsgText(String text) {
