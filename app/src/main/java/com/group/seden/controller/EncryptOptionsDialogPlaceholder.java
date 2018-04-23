@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.group.seden.R;
 
-public class SendMessagePopupMenu extends AppCompatActivity {
+public class EncryptOptionsDialogPlaceholder extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
