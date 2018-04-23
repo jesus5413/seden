@@ -59,7 +59,9 @@ public class DecryptOptionsDialog extends DialogFragment {
 
                 System.out.println("accept pressed");
                 usePassword = isEncrypted.isChecked();
-                password = Long.parseLong(passwardET.getText().toString());
+
+                if (!passwardET.getText().toString().equals(""))
+                    password = Long.parseLong(passwardET.getText().toString());
 
 
                 dialog.dismiss();

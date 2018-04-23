@@ -118,17 +118,23 @@ public class SendMessageActivity extends AppCompatActivity{
                             messageString);
 
                 //Tries to send message to database
-                try {
-                    Database.sendMessage(message);
-                    System.out.println("Successful");
-                    text = "You message was successfully sent!";
-                } catch(DatabaseException e) {
-                    System.out.println("Unsuccessful");
-                    text = "Message sending failure! ";
-                } finally {
+                if (!message.getMsgText().equals(""))
+                    try {
+                        Database.sendMessage(message);
+                        System.out.println("Successful");
+                        text = "You message was successfully sent!";
+                    } catch(DatabaseException e) {
+                        System.out.println("Unsuccessful");
+                        text = "Message sending failure! ";
+                    } finally {
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                        finish();
+                    }
+                else {
+                    text = "Please enter a message before clicking send.";
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
-                    finish();
                 }
 
             }
