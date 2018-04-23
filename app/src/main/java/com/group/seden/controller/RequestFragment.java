@@ -2,6 +2,7 @@ package com.group.seden.controller;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -68,7 +69,7 @@ public class RequestFragment extends Fragment {
 
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<UserSession, AllUsersViewHolder>(userOption) {
             @Override
-            protected void onBindViewHolder( AllUsersViewHolder holder, int position, UserSession model) {
+            protected void onBindViewHolder(AllUsersViewHolder holder, int position, final UserSession model) {
                 holder.setName(model.getUserName());
                 holder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -83,6 +84,11 @@ public class RequestFragment extends Fragment {
                                 if(i == 0){
                                     // this is point to first option which is send message
                                     // going to new view code is here. We will do that at meeting
+
+                                    Intent startIntent = new Intent(getContext(), SendMessageActivity.class);
+                                    startIntent.putExtra("uID", model.getUniqueID());
+                                    startActivity(startIntent);
+
                                 }
                             }
                         });
