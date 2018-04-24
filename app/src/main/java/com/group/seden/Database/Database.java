@@ -21,10 +21,7 @@ import java.util.HashMap;
 public class Database {
 
     private static DatabaseReference mDatabase;
-    private static UserSession userInfo;
-    private static String lastMessageKey;
-    public static UserSession sysAdmin;
-
+    private static  UserSession userInfo;
 
     /**
      * Stores user info when they create an account. They will have a unique ID which stores in the database as well.
@@ -46,8 +43,7 @@ public class Database {
     }
 
     /**
-     * Used to send a message to a recipient. It is assumed that
-     * all the fields of the message are set and valid.
+     * Used to send a message to a recipient. It is assumed that all the fields of the message are set and valid.
      * @param message to send to a remote device, all fields must be set
      * @return true if the message was successfully sent, otherwise throws DatabaseException
      */
@@ -57,20 +53,16 @@ public class Database {
 
         HashMap<String, String> childInfo = new HashMap<>();
         childInfo.put("Message", message.getMsgText());
-        childInfo.put("SenderId", message.getSenderID());
         childInfo.put("RecipientId", message.getRecipientID());
         childInfo.put("DeleteTime", Integer.toString(message.getDeleteTime()));
         childInfo.put("Encrypted", String.valueOf(message.getIsEncrypted()));
 
-        // store the key of the last message to be able to delete it
-        String lastMessageKey = mDatabase.push().getKey();
-
-        mDatabase.child("messages").child(lastMessageKey).setValue(childInfo, new DatabaseReference.CompletionListener() {
+        // title the username
+        mDatabase.child("messages").child(message.getSenderID()).setValue(childInfo, new DatabaseReference.CompletionListener() {
 
             @Override
             public void onComplete(DatabaseError error, DatabaseReference ref)
             {
-
                 if(error != null)
                 {
                     error.toException();
@@ -86,8 +78,10 @@ public class Database {
     {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        userInfo = UserSession.getInstance();
+
         //delete the message
-        mDatabase.child("messages").child(lastMessageKey).removeValue(
+        mDatabase.child("messages").child(userInfo.getUserName()).removeValue(
                 new DatabaseReference.CompletionListener() {
 
                     // throw an error if unable to delete the last message
@@ -101,7 +95,5 @@ public class Database {
         );
 
     }
-
-
 
 }
