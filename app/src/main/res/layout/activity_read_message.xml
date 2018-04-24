@@ -58,7 +58,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:minHeight="300dp"
+                android:minHeight="200dp"
                 android:text="Message Content" />
         </LinearLayout>
     </ScrollView>
