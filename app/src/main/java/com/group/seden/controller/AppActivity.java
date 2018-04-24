@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,16 +14,23 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.group.seden.Database.Receiving;
 import com.group.seden.R;
 
 
 import com.group.seden.Database.Database;
+import com.group.seden.model.Message;
+
+import java.util.ArrayList;
 
 /**
  * This is the controller class for the main app view
  * @author JesusNieto
  */
 public class AppActivity extends AppCompatActivity {
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mRecyclerAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
     private Toolbar mToolBar;
     private FirebaseAuth mAuth;
     private ViewPager mViewPager;
@@ -29,6 +38,7 @@ public class AppActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
     private Intent intent;
     private String uID;
+    ArrayList<Message> ourMessages = Receiving.getMessages();
 
 
 
@@ -38,19 +48,27 @@ public class AppActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_app);
         mToolBar = (Toolbar) findViewById(R.id.main_page_toolbar);
+        //mRecyclerView = (RecyclerView) findViewById(R.id.inboxRecycler);
         setSupportActionBar(mToolBar); // sets the toolbar layout to the main ap so it can be used
         getSupportActionBar().setTitle("Seden"); // sets the view title
         mAuth = FirebaseAuth.getInstance();
 
+
         intent = getIntent();
         uID = intent.getExtras().getString("uID");
+       // mRecyclerView.setHasFixedSize(true);
 
+        for(Message msg:ourMessages){
+            System.out.printf("This is our message: %s\n", msg);
+        }
 
-
-
+        mLayoutManager = new LinearLayoutManager(this);
+       // mRecyclerView.setLayoutManager(mLayoutManager);
+        //mAdapter = new MyAdapter("our string");
 
         mViewPager = (ViewPager) findViewById(R.id.tabPager);
         mAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
 
         mViewPager.setAdapter(mAdapter);
         mTabLayout = (TabLayout)findViewById(R.id.main_tabs);
