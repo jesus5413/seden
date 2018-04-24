@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import com.group.seden.R;
 
-public class Decrypt_Dialog_Activity extends AppCompatActivity {
+public class EncryptOptionsDialogPlaceholder extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_confirm_decrypt_dialog);
+        setContentView(R.layout.activity_decrypt_options_dialog);
     }
 }
