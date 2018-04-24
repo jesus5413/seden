@@ -23,6 +23,7 @@ public class Receiving {
 
     public static ArrayList<Message> getMessages() {
         //final Message msg = new Message();
+        session.setUserName("user001");
         myRef = FirebaseDatabase.getInstance().getReference().child("messages");
         final ArrayList<Message> messagesList = new ArrayList<>();
 
@@ -32,16 +33,22 @@ public class Receiving {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated
+                String name = dataSnapshot.getKey();
+                System.out.printf("%s is the key!\n", name);
                 Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
                 //HashMap<String, String> hm = dataSnapshot.getValue(HashMap.class);
 
             Message msg = new Message();
             for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
-                msg.setRecipientID((String) messageSnapshot.child("RecipientId").getValue());
-                msg.setMsgText((String) messageSnapshot.child("Message").getValue());
-                msg.setIsEncrypted((Boolean) messageSnapshot.child("Encrypted").getValue());
-                msg.setSenderID((String) messageSnapshot.child("SenderId").getValue());
-                msg.setDeleteTime((int) messageSnapshot.child("DeleteTime").getValue());
+                if (messageSnapshot.getKey() == session.getUserName())
+                {
+                    msg.setRecipientID((String) messageSnapshot.child("RecipientId").getValue());
+                    msg.setMsgText((String) messageSnapshot.child("Message").getValue());
+                    //msg.setIsEncrypted(Boolean.valueOf(messageSnapshot.child("Encrypted").getValue().toString()));
+                    msg.setSenderID((String) messageSnapshot.child("SenderId").getValue());
+                    msg.setDeleteTime((300));
+                    
+                }
             }
 
             System.out.println(msg);
