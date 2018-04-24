@@ -57,20 +57,13 @@ public class SendMessageActivity extends AppCompatActivity{
         usePassword = false;
         password = null;
 
-        // Get the Intent that started this activity and extract the string
+        //Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        String message = intent.getStringExtra(ReadMessage.SENDER_EXTRA);
-
-
-        //temporary message code
-        outGoingMessage = new Message();
-        outGoingMessage.setSenderID("user000");
-        outGoingMessage.setRecipientID("user000");
-
+        String recipient = intent.getExtras().getString("uID");
 
         //set id of GUI components
         TextView messageRecipient = (TextView)findViewById(R.id.recieveTextView1);
-        messageRecipient.setText(outGoingMessage.getRecipientID());
+        messageRecipient.setText("To: " + recipient);
 
         //find id of buttons from
         Button sendMessageButton = (Button)findViewById(R.id.sendMessageButton1);

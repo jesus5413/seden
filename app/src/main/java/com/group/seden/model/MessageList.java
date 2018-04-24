@@ -1,5 +1,9 @@
 package com.group.seden.model;
 
+/**
+ * Created by robbie neuhaus on 4/14/2018.
+ */
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
