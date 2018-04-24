@@ -39,6 +39,9 @@ public class Receiving {
             for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
                 msg.setRecipientID((String) messageSnapshot.child("RecipientId").getValue());
                 msg.setMsgText((String) messageSnapshot.child("Message").getValue());
+                msg.setIsEncrypted((Boolean) messageSnapshot.child("Encrypted").getValue());
+                msg.setSenderID((String) messageSnapshot.child("SenderId").getValue());
+                msg.setDeleteTime((int) messageSnapshot.child("DeleteTime").getValue());
             }
 
             System.out.println(msg);
