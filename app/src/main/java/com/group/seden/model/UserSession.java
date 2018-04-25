@@ -1,5 +1,10 @@
 package com.group.seden.model;
 
+import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 /**
  * @author  Isaac Buitrago
  *
@@ -17,6 +22,12 @@ public class UserSession {
     private String UserName;
 
     private static UserSession instance;   // reference to the session
+
+    private SharedPreferences prefs;        // preferences for the application
+
+    private Context context;                // context of the UserSession
+
+    private boolean hasContext = false;
 
     /**
      * Constructor should only be called once
@@ -38,39 +49,70 @@ public class UserSession {
 
     /**
      *
+     * @param context of the application of which to register
+     */
+    public void init(Context context)
+    {
+        this.context = context;
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+        hasContext = true;
+    }
+
+    /**
+     *
+     * @return true if context passed, false otherwise
+     */
+    public boolean hasContext()
+    {
+        return (this.hasContext);
+    }
+
+    /**
+     *
      * Getters and Setters for global information
      */
     public String getEmail()
     {
-        return Email;
+        Email = prefs.getString("Email", null);
+
+        return  (Email);
     }
 
     public void setEmail(String userEmail)
     {
+        prefs.edit().putString("Email", userEmail).commit();
+
         this.Email = userEmail;
     }
 
     public String getUserName()
     {
-        return UserName;
+        UserName = prefs.getString("Email", null);
+
+        return(UserName);
     }
 
     public void setUserName(String username)
     {
+        prefs.edit().putString("Username", username).commit();
+
         this.UserName = username;
     }
 
     public String getUniqueID()
     {
-        return UniqueID;
+        UniqueID = prefs.getString("Email", null);
+
+        return (UniqueID);
     }
 
     public void setUniqueID(String uniqueId)
     {
+        prefs.edit().putString("UniqueID", uniqueId).commit();
+
         this.UniqueID = uniqueId;
     }
 
-    public String getPassword() { return Password; }
-
-    public void setPassword(String password) { this.Password = password; }
 }

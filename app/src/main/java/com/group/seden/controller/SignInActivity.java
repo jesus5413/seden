@@ -159,8 +159,15 @@ public class SignInActivity extends AppCompatActivity {
                 UserSession temp;
                 if(dataSnapshot.exists()){
                     temp = dataSnapshot.getValue(UserSession.class);
+
+                    System.out.println(temp.getUserName());
+
                     userInfo = temp;
+
+                    userInfo.init(getApplicationContext());
+
                     System.out.println(userInfo.getUserName());
+
                     trueSignIn(userInfo.getEmail(), password);
                 }else{
                     System.out.println("some error, user doesnt exists");

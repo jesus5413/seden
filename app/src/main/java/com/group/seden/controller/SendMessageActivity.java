@@ -59,7 +59,7 @@ public class SendMessageActivity extends AppCompatActivity{
 
         //Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        String recipient = intent.getExtras().getString("uID");
+        String recipient =  recipientID = intent.getExtras().getString("Username");
 
         //set id of GUI components
         TextView messageRecipient = (TextView)findViewById(R.id.recieveTextView1);

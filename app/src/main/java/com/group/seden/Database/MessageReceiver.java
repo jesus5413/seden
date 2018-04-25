@@ -56,6 +56,18 @@ public class MessageReceiver
 
                 HashMap<String, String> messages = dataSnapshot.getValue(hm);
 
+                Message messg =  new Message();
+
+                messg.setSenderID(messages.get("SenderID"));
+
+                messg.setMsgText(messages.get("Message"));
+
+                messg.setDeleteTime(Integer.parseInt(messages.get("DeleteTime")));
+
+                messg.setIsEncrypted(Boolean.parseBoolean(messages.get("Encrypted")));
+
+                messageList.addMessage(messg);
+
             }
 
 
