@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.group.seden.Database.Database;
 import com.group.seden.R;
+import com.group.seden.model.AppData;
 import com.group.seden.model.UserSession;
 
 /**
@@ -160,13 +161,9 @@ public class SignInActivity extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     temp = dataSnapshot.getValue(UserSession.class);
 
-                    System.out.println(temp.getUserName());
+                    AppData.session.start(temp.getEmail(), temp.getUserName(), temp.getUniqueID());
 
                     userInfo = temp;
-
-                    userInfo.init(getApplicationContext());
-
-                    System.out.println(userInfo.getUserName());
 
                     trueSignIn(userInfo.getEmail(), password);
                 }else{

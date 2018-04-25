@@ -15,8 +15,6 @@ public class UserSession {
 
     private String Email;   // email of the authenticated user
 
-    private String Password;    // username of the authenticated user
-
     private String UniqueID;    // key of the User's node in the Database
 
     private String UserName;
@@ -70,49 +68,57 @@ public class UserSession {
     }
 
     /**
-     *
-     * Getters and Setters for global information
+     * Used to start a session for the user with the given information
      */
+    public void start(String Email, String UserName, String UniqueID)
+    {
+        this.Email = Email;
+
+        this.UserName = UserName;
+
+        this.UniqueID = UniqueID;
+
+    }
+
+    /**
+     *
+     * Getters and Setters
+     */
+
+
     public String getEmail()
     {
-        Email = prefs.getString("Email", null);
-
-        return  (Email);
+        return Email;
     }
 
-    public void setEmail(String userEmail)
+    public void setEmail(String email)
     {
-        prefs.edit().putString("Email", userEmail).commit();
-
-        this.Email = userEmail;
-    }
-
-    public String getUserName()
-    {
-        UserName = prefs.getString("Email", null);
-
-        return(UserName);
-    }
-
-    public void setUserName(String username)
-    {
-        prefs.edit().putString("Username", username).commit();
-
-        this.UserName = username;
+        Email = email;
     }
 
     public String getUniqueID()
     {
-        UniqueID = prefs.getString("Email", null);
-
-        return (UniqueID);
+        return UniqueID;
     }
 
-    public void setUniqueID(String uniqueId)
+    public void setUniqueID(String uniqueID)
     {
-        prefs.edit().putString("UniqueID", uniqueId).commit();
+        UniqueID = uniqueID;
+    }
 
-        this.UniqueID = uniqueId;
+    public String getUserName()
+    {
+        return UserName;
+    }
+
+    public void setUserName(String userName)
+    {
+        UserName = userName;
+    }
+
+    public String toString()
+    {
+        return (String.format("{Email: %s, Username: %s, UniqueID: %s\n", Email, UserName, UniqueID));
     }
 
 }

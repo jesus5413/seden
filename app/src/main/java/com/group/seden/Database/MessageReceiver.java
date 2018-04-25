@@ -7,6 +7,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.group.seden.controller.MessageListAdapter;
+import com.group.seden.model.AppData;
 import com.group.seden.model.Message;
 import com.group.seden.model.MessageList;
 import com.group.seden.model.UserSession;
@@ -25,8 +27,6 @@ public class MessageReceiver
 {
 
     private static DatabaseReference myRef;
-    private static UserSession session;
-    private MessageList messageList;
 
     /**
      * Constructor to set up the Database reference, initialize the current session,
@@ -34,11 +34,8 @@ public class MessageReceiver
      */
     public MessageReceiver()
     {
-        session = UserSession.getInstance();
 
-        myRef = FirebaseDatabase.getInstance().getReference().child("MessageInbox").child(session.getUserName());
-
-        messageList =  MessageList.getInstance();
+        myRef = FirebaseDatabase.getInstance().getReference().child("MessageInbox").child(AppData.session.getUserName());
     }
 
     /**
@@ -52,21 +49,25 @@ public class MessageReceiver
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
-                GenericTypeIndicator<HashMap<String, String>> hm = new GenericTypeIndicator<HashMap<String, String>>() {};
+                GenericTypeIndicator<List<Message>> l = new GenericTypeIndicator<List<Message>>() {};
 
-                HashMap<String, String> messages = dataSnapshot.getValue(hm);
+                List<Message> messages = dataSnapshot.getValue(l);
 
-                Message messg =  new Message();
+//                Message messg = new Message();
+//
+//                messg.setSenderID(messages.get("SenderID"));
+//
+//                messg.setMsgText(messages.get("Message"));
+//
+//                messg.setDeleteTime(Integer.parseInt(messages.get("DeleteTime")));
+//
+//                messg.setIsEncrypted(Boolean.parseBoolean(messages.get("Encrypted")));
 
-                messg.setSenderID(messages.get("SenderID"));
 
-                messg.setMsgText(messages.get("Message"));
-
-                messg.setDeleteTime(Integer.parseInt(messages.get("DeleteTime")));
-
-                messg.setIsEncrypted(Boolean.parseBoolean(messages.get("Encrypted")));
-
-                messageList.addMessage(messg);
+                for(Message message: messages)
+                {
+                    AppData.messageInbox.addMessage(message);
+                }
 
             }
 

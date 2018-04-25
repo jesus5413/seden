@@ -18,6 +18,7 @@ import com.group.seden.Database.MessageReceiver;
 import com.group.seden.R;
 
 
+import com.group.seden.model.AppData;
 import com.group.seden.model.Message;
 import com.group.seden.model.MessageList;
 
@@ -51,16 +52,12 @@ public class AppActivity extends AppCompatActivity {
         setSupportActionBar(mToolBar); // sets the toolbar layout to the main ap so it can be used
         getSupportActionBar().setTitle("Seden"); // sets the view title
         mAuth = FirebaseAuth.getInstance();
-        youGotMail =  new MessageReceiver();
 
-        try {
-            youGotMail.pollMessages();
-        } catch(DatabaseException e)
-        {
-            Log.e(TAG, e.getMessage());
-        }
+        youGotMail = new MessageReceiver();
 
-        for(Message message: messageList)
+        youGotMail.pollMessages();
+
+        for(Message message: AppData.messageInbox.getMessageList())
         {
             System.out.println(message.toString());
         }
