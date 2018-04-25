@@ -49,13 +49,13 @@ public class Database {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         HashMap<String, String> childInfo = new HashMap<>();
+        childInfo.put("SenderID", message.getSenderID());
         childInfo.put("Message", message.getMsgText());
-        childInfo.put("RecipientId", message.getRecipientID());
         childInfo.put("DeleteTime", Integer.toString(message.getDeleteTime()));
         childInfo.put("Encrypted", String.valueOf(message.getIsEncrypted()));
 
-        // title the username
-        mDatabase.child("messages").child(message.getSenderID()).setValue(childInfo, new DatabaseReference.CompletionListener() {
+        // send the message to the recipient's Inbox
+        mDatabase.child("MessageInbox").child(message.getRecipientID()).setValue(childInfo, new DatabaseReference.CompletionListener() {
 
             @Override
             public void onComplete(DatabaseError error, DatabaseReference ref)
@@ -66,7 +66,7 @@ public class Database {
                 }
             }
         });
-    }
+}
 
     /**
      * Used to delete the last sent message

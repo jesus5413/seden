@@ -8,18 +8,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseException;
+import com.group.seden.Database.MessageDeliverer;
 import com.group.seden.Database.Receiving;
 import com.group.seden.R;
 
 
 import com.group.seden.Database.Database;
 import com.group.seden.model.Message;
+import com.group.seden.model.MessageList;
 
 import java.util.ArrayList;
 
@@ -38,8 +42,9 @@ public class AppActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
     private Intent intent;
     private String uID;
-    ArrayList<Message> ourMessages = Receiving.getMessages();
-
+    private MessageList messageList = MessageList.getInstance();
+    private MessageDeliverer youGotMail;
+    private static final String TAG  = "AppActivity";
 
 
     @Override
@@ -52,15 +57,24 @@ public class AppActivity extends AppCompatActivity {
         setSupportActionBar(mToolBar); // sets the toolbar layout to the main ap so it can be used
         getSupportActionBar().setTitle("Seden"); // sets the view title
         mAuth = FirebaseAuth.getInstance();
+        youGotMail =  new MessageDeliverer();
 
+        try {
+            youGotMail.pollMessages();
+        } catch(DatabaseException e)
+        {
+            Log.e(TAG, e.getMessage());
+        }
+
+        for(Message message: messageList)
+        {
+            System.out.println(message.toString());
+        }
 
         intent = getIntent();
+
         uID = intent.getExtras().getString("uID");
        // mRecyclerView.setHasFixedSize(true);
-
-        for(Message msg:ourMessages){
-            System.out.printf("This is our message: %s\n", msg);
-        }
 
         mLayoutManager = new LinearLayoutManager(this);
        // mRecyclerView.setLayoutManager(mLayoutManager);

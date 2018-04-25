@@ -8,8 +8,20 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 
-public class MessageList implements Iterable<Message> {
+public class MessageList implements Iterable<Message>
+{
     private ArrayList<Message> messages= new ArrayList<>();
+    private static MessageList instance;
+
+    private MessageList(){};
+
+    public static MessageList getInstance()
+    {
+        if(instance == null)
+            instance =  new MessageList();
+
+        return (instance);
+    }
 
     public ArrayList<Message> getMessageList(){
         return this.messages;
