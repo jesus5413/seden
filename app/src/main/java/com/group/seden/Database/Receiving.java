@@ -47,7 +47,7 @@ public class Receiving {
 
                 if (messageSnapshot.getKey() == session.getUserName())
                 {
-                    msg.setRecipientID((String) messageSnapshot.child("RecipientId").getValue());
+                    msg.setRecipientID((String) messageSnapshot.child("RecipientId").getValue(true));
                     msg.setMsgText((String) messageSnapshot.child("Message").getValue());
                     //msg.setIsEncrypted(Boolean.valueOf(messageSnapshot.child("Encrypted").getValue().toString()));
                     msg.setSenderID((String) messageSnapshot.child("SenderId").getValue());
