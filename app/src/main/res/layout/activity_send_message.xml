@@ -45,17 +45,14 @@
         android:id="@+id/recieveTextView1"
         android:layout_width="194dp"
         android:layout_height="36dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="13dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="13dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:text="Reciever"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteY="8dp" />
 
     <Button
         android:id="@+id/encryptButton1"

@@ -64,7 +64,7 @@ public class SendMessageActivity extends AppCompatActivity{
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        String message = intent.getStringExtra(ReadMessage.SENDER_EXTRA);
+        String message = intent.getExtras().getString("uID");
 
 
         outGoingMessage = new Message();
@@ -74,7 +74,7 @@ public class SendMessageActivity extends AppCompatActivity{
 
         //set id of GUI components
         TextView messageRecipient = (TextView)findViewById(R.id.recieveTextView1);
-        messageRecipient.setText(outGoingMessage.getRecipientID());
+        messageRecipient.setText("To:" + message);
 
         Button sendMessageButton = (Button)findViewById(R.id.sendMessageButton1);
         Button encryptButton = (Button)findViewById(R.id.encryptButton1);

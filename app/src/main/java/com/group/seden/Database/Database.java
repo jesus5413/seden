@@ -21,7 +21,6 @@ public class Database {
 
     private static DatabaseReference mDatabase;
     private static UserSession userInfo;
-    public static UserSession sysAdmin;
 
     /**
      * Stores user info when they create an account. They will have a unique ID which stores in the database as well.
@@ -59,7 +58,7 @@ public class Database {
         childInfo.put("DeleteTime", Integer.toString(message.getDeleteTime()));
         childInfo.put("Encrypted", String.valueOf(message.getIsEncrypted()));
 
-        String messageChild = mDatabase.push().getKey();   // generate
+       String messageChild = mDatabase.push().getKey();   // generate
 
         mDatabase.child("messages").child(messageChild).setValue(childInfo, new DatabaseReference.CompletionListener() {
 
