@@ -32,10 +32,9 @@ public class MessageReceiver
      * Constructor to set up the Database reference, initialize the current session,
      * and create a MessageList.
      */
-    public MessageReceiver()
+    public MessageReceiver(String username)
     {
-
-        myRef = FirebaseDatabase.getInstance().getReference().child("MessageInbox").child(AppData.session.getUserName());
+        myRef = FirebaseDatabase.getInstance().getReference().child("MessageInbox").child(username);
     }
 
     /**
@@ -49,25 +48,23 @@ public class MessageReceiver
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
-                GenericTypeIndicator<List<Message>> l = new GenericTypeIndicator<List<Message>>() {};
+                GenericTypeIndicator<HashMap<String, String>> hm = new GenericTypeIndicator<HashMap<String, String>>() {};
 
-                List<Message> messages = dataSnapshot.getValue(l);
+                HashMap<String, String> messages = dataSnapshot.getValue(hm);
 
-//                Message messg = new Message();
-//
-//                messg.setSenderID(messages.get("SenderID"));
-//
-//                messg.setMsgText(messages.get("Message"));
-//
-//                messg.setDeleteTime(Integer.parseInt(messages.get("DeleteTime")));
-//
-//                messg.setIsEncrypted(Boolean.parseBoolean(messages.get("Encrypted")));
+                Message messg = new Message();
 
+                messg.setSenderID(messages.get("SenderID"));
 
-                for(Message message: messages)
-                {
-                    AppData.messageInbox.addMessage(message);
-                }
+                messg.setMsgText(messages.get("Message"));
+
+                messg.setDeleteTime(Integer.parseInt(messages.get("DeleteTime")));
+
+                messg.setIsEncrypted(Boolean.parseBoolean(messages.get("Encrypted")));
+
+                AppData.messageInbox.addMessage(messg);
+
+                System.out.println("You got mail !");
 
             }
 

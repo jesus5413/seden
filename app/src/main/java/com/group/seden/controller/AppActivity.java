@@ -37,7 +37,6 @@ public class AppActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
     private Intent intent;
     private String uID;
-    private MessageList messageList = MessageList.getInstance();
     private MessageReceiver youGotMail;
     private static final String TAG  = "AppActivity";
 
@@ -53,11 +52,13 @@ public class AppActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Seden"); // sets the view title
         mAuth = FirebaseAuth.getInstance();
 
-        youGotMail = new MessageReceiver();
+        youGotMail = new MessageReceiver(mAuth.getCurrentUser().getDisplayName());
 
         youGotMail.pollMessages();
 
-        for(Message message: AppData.messageInbox.getMessageList())
+        AppData data = (AppData) getApplicationContext();
+
+        for(Message message: data.messageInbox.getMessageList())
         {
             System.out.println(message.toString());
         }

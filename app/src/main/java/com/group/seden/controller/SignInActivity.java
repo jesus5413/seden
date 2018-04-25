@@ -161,7 +161,9 @@ public class SignInActivity extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     temp = dataSnapshot.getValue(UserSession.class);
 
-                    AppData.session.start(temp.getEmail(), temp.getUserName(), temp.getUniqueID());
+                    AppData data = (AppData) getApplicationContext();
+
+                    data.session.start(temp.getEmail(), temp.getUserName(), temp.getUniqueID());
 
                     userInfo = temp;
 
