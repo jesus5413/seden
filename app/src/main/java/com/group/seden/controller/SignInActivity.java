@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -160,6 +161,9 @@ public class SignInActivity extends AppCompatActivity {
                 if(dataSnapshot.exists()){
 
                     temp = dataSnapshot.getValue(UserSession.class);
+                    Intent i = new Intent();
+
+                    i.putExtra("UserName", temp.getUserName());
 
                     userInfo = temp;
 
