@@ -34,12 +34,17 @@ public class Receiving {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated
                 String name = dataSnapshot.getKey();
-                System.out.printf("%s is the key!\n", name);
-                Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+                System.out.printf("%s is the key!\n", dataSnapshot.getKey());
+                //Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
                 //HashMap<String, String> hm = dataSnapshot.getValue(HashMap.class);
 
             Message msg = new Message();
+
+            System.out.printf("Right before the for\n");
             for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+                System.out.printf("In the for\n");
+                System.out.printf(messageSnapshot.getKey());
+
                 if (messageSnapshot.getKey() == session.getUserName())
                 {
                     msg.setRecipientID((String) messageSnapshot.child("RecipientId").getValue());
@@ -47,17 +52,17 @@ public class Receiving {
                     //msg.setIsEncrypted(Boolean.valueOf(messageSnapshot.child("Encrypted").getValue().toString()));
                     msg.setSenderID((String) messageSnapshot.child("SenderId").getValue());
                     msg.setDeleteTime((300));
-                    
+                    System.out.println("\n\n" + msg + "\n\n");
                 }
             }
 
-            System.out.println(msg);
-
+            /*
             if (session.getUserName() != null) {
                 if (session.getUserName().equals(msg.getRecipientID())) {
                     messagesList.add(msg);
                 }
             }
+            */
 
                 /*
                 msg.setIsEncrypted(true);
