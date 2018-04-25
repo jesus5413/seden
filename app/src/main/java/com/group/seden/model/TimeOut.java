@@ -18,7 +18,6 @@ public class TimeOut {
         this.message = message;
         this.messages = messages;
         timer.schedule(new deleteTask(message, messages), seconds*1000);
-
     }
 
     class deleteTask extends TimerTask {
@@ -33,7 +32,12 @@ public class TimeOut {
 
         public void run() {
             this.message.setMsgText(null);
-            this.messages.removeMessage();
+            for (Message msg : this.messages){
+                if (msg.getMsgText() == null) {
+                    this.messages.getMessageList().remove(msg);
+                    break;
+                }
+            }
             timer.cancel(); //Terminate the timer thread
         }
     }

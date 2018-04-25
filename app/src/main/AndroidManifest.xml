@@ -44,7 +44,7 @@
         </activity>
         <activity android:name=".controller.AppActivity" />
         <!-- Line below should be uncomment-->
-       <activity android:name=".controller.SendMessageActivity" />
+        <activity android:name=".controller.SendMessageActivity" />
         <activity android:name=".controller.ReadMessage" />
          <activity android:name=".controller.EncryptOptionsDialogPlaceholder" />
      </application>
