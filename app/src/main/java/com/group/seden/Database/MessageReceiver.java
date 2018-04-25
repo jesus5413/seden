@@ -7,14 +7,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
-import com.group.seden.controller.MessageListAdapter;
-import com.group.seden.model.AppData;
 import com.group.seden.model.Message;
 import com.group.seden.model.MessageList;
-import com.group.seden.model.UserSession;
-
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Used to securely deliver messages from the User's Firebase MessageInbox
@@ -28,6 +23,9 @@ public class MessageReceiver
 
     private static DatabaseReference myRef;
 
+    public MessageList inbox;
+
+
     /**
      * Constructor to set up the Database reference, initialize the current session,
      * and create a MessageList.
@@ -35,6 +33,8 @@ public class MessageReceiver
     public MessageReceiver(String username)
     {
         myRef = FirebaseDatabase.getInstance().getReference().child("MessageInbox").child(username);
+
+        inbox = MessageList.getInstance();
     }
 
     /**
@@ -62,7 +62,7 @@ public class MessageReceiver
 
                 messg.setIsEncrypted(Boolean.parseBoolean(messages.get("Encrypted")));
 
-                AppData.messageInbox.addMessage(messg);
+                inbox.addMessage(messg);
 
                 System.out.println("You got mail !");
 

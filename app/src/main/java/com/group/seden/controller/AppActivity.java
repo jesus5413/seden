@@ -16,9 +16,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseException;
 import com.group.seden.Database.MessageReceiver;
 import com.group.seden.R;
-
-
-import com.group.seden.model.AppData;
 import com.group.seden.model.Message;
 import com.group.seden.model.MessageList;
 
@@ -55,13 +52,6 @@ public class AppActivity extends AppCompatActivity {
         youGotMail = new MessageReceiver(mAuth.getCurrentUser().getDisplayName());
 
         youGotMail.pollMessages();
-
-        AppData data = (AppData) getApplicationContext();
-
-        for(Message message: data.messageInbox.getMessageList())
-        {
-            System.out.println(message.toString());
-        }
 
         intent = getIntent();
 
