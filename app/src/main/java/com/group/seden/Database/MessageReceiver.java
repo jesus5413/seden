@@ -7,6 +7,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.group.seden.model.Encryption;
 import com.group.seden.model.Message;
 import com.group.seden.model.MessageList;
 import java.util.HashMap;
@@ -64,7 +65,10 @@ public class MessageReceiver
 
                 inbox.addMessage(messg);
 
-                System.out.println("You got mail !");
+                if(messg.getIsEncrypted())
+                    Encryption.decrypt(messg, 12345);
+
+                System.out.println(messg.getMsgText());
 
             }
 
