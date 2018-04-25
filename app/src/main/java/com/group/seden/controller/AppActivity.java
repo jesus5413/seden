@@ -11,21 +11,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseException;
-import com.group.seden.Database.MessageDeliverer;
-import com.group.seden.Database.Receiving;
+import com.group.seden.Database.MessageReceiver;
 import com.group.seden.R;
 
 
-import com.group.seden.Database.Database;
 import com.group.seden.model.Message;
 import com.group.seden.model.MessageList;
-
-import java.util.ArrayList;
 
 /**
  * This is the controller class for the main app view
@@ -43,7 +37,7 @@ public class AppActivity extends AppCompatActivity {
     private Intent intent;
     private String uID;
     private MessageList messageList = MessageList.getInstance();
-    private MessageDeliverer youGotMail;
+    private MessageReceiver youGotMail;
     private static final String TAG  = "AppActivity";
 
 
@@ -57,7 +51,7 @@ public class AppActivity extends AppCompatActivity {
         setSupportActionBar(mToolBar); // sets the toolbar layout to the main ap so it can be used
         getSupportActionBar().setTitle("Seden"); // sets the view title
         mAuth = FirebaseAuth.getInstance();
-        youGotMail =  new MessageDeliverer();
+        youGotMail =  new MessageReceiver();
 
         try {
             youGotMail.pollMessages();

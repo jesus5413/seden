@@ -42,7 +42,7 @@ public class Database {
     /**
      * Used to send a message to a recipient. It is assumed that all the fields of the message are set and valid.
      * throws DatabaseException when the Database cannot process the message
-     * @param message to send to a remote device, all fields must be set
+     * @param message to send to a remote device, all fields must be set.
      */
     public static void sendMessage(Message message) throws DatabaseException
     {

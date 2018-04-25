@@ -11,15 +11,17 @@ import com.group.seden.model.Message;
 import com.group.seden.model.MessageList;
 import com.group.seden.model.UserSession;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Used to securely deliver messages from the User's Firebase MessageInbox
  * and store it in their MessageList
  * @author  Isaac Buitrago
+ * @author Johnathan Guzman
  */
 
-public class MessageDeliverer
+public class MessageReceiver
 {
 
     private static DatabaseReference myRef;
@@ -30,7 +32,7 @@ public class MessageDeliverer
      * Constructor to set up the Database reference, initialize the current session,
      * and create a MessageList.
      */
-    public MessageDeliverer()
+    public MessageReceiver()
     {
         session = UserSession.getInstance();
 
@@ -50,15 +52,9 @@ public class MessageDeliverer
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
+                GenericTypeIndicator<HashMap<String, String>> hm = new GenericTypeIndicator<HashMap<String, String>>() {};
 
-                GenericTypeIndicator<List<Message>> t = new GenericTypeIndicator<List<Message>>() {};
-
-                List<Message> messages = dataSnapshot.getValue(t);
-
-                for(Message message : messages)
-                {
-                    messageList.addMessage(message);
-                }
+                HashMap<String, String> messages = dataSnapshot.getValue(hm);
 
             }
 
