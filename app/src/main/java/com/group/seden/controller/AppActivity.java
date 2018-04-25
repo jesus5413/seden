@@ -10,15 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.group.seden.Database.Receiving;
 import com.group.seden.R;
 
 
-import com.group.seden.Database.Database;
 import com.group.seden.model.Message;
 
 import java.util.ArrayList;
@@ -38,8 +34,6 @@ public class AppActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
     private Intent intent;
     private String uID;
-    ArrayList<Message> ourMessages = Receiving.getMessages();
-
 
 
     @Override
@@ -56,11 +50,12 @@ public class AppActivity extends AppCompatActivity {
 
         intent = getIntent();
         uID = intent.getExtras().getString("uID");
-       // mRecyclerView.setHasFixedSize(true);
 
+        /*
         for(Message msg:ourMessages){
             System.out.printf("This is our message: %s\n", msg);
         }
+        */
 
         mLayoutManager = new LinearLayoutManager(this);
        // mRecyclerView.setLayoutManager(mLayoutManager);
