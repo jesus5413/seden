@@ -11,6 +11,7 @@ import com.group.seden.model.Encryption;
 import com.group.seden.model.Message;
 import com.group.seden.model.MessageList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 
@@ -35,7 +36,7 @@ public class MessageReceiver
      */
     public MessageReceiver(String username)
     {
-        myRef = FirebaseDatabase.getInstance().getReference().child("MessageInbox").child(username).child("Mail");
+        myRef = FirebaseDatabase.getInstance().getReference().child("MessageInbox").child(username);
 
         inbox = MessageList.getInstance();
     }
@@ -53,35 +54,34 @@ public class MessageReceiver
             {
                 GenericTypeIndicator<HashMap<String, String>> hm = new GenericTypeIndicator<HashMap<String, String>>() {};
 
-                HashMap<String, String> messages = dataSnapshot.getValue(hm);
+                HashMap<String, String> messages = (HashMap<String, String>) dataSnapshot.getValue(hm);
 
-                Message messg = new Message();
+                // If the message inbox is null, return
+                if(messages == null)
+                    return;
 
-                messg.setSenderID(messages.get("SenderID"));
+                    Message messg = new Message();
 
-                messg.setMsgText(messages.get("Message"));
+                    messg.setSenderID(messages.get("SenderID"));
 
-                messg.setDeleteTime(Integer.parseInt(messages.get("DeleteTime")));
+                    messg.setMsgText(messages.get("Message"));
 
-                messg.setIsEncrypted(Boolean.parseBoolean(messages.get("Encrypted")));
+                    messg.setDeleteTime(Integer.parseInt(messages.get("DeleteTime")));
 
-                inbox.addMessage(messg);
+                    messg.setIsEncrypted(Boolean.parseBoolean(messages.get("Encrypted")));
 
-                if(messg.getIsEncrypted())
-                    Encryption.decrypt(messg, 12345);
+                    inbox.addMessage(messg);
 
-                // delete the message
-                Database.deleteLastMessage();
+                    if (messg.getIsEncrypted())
+                        Encryption.decrypt(messg, 12345);
 
-                System.out.println(messg.getMsgText());
-
+                    System.out.println(messg.getMsgText());
             }
 
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // Failed to read value
-                databaseError.toException();
+
             }
 
 

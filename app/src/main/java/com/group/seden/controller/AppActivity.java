@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseException;
+import com.group.seden.Database.Database;
 import com.group.seden.Database.MessageReceiver;
 import com.group.seden.R;
 import com.group.seden.model.Message;
@@ -53,7 +54,16 @@ public class AppActivity extends AppCompatActivity {
 
         youGotMail = new MessageReceiver(intent.getExtras().getString("Username"));
 
-        youGotMail.pollMessages();
+        try {
+
+            youGotMail.pollMessages();
+        } catch (DatabaseException e)
+        {
+            Log.e(TAG, e.getMessage());
+        } finally {
+            System.out.println(youGotMail.inbox.getMessageList().toString());
+        }
+
 
         intent = getIntent();
 
