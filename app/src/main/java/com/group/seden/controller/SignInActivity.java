@@ -75,14 +75,14 @@ public class SignInActivity extends AppCompatActivity {
         super.onStart();
         currentUser =  mAuth.getCurrentUser();
         // checks to see if there is a user, and if there is, go to the main app.
-        if(currentUser != null){
-            uID = currentUser.getUid();
-
-            Intent startIntent = new Intent(SignInActivity.this, AppActivity.class);
-            startIntent.putExtra("uID", uID);
-            startActivity(startIntent);
-            finish();
-        }
+//        if(currentUser != null){
+//            uID = currentUser.getUid();
+//
+//            Intent startIntent = new Intent(SignInActivity.this, AppActivity.class);
+//            startIntent.putExtra("uID", uID);
+//            startActivity(startIntent);
+//            finish();
+//        }
 
     }
 
@@ -102,7 +102,7 @@ public class SignInActivity extends AppCompatActivity {
 
                 // lock the user out of the account
                 if(counter >= 2 ){
-                    button.setEnabled(false);
+                    //button.setEnabled(false);
                     Toast.makeText(SignInActivity.this, "You've been locked out of the app for failed attempts. Contact your system administrator.",
                             Toast.LENGTH_LONG).show();
 
