@@ -99,6 +99,7 @@ public class ChatFragment extends Fragment {
                                         startIntent.putExtra("senderuID", model.getSenderID());
                                         startIntent.putExtra("message", model.getMessage());
                                         startIntent.putExtra("boolean", model.getEncrypted());
+                                        startIntent.putExtra("recipientuID", model.getRecipientID());
                                         startActivity(startIntent);
 
                                     }
