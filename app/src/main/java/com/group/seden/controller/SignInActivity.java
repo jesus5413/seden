@@ -45,6 +45,7 @@ public class SignInActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private UserSession userInfo;
     private String uID;
+    private String username;
     private int counter = 0;
     private final static String TAG = "SingInActivity";
 
@@ -59,11 +60,9 @@ public class SignInActivity extends AppCompatActivity {
         userName = (EditText) findViewById(R.id.emailEditText);
         password = (EditText) findViewById(R.id.passwordEditText);
 
-
         mAuth = FirebaseAuth.getInstance();
         logInProgress = new ProgressDialog(this);
         logInHandle(logIn);
-
 
 
     }
@@ -79,8 +78,11 @@ public class SignInActivity extends AppCompatActivity {
         if(currentUser != null){
             uID = currentUser.getUid();
 
+            username = userName.getText().toString();
+
             Intent startIntent = new Intent(SignInActivity.this, AppActivity.class);
             startIntent.putExtra("uID", uID);
+            startIntent.putExtra("Username", username);
             startActivity(startIntent);
             finish();
         }
@@ -99,17 +101,13 @@ public class SignInActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 System.out.println("tapped");
-                // logging in database code here
 
                 // lock the user out of the account
                 if(counter >= 2 ){
                     button.setEnabled(false);
                     Toast.makeText(SignInActivity.this, "You've been locked out of the app for failed attempts. Contact your system administrator.",
                             Toast.LENGTH_LONG).show();
-
                     try {
-
-                        String username =  userName.getText().toString();
 
                         boolean lock = true;
 
@@ -161,9 +159,6 @@ public class SignInActivity extends AppCompatActivity {
                 if(dataSnapshot.exists()){
 
                     temp = dataSnapshot.getValue(UserSession.class);
-                    Intent i = new Intent();
-
-                    i.putExtra("UserName", temp.getUserName());
 
                     userInfo = temp;
 
@@ -194,18 +189,24 @@ public class SignInActivity extends AppCompatActivity {
      * @param password
      */
     private void trueSignIn(String email, String password){
+
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>(){
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task){
+
                         if(task.isSuccessful()){
                             currentUser =  mAuth.getCurrentUser();
                             uID = currentUser.getUid();
                             System.out.println("logged in");
+
+                            username = userName.getText().toString();
+
                             // goes to the main app
                             logInProgress.dismiss();
                             Intent startIntent = new Intent(SignInActivity.this, AppActivity.class);
                             startIntent.putExtra("uID", uID);
+                            startIntent.putExtra("Username", username);
                             startActivity(startIntent);
                             finish();
                         }else{
