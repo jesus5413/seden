@@ -31,6 +31,10 @@ import com.group.seden.model.RecieveMessage;
  * Controller for the ChatInbox
  */
 public class ChatFragment extends Fragment {
+    private FirebaseUser currentUser;
+    private FirebaseAuth mAuth;
+
+
     private RecyclerView allChat;
     private DatabaseReference mUserDB;
     private DatabaseReference mMessageDB;
@@ -38,8 +42,6 @@ public class ChatFragment extends Fragment {
     private Query chatQuery;
     private String recieverUI;
     private FirebaseRecyclerAdapter firebaseRecyclerAdapter;
-    private FirebaseUser currentuser;
-    private FirebaseAuth mAuth;
 
     private String userName;
     private String message;
@@ -60,9 +62,9 @@ public class ChatFragment extends Fragment {
         recieverUI = getActivity().getIntent().getExtras().getString("uID");
         allChat.setHasFixedSize(true);
         allChat.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
         mAuth = FirebaseAuth.getInstance();
-
-
 
 
         return mView;
@@ -76,9 +78,11 @@ public class ChatFragment extends Fragment {
     }
 
     public void onActivityStarted(){
+
+        currentUser = mAuth.getCurrentUser();
+
         mUserDB = FirebaseDatabase.getInstance().getReference().child("messages").child(recieverUI);
         chatQuery = mUserDB.orderByKey();
-        currentuser = mAuth.getCurrentUser();
 
 
         FirebaseRecyclerOptions<RecieveMessage> userOption = new
@@ -106,6 +110,7 @@ public class ChatFragment extends Fragment {
                                         startIntent.putExtra("message", model.getMessage());
                                         startIntent.putExtra("boolean", model.getEncrypted());
                                         startIntent.putExtra("ruID", model.getRecipientId());
+                                        System.out.println("-----------------111-" + model.getRecipientId());
                                         startActivity(startIntent);
 
                                     }

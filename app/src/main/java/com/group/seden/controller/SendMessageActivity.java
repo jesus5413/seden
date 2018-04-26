@@ -1,5 +1,6 @@
 package com.group.seden.controller;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -55,7 +56,7 @@ public class SendMessageActivity extends AppCompatActivity{
     private FirebaseUser currentuser;
 
     //The ID of the recipient of the message
-    private String recipientID = "user001";
+    private String recipientID;
     private String senderID;
     private String userName;
 
@@ -72,9 +73,13 @@ public class SendMessageActivity extends AppCompatActivity{
         //Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
         recipientID = intent.getExtras().getString("uID");
-        senderID = intent.getExtras().getString("senderuID");
         userName = intent.getExtras().getString("userName");
+        senderID = intent.getExtras().getString("senderuID");
+        System.out.println("-------------------" + recipientID);
+        System.out.println(userName);
+        System.out.println(senderID);
 
+        //Log.d(" --------------",userName );
         //set id of GUI components
         TextView messageRecipient = (TextView)findViewById(R.id.recieveTextView1);
         messageRecipient.setText("To: " + userName);
@@ -159,6 +164,27 @@ public class SendMessageActivity extends AppCompatActivity{
 
     }
 
+    // code below for future improvements
+    public void EncryptOptionsFragment() {
+        // Create an instance of the dialog fragment and show it
+        DialogFragment dialog = new DecryptSuccessDialog();
+        dialog.show(getFragmentManager(), "NoticeDialogFragment");
+    }
+
+    //code below for future improvements
+/*    @Override
+    public void onDialogYesClick(DialogFragment dialog) {
+
+        passwordEnter.setEnabled(false);
+        decryptButton.setEnabled(false);
+    }
+
+    @Override
+    public void onDialogNoClick(DialogFragment dialog) {
+
+
+    }
+*/
 
 
 
