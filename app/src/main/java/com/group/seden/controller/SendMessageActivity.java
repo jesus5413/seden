@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseException;
 import com.group.seden.Database.Database;
 import com.group.seden.R;
@@ -43,6 +44,7 @@ public class SendMessageActivity extends AppCompatActivity{
     private AlertDialog dialog;
     private Message message;
     private UserSession session;
+    private FirebaseUser currentuser;
 
     //The ID of the recipient of the message
     private String recipientID = "user001";
@@ -59,11 +61,11 @@ public class SendMessageActivity extends AppCompatActivity{
 
         //Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        String recipient = intent.getExtras().getString("uID");
+        recipientID = intent.getExtras().getString("uID");
 
         //set id of GUI components
         TextView messageRecipient = (TextView)findViewById(R.id.recieveTextView1);
-        messageRecipient.setText("To: " + recipient);
+        messageRecipient.setText("To: " + recipientID);
 
         //find id of buttons from
         Button sendMessageButton = (Button)findViewById(R.id.sendMessageButton1);
@@ -92,8 +94,8 @@ public class SendMessageActivity extends AppCompatActivity{
                 int duration = Toast.LENGTH_SHORT;
 
                 //Initializes sessionID
-                session = UserSession.getInstance();
-
+                //session = UserSession.getInstance();
+                String userNameID = currentuser.getUid();
                 //Message object to send
                 Message message;
 
@@ -143,13 +145,14 @@ public class SendMessageActivity extends AppCompatActivity{
                 encryptOptionsDialog.show(getFragmentManager(), null);
 
                 System.out.println("Encrypt options");
-
-
-
             }
         });
 
     }
+
+
+
+
 
 
 

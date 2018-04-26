@@ -86,7 +86,7 @@ public class RequestFragment extends Fragment {
                                     // going to new view code is here. We will do that at meeting
 
                                     Intent startIntent = new Intent(getContext(), SendMessageActivity.class);
-                                    startIntent.putExtra("uID", model.getUniqueID());
+                                    startIntent.putExtra("uID", model.getUserName());
                                     startActivity(startIntent);
 
                                 }
