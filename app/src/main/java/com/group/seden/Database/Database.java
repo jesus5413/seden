@@ -17,8 +17,9 @@ import static com.google.firebase.database.DatabaseError.DISCONNECTED;
  */
 public class Database {
 
-    private static DatabaseReference mDatabase;
-    private static  UserSession userInfo;
+    private static DatabaseReference mDatabase;   // reference to the Firebase Database
+
+    private static String lastMessageRecipient;   // Username of the last recipient
 
     /**
      * Stores user info when they create an account. They will have a unique ID which stores in the database as well.
@@ -54,8 +55,11 @@ public class Database {
         childInfo.put("DeleteTime", Integer.toString(message.getDeleteTime()));
         childInfo.put("Encrypted", String.valueOf(message.getIsEncrypted()));
 
+        // set the username of the last recipient
+        lastMessageRecipient = message.getRecipientID();
+
         // send the message to the recipient's Inbox
-        mDatabase.child("MessageInbox").child(message.getRecipientID()).setValue(childInfo, new DatabaseReference.CompletionListener() {
+        mDatabase.child("MessageInbox").child(lastMessageRecipient).setValue(childInfo, new DatabaseReference.CompletionListener() {
 
             @Override
             public void onComplete(DatabaseError error, DatabaseReference ref)
@@ -76,10 +80,8 @@ public class Database {
     {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        userInfo = UserSession.getInstance();
-
         //delete the message
-        mDatabase.child("messages").child(userInfo.getUserName()).removeValue(
+        mDatabase.child("MessageInbox").child(lastMessageRecipient).removeValue(
                 new DatabaseReference.CompletionListener() {
 
                     // throw an error if unable to delete the last message
@@ -89,7 +91,6 @@ public class Database {
                             databaseError.toException();
                     }
                 }
-
         );
 
     }

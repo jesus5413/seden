@@ -49,7 +49,9 @@ public class AppActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Seden"); // sets the view title
         mAuth = FirebaseAuth.getInstance();
 
-        youGotMail = new MessageReceiver(intent.getExtras().getString("UserName"));
+        intent = getIntent();
+
+        youGotMail = new MessageReceiver(intent.getExtras().getString("Username"));
 
         youGotMail.pollMessages();
 

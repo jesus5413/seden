@@ -12,6 +12,8 @@ import com.group.seden.model.Message;
 import com.group.seden.model.MessageList;
 import java.util.HashMap;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+
 /**
  * Used to securely deliver messages from the User's Firebase MessageInbox
  * and store it in their MessageList
@@ -33,7 +35,7 @@ public class MessageReceiver
      */
     public MessageReceiver(String username)
     {
-        myRef = FirebaseDatabase.getInstance().getReference().child("MessageInbox").child(username);
+        myRef = FirebaseDatabase.getInstance().getReference().child("MessageInbox").child(username).child("Mail");
 
         inbox = MessageList.getInstance();
     }
@@ -67,6 +69,9 @@ public class MessageReceiver
 
                 if(messg.getIsEncrypted())
                     Encryption.decrypt(messg, 12345);
+
+                // delete the message
+                Database.deleteLastMessage();
 
                 System.out.println(messg.getMsgText());
 
