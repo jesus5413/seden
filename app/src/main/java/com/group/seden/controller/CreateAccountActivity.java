@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -137,11 +139,18 @@ public class CreateAccountActivity extends AppCompatActivity {
                     currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     String uId = currentUser.getUid();
                     Database.storeUserInDBChild(email, password, userName, uId);
+                    //setDisplayName();
                     System.out.println("account created");
+//                    FirebaseAuth.getInstance().signOut();
+//                    tempLogIn(email, password);
+//
+//                    String displayNAme = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+//                    System.out.println("-------------------------------------------------" + displayNAme);
 
                     FirebaseAuth.getInstance().signOut();
 
                     tempLogIn("sysAdmin@yahoo.com", "sysAdmin");
+
                     logInProgress.dismiss();
 
                 }else {
@@ -165,11 +174,12 @@ public class CreateAccountActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                    String uId = currentUser.getUid();
+                    String uId2 = currentUser.getUid();
                     Intent startIntent = new Intent(CreateAccountActivity.this, AppActivity.class);
-                    startIntent.putExtra("uID", uId);
+                    startIntent.putExtra("uID", uId2);
                     startActivity(startIntent);
                     finish();
+
                     System.out.println("----------------successful login");
                 }else{
                     System.out.println("ERROR");
@@ -179,6 +189,30 @@ public class CreateAccountActivity extends AppCompatActivity {
         });
 
     }
+
+//    private void setDisplayName(){
+//        final FirebaseUser user = mAuth.getCurrentUser();
+//
+//        if(user != null){
+//           UserProfileChangeRequest.Builder builder = new UserProfileChangeRequest.Builder();
+//           builder.setDisplayName(userName.getText().toString());
+//           UserProfileChangeRequest profileUpdated = builder.build();
+//
+//           user.updateProfile(profileUpdated).addOnCompleteListener(new OnCompleteListener<Void>() {
+//               @Override
+//               public void onComplete(@NonNull Task<Void> task) {
+//                    if(task.isSuccessful()){
+//                        Log.d("Update", "Profile name updated");
+//                    }
+//               }
+//           });
+//
+//
+//        }
+
+
+//    }
+
 
 
 

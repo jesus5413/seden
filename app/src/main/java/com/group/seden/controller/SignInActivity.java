@@ -104,7 +104,7 @@ public class SignInActivity extends AppCompatActivity {
 
                 // lock the user out of the account
                 if(counter >= 2 ){
-                    button.setEnabled(false);
+                    //button.setEnabled(false);
                     Toast.makeText(SignInActivity.this, "You've been locked out of the app for failed attempts. Contact your system administrator.",
                             Toast.LENGTH_LONG).show();
                     try {
