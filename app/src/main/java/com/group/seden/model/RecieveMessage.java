@@ -4,7 +4,7 @@ public class RecieveMessage {
     private String DeleTime;
     private String Encrypted;
     private String Message;
-    private String RecipientID;
+    private String RecipientId;
     private String SenderID;
 
     public RecieveMessage(){
@@ -36,12 +36,12 @@ public class RecieveMessage {
         this.Message = message;
     }
 
-    public String getRecipientID() {
-        return this.RecipientID;
+    public String getRecipientId() {
+        return this.RecipientId;
     }
 
-    public void setRecipientID(String recipientID) {
-        this.RecipientID = recipientID;
+    public void setRecipientId(String recipientID) {
+        this.RecipientId = recipientID;
     }
 
     public String getSenderID() {

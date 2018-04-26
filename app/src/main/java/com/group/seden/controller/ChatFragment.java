@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -36,6 +38,8 @@ public class ChatFragment extends Fragment {
     private Query chatQuery;
     private String recieverUI;
     private FirebaseRecyclerAdapter firebaseRecyclerAdapter;
+    private FirebaseUser currentuser;
+    private FirebaseAuth mAuth;
 
     private String userName;
     private String message;
@@ -56,6 +60,7 @@ public class ChatFragment extends Fragment {
         recieverUI = getActivity().getIntent().getExtras().getString("uID");
         allChat.setHasFixedSize(true);
         allChat.setLayoutManager(new LinearLayoutManager(getContext()));
+        mAuth = FirebaseAuth.getInstance();
 
 
 
@@ -73,6 +78,7 @@ public class ChatFragment extends Fragment {
     public void onActivityStarted(){
         mUserDB = FirebaseDatabase.getInstance().getReference().child("messages").child(recieverUI);
         chatQuery = mUserDB.orderByKey();
+        currentuser = mAuth.getCurrentUser();
 
 
         FirebaseRecyclerOptions<RecieveMessage> userOption = new
@@ -99,7 +105,7 @@ public class ChatFragment extends Fragment {
                                         startIntent.putExtra("senderuID", model.getSenderID());
                                         startIntent.putExtra("message", model.getMessage());
                                         startIntent.putExtra("boolean", model.getEncrypted());
-                                        startIntent.putExtra("recipientuID", model.getRecipientID());
+                                        startIntent.putExtra("ruID", model.getRecipientId());
                                         startActivity(startIntent);
 
                                     }

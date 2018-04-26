@@ -38,6 +38,10 @@ public class ReadMessage extends AppCompatActivity {
     //number of decrypt attempts
     private int decryptTry;
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
