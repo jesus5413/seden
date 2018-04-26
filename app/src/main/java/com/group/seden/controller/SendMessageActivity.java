@@ -1,15 +1,10 @@
 package com.group.seden.controller;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -62,20 +57,15 @@ public class SendMessageActivity extends AppCompatActivity{
         usePassword = false;
         password = null;
 
-        // Get the Intent that started this activity and extract the string
+        //Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        String message = intent.getExtras().getString("uID");
-
-
-        outGoingMessage = new Message();
-        outGoingMessage.setSenderID("user000");
-        outGoingMessage.setRecipientID("user000");
-
+        String recipient = intent.getExtras().getString("uID");
 
         //set id of GUI components
         TextView messageRecipient = (TextView)findViewById(R.id.recieveTextView1);
-        messageRecipient.setText("To:" + message);
+        messageRecipient.setText("To: " + recipient);
 
+        //find id of buttons from
         Button sendMessageButton = (Button)findViewById(R.id.sendMessageButton1);
         Button encryptButton = (Button)findViewById(R.id.encryptButton1);
         //calls class to handle button press
@@ -143,23 +133,14 @@ public class SendMessageActivity extends AppCompatActivity{
         });
 
     }
-
+// when encrypt button is pressed
     private void EncryptHandle(Button button){
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("create alter");
-                /*
-                AlertDialog.Builder builder = new AlertDialog.Builder(SendMessageActivity.this);
-                LayoutInflater inflater = SendMessageActivity.this.getLayoutInflater();
-                builder.setView(inflater.inflate(R.layout.activity_decrypt_options_dialog, null));
 
-                final AlertDialog dialog = builder.create();
-                dialog.show()
-*/
-                DecryptOptionsDialog decryptOptionsDialog = new DecryptOptionsDialog();
-                decryptOptionsDialog.show(getFragmentManager(), null);
-
+                EncryptOptionsDialog encryptOptionsDialog = new EncryptOptionsDialog();
+                encryptOptionsDialog.show(getFragmentManager(), null);
 
                 System.out.println("Encrypt options");
 
@@ -170,33 +151,6 @@ public class SendMessageActivity extends AppCompatActivity{
 
     }
 
-
-    private void FinishEncryptHandle(Button button){
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                System.out.println("create alter");
-
-
-                System.out.println("accept pressed");
-                Log.d("MyApp","Accept pressed");
-                //send message code here
-                Context context = getApplicationContext();
-                CharSequence text = "Accept Click Working";
-                int duration = Toast.LENGTH_SHORT;
-
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
-                dialog.dismiss();
-
-
-
-            }
-        });
-
-    } // end of finish encrpyt handle
 
 
 }

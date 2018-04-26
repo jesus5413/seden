@@ -5,7 +5,7 @@
  */
 package com.group.seden.model;
 
-public class Message{
+public class Message {
 
     private String msgText;  // the users message
 
@@ -15,30 +15,31 @@ public class Message{
 
     private boolean isEncrypted = false;
 
-    private int timer = 5*60;
+    private int timer = 5 * 60;
+
     /**
      * Constructor that accepts an initial Message
+     *
      * @param msgText message to be sent
      */
-    public Message(String msgText)
-    {
+    public Message(String msgText) {
         this.msgText = msgText;
     }
 
     /**
      * Default constructor
      */
-    public Message(){}
+    public Message() {
+    }
 
 
-
-    public Message(String senderID, String recipientID, String message){
+    public Message(String senderID, String recipientID, String message) {
         this.msgText = message;
         this.senderID = senderID;
         this.recipientID = recipientID;
     }
 
-    public Message(String senderID, String recipientID, String message, boolean isEncrypted){
+    public Message(String senderID, String recipientID, String message, boolean isEncrypted) {
         this.msgText = message;
         this.senderID = senderID;
         this.recipientID = recipientID;
@@ -77,25 +78,12 @@ public class Message{
         this.msgText = text;
     }
 
-    public void setDeleteTime(int timer)
-    {
+    public void setDeleteTime(int timer) {
         this.timer = timer;
     }
 
-    public int getDeleteTime()
-    {
+    public int getDeleteTime() {
         return this.timer;
-    }
-
-
-    //Deletes a message after a certain amount of time
-    public void TimeOutDelete(MessageList messages) {
-        new TimeOut(this, timer, messages);
-    }
-
-    //Deletes a message immediately
-    public void delete() {
-        this.setMsgText(null);
     }
 
 }

@@ -1,16 +1,14 @@
 package com.group.seden.Database;
-
-
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.group.seden.model.Message;
 import com.group.seden.model.UserSession;
 
 import java.util.HashMap;
+
+import static com.google.firebase.database.DatabaseError.DISCONNECTED;
 
 /**
  * Class to store data in the database
@@ -20,7 +18,7 @@ import java.util.HashMap;
 public class Database {
 
     private static DatabaseReference mDatabase;
-    private static UserSession userInfo;
+    private static  UserSession userInfo;
 
     /**
      * Stores user info when they create an account. They will have a unique ID which stores in the database as well.
@@ -35,17 +33,16 @@ public class Database {
         childInfo.put("UserName", userName);
         childInfo.put("Email", email);
         childInfo.put("Password", password);
-        //String tempuID = mDatabase.push().getKey();
         childInfo.put("UniqueID", uID);
+        childInfo.put("AccountLocked", "false");
         mDatabase.child("users").child(userName).setValue(childInfo); // this points to the database, then to the users node and then stores a new node in the users nodes with a unique ID.
 
     }
 
     /**
-     * Used to send a message to a recipient. It is assumed that
-     * all the fields of the message are set and valid.
+     * Used to send a message to a recipient. It is assumed that all the fields of the message are set and valid.
+     * throws DatabaseException when the Database cannot process the message
      * @param message to send to a remote device, all fields must be set
-     * @return true if the message was successfully sent, otherwise throws DatabaseException
      */
     public static void sendMessage(Message message) throws DatabaseException
     {
@@ -53,26 +50,88 @@ public class Database {
 
         HashMap<String, String> childInfo = new HashMap<>();
         childInfo.put("Message", message.getMsgText());
-        childInfo.put("SenderId", message.getSenderID());
         childInfo.put("RecipientId", message.getRecipientID());
         childInfo.put("DeleteTime", Integer.toString(message.getDeleteTime()));
         childInfo.put("Encrypted", String.valueOf(message.getIsEncrypted()));
 
-       String messageChild = mDatabase.push().getKey();   // generate
-
-        mDatabase.child("messages").child(messageChild).setValue(childInfo, new DatabaseReference.CompletionListener() {
+        // title the username
+        mDatabase.child("messages").child(message.getSenderID()).setValue(childInfo, new DatabaseReference.CompletionListener() {
 
             @Override
             public void onComplete(DatabaseError error, DatabaseReference ref)
             {
-
                 if(error != null)
                 {
                     error.toException();
                 }
-
             }
         });
     }
+
+    /**
+     * Used to delete the last sent message
+     * throws DatabaseException when the Database cannot remove the child node
+     */
+    public static void deleteLastMessage() throws DatabaseException
+    {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        userInfo = UserSession.getInstance();
+
+        //delete the message
+        mDatabase.child("messages").child(userInfo.getUserName()).removeValue(
+                new DatabaseReference.CompletionListener() {
+
+                    // throw an error if unable to delete the last message
+                    @Override
+                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                        if(databaseError != null)
+                            databaseError.toException();
+                    }
+                }
+
+        );
+
+    }
+
+    /**
+     * Used to control access of an employee or client account by locking and unlocking the account
+     * with the specified username.
+     * throws DatabaseException when the Database cannot process the username
+     * @param username who's account needs to be locked
+     * @param lock true if the user will be locked out of their account, false otherwise
+     */
+    public static void controlAccountAccess(String username, boolean lock) throws DatabaseException
+    {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child(username);
+
+        if(lock)
+        {
+                mDatabase.child("AccountLocked").setValue("true", new DatabaseReference.CompletionListener() {
+
+                    @Override
+                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                        if (databaseError != null)
+                            databaseError.toException();
+
+                    }
+                });
+        }
+
+        else
+        {
+                mDatabase.child("AccountLocked").setValue("false", new DatabaseReference.CompletionListener() {
+
+                @Override
+                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                    if (databaseError != null)
+                        databaseError.toException();
+                }
+            });
+        }
+
+    }
+
 
 }

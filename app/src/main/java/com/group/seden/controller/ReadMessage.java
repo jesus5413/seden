@@ -1,48 +1,74 @@
 package com.group.seden.controller;
 
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Intent;
 
 import com.group.seden.R;
 import com.group.seden.model.Encryption;
 import com.group.seden.model.Message;
+
+import org.w3c.dom.Text;
 
 public class ReadMessage extends AppCompatActivity {
     public static final String SENDER_EXTRA = "com.group.seden.MESSAGE";
 
     private String messageSender;
     private String messageContent;
-    private TextView messageRecipient;
     private Message tempMess;
+
+    // declare layout component variables
+    private Button decryptButton;
+    private EditText passwordEnter;
+    private Long passwordLong;
+    private TextView messageTextView;
+    private TextView senderTextView;
 
     private boolean isEncrypted;
 
     private Button replyButton;
+
+    private Message tempMessage;
+
+    //number of decrypt attempts
+    private int decryptTry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_message);
 
+        //allow window to readjust when keyboard comes up
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE| WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+        // initialize decrypt tries
+        decryptTry = 0;
+
+        //place holders
         messageSender = "user000";
         messageContent = "Hello user000";
         isEncrypted = true;
-        Message tempMess;
+
+        tempMessage = new Message();
 
         if(isEncrypted == true){
-            LaunchDecryption();
+            // put code to enable decrypt option
         }
 
         Button replyButton = (Button)findViewById(R.id.replyButton1);
+        Button decryptButton = (Button)findViewById(R.id.decryptButton1);
+        passwordEnter = (EditText) findViewById(R.id.enterPasswordEditText1);
+        messageTextView = (TextView) findViewById(R.id.messageContentTextView1);
+        senderTextView = (TextView) findViewById(R.id.senderNameTextView1);
+
         //calls class to handle button press
         ReplyHandle(replyButton);
+        PressDecryption(decryptButton);
 
     }
 
@@ -60,21 +86,33 @@ public class ReadMessage extends AppCompatActivity {
         });
 
     }
-
-    private void LaunchDecryption(){
-
-        final EncryptionDialog dialog=new EncryptionDialog();
-        dialog.onButtonAccept =new View.OnClickListener() {
+// code when user presses the decrypt button
+    private void PressDecryption(Button button){
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(), dialog.edit_text.getText(), Toast.LENGTH_SHORT).show();
+            public void onClick(View view) {
+
+                decryptTry++;
+                // if the user exceeds the number of decryption tries
+                if(decryptTry > 3){
+                    finish();
+                }else{
+                    //otherwise make a toast
+
+                }
+
+                //get password from password input box
+                if (!passwordEnter.getText().toString().equals(""))
+                    passwordLong = Long.parseLong(passwordEnter.getText().toString());
+
+                Encryption.decrypt(tempMessage,passwordLong);
+
+
             }
-        };
 
-        dialog.show(getFragmentManager(),null);
 
-        int key = 111;
-        Encryption.decrypt(tempMess, key);
+        });
+
     }
 
 }
