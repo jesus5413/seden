@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,10 +13,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.group.seden.Database.Database;
 import com.group.seden.R;
 import com.group.seden.model.*;
+
+import java.util.Iterator;
 
 /*
 
@@ -48,6 +56,8 @@ public class SendMessageActivity extends AppCompatActivity{
 
     //The ID of the recipient of the message
     private String recipientID = "user001";
+    private String senderID;
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -62,10 +72,12 @@ public class SendMessageActivity extends AppCompatActivity{
         //Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
         recipientID = intent.getExtras().getString("uID");
+        senderID = intent.getExtras().getString("senderuID");
+        userName = intent.getExtras().getString("userName");
 
         //set id of GUI components
         TextView messageRecipient = (TextView)findViewById(R.id.recieveTextView1);
-        messageRecipient.setText("To: " + recipientID);
+        messageRecipient.setText("To: " + userName);
 
         //find id of buttons from
         Button sendMessageButton = (Button)findViewById(R.id.sendMessageButton1);
@@ -93,9 +105,6 @@ public class SendMessageActivity extends AppCompatActivity{
                 CharSequence text = "";
                 int duration = Toast.LENGTH_SHORT;
 
-                //Initializes sessionID
-                //session = UserSession.getInstance();
-                String userNameID = currentuser.getUid();
                 //Message object to send
                 Message message;
 
@@ -105,11 +114,11 @@ public class SendMessageActivity extends AppCompatActivity{
                 //If encryption key is used, constructs message with key is tru.
                 //Otherwise, constructs message with key false.
                 if (usePassword == true) {
-                    message = new Message(session.getUniqueID(), recipientID,
+                    message = new Message(senderID, recipientID,
                             messageString, usePassword);
                     Encryption.encrypt(message, password);
                 }else
-                    message = new Message(session.getUniqueID(), recipientID,
+                    message = new Message(senderID, recipientID,
                             messageString);
 
                 //Tries to send message to database
