@@ -1,5 +1,11 @@
 package com.group.seden.controller;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +21,7 @@ import com.group.seden.model.Message;
 
 import org.w3c.dom.Text;
 
-public class ReadMessage extends AppCompatActivity {
+public class ReadMessage extends FragmentActivity implements DecryptSuccessDialog.DecryptSuccessDialogListener{
     public static final String SENDER_EXTRA = "com.group.seden.MESSAGE";
 
     private String messageSender;
@@ -33,6 +39,7 @@ public class ReadMessage extends AppCompatActivity {
 
     private Button replyButton;
 
+// temporary message
     private Message tempMessage;
 
     //number of decrypt attempts
@@ -49,26 +56,48 @@ public class ReadMessage extends AppCompatActivity {
         // initialize decrypt tries
         decryptTry = 0;
 
-        //place holders
-        messageSender = "user000";
-        messageContent = "Hello user000";
-        isEncrypted = true;
+        //Get the Intent that started this activity and extract the string
+        Intent intent = getIntent();
+        String sender = intent.getExtras().getString("senderuID");
+        String recipient = intent.getExtras().getString("ruID");
+        String messageText = intent.getExtras().getString("message");
+        String messageBoolean = intent.getExtras().getString("boolean");
 
-        tempMessage = new Message();
-
-        if(isEncrypted == true){
-            // put code to enable decrypt option
+        //set encrypt boolean
+        if(messageBoolean.equals("true")){
+            isEncrypted = true;
+        }else{
+            isEncrypted = false;
         }
 
+        //create temporary message
+        tempMessage = new Message(recipient,recipient,messageText,isEncrypted);
+
+
+// get gui component ids
         Button replyButton = (Button)findViewById(R.id.replyButton1);
-        Button decryptButton = (Button)findViewById(R.id.decryptButton1);
+        decryptButton = (Button)findViewById(R.id.decryptButton1);
         passwordEnter = (EditText) findViewById(R.id.enterPasswordEditText1);
         messageTextView = (TextView) findViewById(R.id.messageContentTextView1);
         senderTextView = (TextView) findViewById(R.id.senderNameTextView1);
 
+        //set From text
+        senderTextView.setText(sender);
+        //set message content
+        messageTextView.setText(tempMessage.getMsgText());
+
+        //checks if the message is encrypted
+        if(tempMessage.getIsEncrypted() == true){
+            // put code to enable decrypt option
+            EnableButtons();
+
+        }else{
+            DisableButtons();
+        }
+
         //calls class to handle button press
         ReplyHandle(replyButton);
-        PressDecryption(decryptButton);
+        PressDecryption();
 
     }
 
@@ -77,35 +106,35 @@ public class ReadMessage extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-           //     Intent intent = new Intent(this, SendMessageActivity.class);
-          //      String message = messageSender;
-           //     intent.putExtra(SENDER_EXTRA, message);
-           //     startActivity(intent);
+
+                Intent startIntent = new Intent(ReadMessage.this, SendMessageActivity.class);
+                startIntent.putExtra("uID",tempMessage.getSenderID());
+                startIntent.putExtra("userName",tempMessage.getSenderID());
+                startIntent.putExtra("senderuID",tempMessage.getRecipientID());
+                startActivity(startIntent);
 
             }
         });
 
     }
 // code when user presses the decrypt button
-    private void PressDecryption(Button button){
-        button.setOnClickListener(new View.OnClickListener() {
+    private void PressDecryption(){
+        decryptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 decryptTry++;
-                // if the user exceeds the number of decryption tries
-                if(decryptTry > 3){
-                    finish();
-                }else{
-                    //otherwise make a toast
 
-                }
 
                 //get password from password input box
                 if (!passwordEnter.getText().toString().equals(""))
                     passwordLong = Long.parseLong(passwordEnter.getText().toString());
 
                 Encryption.decrypt(tempMessage,passwordLong);
+                //set message text box
+                messageTextView.setText(tempMessage.getMsgText());
+
+                showDecryptSuccessDialog();
 
 
             }
@@ -114,5 +143,49 @@ public class ReadMessage extends AppCompatActivity {
         });
 
     }
+    //enables decrypt button and text box
+    public void EnableButtons(){
+        passwordEnter.setEnabled(true);
+        decryptButton.setEnabled(true);
+        passwordEnter.setVisibility(View.VISIBLE);
+        decryptButton.setVisibility(View.VISIBLE);
+
+    }
+    //enables decrypt button and text box
+    public void DisableButtons(){
+        passwordEnter.setEnabled(false);
+        decryptButton.setEnabled(false);
+        passwordEnter.setVisibility(View.GONE);
+        decryptButton.setVisibility(View.GONE);
+
+    }
+
+    public void showDecryptSuccessDialog() {
+        // Create an instance of the dialog fragment and show it
+        DialogFragment dialog = new DecryptSuccessDialog();
+        dialog.show(getFragmentManager(), "NoticeDialogFragment");
+    }
+
+
+    // The dialog fragment receives a reference to this Activity through the
+    // Fragment.onAttach() callback, which it uses to call the following methods
+    // defined by the NoticeDialogFragment.NoticeDialogListener interface
+    @Override
+    public void onDialogYesClick(DialogFragment dialog) {
+        // User touched the dialog's yes button
+        //disable the decrypt button
+        DisableButtons();
+    }
+
+    @Override
+    public void onDialogNoClick(DialogFragment dialog) {
+        // User touched the no button in the dialog
+      Encryption.encrypt(tempMessage,passwordLong);
+        if(decryptTry >= 3){
+            finish();
+        }
+    }
+
 
 }
+

@@ -1,5 +1,6 @@
 package com.group.seden.controller;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -151,6 +152,27 @@ public class SendMessageActivity extends AppCompatActivity{
 
     }
 
+    // code below for future improvements
+    public void EncryptOptionsFragment() {
+        // Create an instance of the dialog fragment and show it
+        DialogFragment dialog = new DecryptSuccessDialog();
+        dialog.show(getFragmentManager(), "NoticeDialogFragment");
+    }
+
+    //code below for future improvements
+/*    @Override
+    public void onDialogYesClick(DialogFragment dialog) {
+
+        passwordEnter.setEnabled(false);
+        decryptButton.setEnabled(false);
+    }
+
+    @Override
+    public void onDialogNoClick(DialogFragment dialog) {
+
+
+    }
+*/
 
 
 }
