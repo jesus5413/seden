@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -29,6 +31,10 @@ import com.group.seden.model.RecieveMessage;
  * Controller for the ChatInbox
  */
 public class ChatFragment extends Fragment {
+    private FirebaseUser currentUser;
+    private FirebaseAuth mAuth;
+
+
     private RecyclerView allChat;
     private DatabaseReference mUserDB;
     private DatabaseReference mMessageDB;
@@ -58,6 +64,7 @@ public class ChatFragment extends Fragment {
         allChat.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
+        mAuth = FirebaseAuth.getInstance();
 
 
         return mView;
@@ -71,6 +78,9 @@ public class ChatFragment extends Fragment {
     }
 
     public void onActivityStarted(){
+
+        currentUser = mAuth.getCurrentUser();
+
         mUserDB = FirebaseDatabase.getInstance().getReference().child("messages").child(recieverUI);
         chatQuery = mUserDB.orderByKey();
 
@@ -99,7 +109,8 @@ public class ChatFragment extends Fragment {
                                         startIntent.putExtra("senderuID", model.getSenderID());
                                         startIntent.putExtra("message", model.getMessage());
                                         startIntent.putExtra("boolean", model.getEncrypted());
-                                        startIntent.putExtra("ruID", model.getRecipientID());
+                                        startIntent.putExtra("ruID", model.getRecipientId());
+                                        System.out.println("-----------------111-" + model.getRecipientId());
                                         startActivity(startIntent);
 
                                     }

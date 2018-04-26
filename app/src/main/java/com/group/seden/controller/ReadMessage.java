@@ -67,6 +67,9 @@ public class ReadMessage extends FragmentActivity implements DecryptSuccessDialo
         String messageText = intent.getExtras().getString("message");
         messageBoolean = intent.getExtras().getString("boolean");
 
+        System.out.println("-------------------" + sender);
+        System.out.println("-------------------" + recipient);
+
         //set encrypt boolean
         if(messageBoolean.equals("true")){
             isEncrypted = true;
@@ -114,6 +117,7 @@ public class ReadMessage extends FragmentActivity implements DecryptSuccessDialo
                 Intent startIntent = new Intent(ReadMessage.this, SendMessageActivity.class);
                 startIntent.putExtra("uID", sender);
                 startIntent.putExtra("userName",sender);
+                System.out.println("-------------------" + recipient);
                 startIntent.putExtra("senderuID",recipient);
                 startActivity(startIntent);
 
