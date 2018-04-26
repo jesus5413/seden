@@ -28,6 +28,9 @@ public class ReadMessage extends FragmentActivity implements DecryptSuccessDialo
     private String messageContent;
     private Message tempMess;
 
+    //from intent
+    private String sender;
+    private String recipient;
     // declare layout component variables
     private Button decryptButton;
     private EditText passwordEnter;
@@ -36,6 +39,7 @@ public class ReadMessage extends FragmentActivity implements DecryptSuccessDialo
     private TextView senderTextView;
 
     private boolean isEncrypted;
+    private String messageBoolean;
 
     private Button replyButton;
 
@@ -58,10 +62,10 @@ public class ReadMessage extends FragmentActivity implements DecryptSuccessDialo
 
         //Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        String sender = intent.getExtras().getString("senderuID");
-        String recipient = intent.getExtras().getString("ruID");
+        sender = intent.getExtras().getString("senderuID");
+        recipient = intent.getExtras().getString("ruID");
         String messageText = intent.getExtras().getString("message");
-        String messageBoolean = intent.getExtras().getString("boolean");
+        messageBoolean = intent.getExtras().getString("boolean");
 
         //set encrypt boolean
         if(messageBoolean.equals("true")){
@@ -82,7 +86,7 @@ public class ReadMessage extends FragmentActivity implements DecryptSuccessDialo
         senderTextView = (TextView) findViewById(R.id.senderNameTextView1);
 
         //set From text
-        senderTextView.setText(sender);
+        senderTextView.setText("From: " + sender);
         //set message content
         messageTextView.setText(tempMessage.getMsgText());
 
@@ -108,9 +112,9 @@ public class ReadMessage extends FragmentActivity implements DecryptSuccessDialo
             public void onClick(View view) {
 
                 Intent startIntent = new Intent(ReadMessage.this, SendMessageActivity.class);
-                startIntent.putExtra("uID",tempMessage.getSenderID());
-                startIntent.putExtra("userName",tempMessage.getSenderID());
-                startIntent.putExtra("senderuID",tempMessage.getRecipientID());
+                startIntent.putExtra("uID", sender);
+                startIntent.putExtra("userName",sender);
+                startIntent.putExtra("senderuID",recipient);
                 startActivity(startIntent);
 
             }
@@ -181,6 +185,10 @@ public class ReadMessage extends FragmentActivity implements DecryptSuccessDialo
     public void onDialogNoClick(DialogFragment dialog) {
         // User touched the no button in the dialog
       Encryption.encrypt(tempMessage,passwordLong);
+
+        //set message text box
+        messageTextView.setText(tempMessage.getMsgText());
+
         if(decryptTry >= 3){
             finish();
         }

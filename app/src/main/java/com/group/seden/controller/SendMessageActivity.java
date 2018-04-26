@@ -56,7 +56,7 @@ public class SendMessageActivity extends AppCompatActivity{
     private FirebaseUser currentuser;
 
     //The ID of the recipient of the message
-    private String recipientID = "user001";
+    private String recipientID;
     private String senderID;
     private String userName;
 
@@ -73,9 +73,13 @@ public class SendMessageActivity extends AppCompatActivity{
         //Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
         recipientID = intent.getExtras().getString("uID");
-        senderID = intent.getExtras().getString("senderuID");
         userName = intent.getExtras().getString("userName");
+        senderID = intent.getExtras().getString("senderuID");
+        System.out.println("-------------------" + recipientID);
+        System.out.println(userName);
+        System.out.println(senderID);
 
+        //Log.d(" --------------",userName );
         //set id of GUI components
         TextView messageRecipient = (TextView)findViewById(R.id.recieveTextView1);
         messageRecipient.setText("To: " + userName);
