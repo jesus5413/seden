@@ -19,9 +19,9 @@ public class MessageList implements Iterable<Message> {
         this.messages.add(message);
     }
 
-    public void TimeOutDelete(Message message) {
-        new TimeOut(message, message.getDeleteTime(), this);
-    }
+    //public void TimeOutDelete(Message message) {
+    //    new TimeOut(message, message.getDeleteTime(), this);
+    //}
 
     public void deleteMessage(Message message) {
         this.getMessageList().remove(message);
