@@ -6,15 +6,25 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.group.seden.Database.Database;
 import com.group.seden.R;
 import com.group.seden.model.*;
+
+import java.util.Iterator;
 
 /*
 
@@ -43,6 +53,7 @@ public class SendMessageActivity extends AppCompatActivity{
     private AlertDialog dialog;
     private Message message;
     private UserSession session;
+    private FirebaseUser currentuser;
 
     //The ID of the recipient of the message
     private String recipientID;
@@ -68,7 +79,6 @@ public class SendMessageActivity extends AppCompatActivity{
         System.out.println(userName);
         System.out.println(senderID);
 
-        //Log.d(" --------------",userName );
         //set id of GUI components
         TextView messageRecipient = (TextView)findViewById(R.id.recieveTextView1);
         messageRecipient.setText("To: " + userName);
@@ -108,11 +118,11 @@ public class SendMessageActivity extends AppCompatActivity{
                 //If encryption key is used, constructs message with key is tru.
                 //Otherwise, constructs message with key false.
                 if (usePassword == true) {
-                    message = new Message(senderID, recipientID,
+                    message = new Message(session.getUniqueID(), recipientID,
                             messageString, usePassword);
                     Encryption.encrypt(message, password);
                 }else
-                    message = new Message(senderID, recipientID,
+                    message = new Message(session.getUniqueID(), recipientID,
                             messageString);
 
                 //Tries to send message to database
@@ -139,19 +149,18 @@ public class SendMessageActivity extends AppCompatActivity{
 
     }
 // when encrypt button is pressed
-    private void EncryptHandle(Button button) {
+    private void EncryptHandle(Button button){
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 EncryptOptionsDialog encryptOptionsDialog = new EncryptOptionsDialog();
-
                 encryptOptionsDialog.show(getFragmentManager(), null);
 
                 System.out.println("Encrypt options");
-
             }
         });
+
     }
 
     // code below for future improvements
@@ -175,5 +184,10 @@ public class SendMessageActivity extends AppCompatActivity{
 
     }
 */
+
+
+
+
+
 
 }

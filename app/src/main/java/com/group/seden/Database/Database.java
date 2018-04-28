@@ -45,7 +45,7 @@ public class Database {
     /**
      * Used to send a message to a recipient. It is assumed that all the fields of the message are set and valid.
      * throws DatabaseException when the Database cannot process the message
-     * @param message to send to a remote device, all fields must be set.
+     * @param message to send to a remote device, all fields must be set
      */
     public static void sendMessage(Message message) throws DatabaseException
     {
@@ -53,20 +53,13 @@ public class Database {
 
         HashMap<String, String> childInfo = new HashMap<>();
         childInfo.put("Message", message.getMsgText());
+        childInfo.put("RecipientId", message.getRecipientID());
         childInfo.put("SenderID", message.getSenderID());
-        childInfo.put("RecipientID", message.getSenderID());
         childInfo.put("DeleteTime", Integer.toString(message.getDeleteTime()));
         childInfo.put("Encrypted", String.valueOf(message.getIsEncrypted()));
 
-        // set the last sender,only one sender in the current app instance
-        if(lastMessageSender != null)
-            lastMessageSender = message.getSenderID();
-
-        // set the last recipient to be sent a message
-        lastMessageRecipient = message.getRecipientID();
-
         // title the username
-        mDatabase.child("messages").child(message.getRecipientID()).child(message.getSenderID()).setValue(childInfo, new DatabaseReference.CompletionListener() {
+        mDatabase.child("messages").child(message.getSenderID()).setValue(childInfo, new DatabaseReference.CompletionListener() {
 
             @Override
             public void onComplete(DatabaseError error, DatabaseReference ref)
@@ -77,7 +70,7 @@ public class Database {
                 }
             }
         });
-}
+    }
 
     /**
      * Used to delete the last sent message
@@ -98,6 +91,7 @@ public class Database {
                             databaseError.toException();
                     }
                 }
+
         );
 
     }

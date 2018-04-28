@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,19 +92,13 @@ public class RequestFragment extends Fragment {
                             public void onClick(DialogInterface dialogInterface, int i) {
                               // go to the new view
                                 if(i == 0){
-
                                     // this is point to first option which is send message
                                     // going to new view code is here. We will do that at meeting
                                     String s2 = senderuID;
-
                                     Intent startIntent = new Intent(getContext(), SendMessageActivity.class);
-
                                     startIntent.putExtra("uID", model.getUniqueID());
-
                                     startIntent.putExtra("userName", model.getUserName());
-
                                     startIntent.putExtra("senderuID", senderuID);
-
                                     startActivity(startIntent);
 
                                 }
