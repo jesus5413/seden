@@ -94,7 +94,7 @@ public class RequestFragment extends Fragment {
                                 if(i == 0){
                                     // this is point to first option which is send message
                                     // going to new view code is here. We will do that at meeting
-                                    String s2 = senderuID;
+                                    //String s2 = senderuID;
                                     Intent startIntent = new Intent(getContext(), SendMessageActivity.class);
                                     startIntent.putExtra("uID", model.getUniqueID());
                                     startIntent.putExtra("userName", model.getUserName());
