@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,9 @@ public class RequestFragment extends Fragment {
     private Query userQuery;
     private FirebaseRecyclerAdapter firebaseRecyclerAdapter;
 
+    private String senderuID;
+    private String userName;
+
     public RequestFragment() {
         // Required empty public constructor
     }
@@ -46,6 +50,13 @@ public class RequestFragment extends Fragment {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_request, container, false);
         mAllUsers = (RecyclerView) mView.findViewById(R.id.user_RecyclerView);
+        Intent intent = new Intent();
+        senderuID = getActivity().getIntent().getExtras().getString("uID");
+
+
+
+
+
 
         return mView;
     }
@@ -82,11 +93,19 @@ public class RequestFragment extends Fragment {
                             public void onClick(DialogInterface dialogInterface, int i) {
                               // go to the new view
                                 if(i == 0){
+
                                     // this is point to first option which is send message
                                     // going to new view code is here. We will do that at meeting
+                                    String s2 = senderuID;
 
                                     Intent startIntent = new Intent(getContext(), SendMessageActivity.class);
-                                    startIntent.putExtra("Username", model.getUserName());
+
+                                    startIntent.putExtra("uID", model.getUniqueID());
+
+                                    startIntent.putExtra("userName", model.getUserName());
+
+                                    startIntent.putExtra("senderuID", senderuID);
+
                                     startActivity(startIntent);
 
                                 }

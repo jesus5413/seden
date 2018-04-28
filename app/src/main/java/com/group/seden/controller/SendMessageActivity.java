@@ -1,5 +1,6 @@
 package com.group.seden.controller;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -10,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.database.DatabaseException;
 import com.group.seden.Database.Database;
 import com.group.seden.R;
@@ -45,7 +45,9 @@ public class SendMessageActivity extends AppCompatActivity{
     private UserSession session;
 
     //The ID of the recipient of the message
-    private String recipientID = "user001";
+    private String recipientID;
+    private String senderID;
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -59,11 +61,17 @@ public class SendMessageActivity extends AppCompatActivity{
 
         //Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        String recipient =  recipientID = intent.getExtras().getString("Username");
+        recipientID = intent.getExtras().getString("uID");
+        userName = intent.getExtras().getString("userName");
+        senderID = intent.getExtras().getString("senderuID");
+        System.out.println("-------------------" + recipientID);
+        System.out.println(userName);
+        System.out.println(senderID);
 
+        //Log.d(" --------------",userName );
         //set id of GUI components
         TextView messageRecipient = (TextView)findViewById(R.id.recieveTextView1);
-        messageRecipient.setText("To: " + recipient);
+        messageRecipient.setText("To: " + userName);
 
         //find id of buttons from
         Button sendMessageButton = (Button)findViewById(R.id.sendMessageButton1);
@@ -91,9 +99,6 @@ public class SendMessageActivity extends AppCompatActivity{
                 CharSequence text = "";
                 int duration = Toast.LENGTH_SHORT;
 
-                //Initializes sessionID
-                session = UserSession.getInstance();
-
                 //Message object to send
                 Message message;
 
@@ -103,11 +108,11 @@ public class SendMessageActivity extends AppCompatActivity{
                 //If encryption key is used, constructs message with key is tru.
                 //Otherwise, constructs message with key false.
                 if (usePassword == true) {
-                    message = new Message(session.getUniqueID(), recipientID,
+                    message = new Message(senderID, recipientID,
                             messageString, usePassword);
                     Encryption.encrypt(message, password);
                 }else
-                    message = new Message(session.getUniqueID(), recipientID,
+                    message = new Message(senderID, recipientID,
                             messageString);
 
                 //Tries to send message to database
@@ -134,23 +139,41 @@ public class SendMessageActivity extends AppCompatActivity{
 
     }
 // when encrypt button is pressed
-    private void EncryptHandle(Button button){
+    private void EncryptHandle(Button button) {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 EncryptOptionsDialog encryptOptionsDialog = new EncryptOptionsDialog();
+
                 encryptOptionsDialog.show(getFragmentManager(), null);
 
                 System.out.println("Encrypt options");
 
-
-
             }
         });
-
     }
 
+    // code below for future improvements
+    public void EncryptOptionsFragment() {
+        // Create an instance of the dialog fragment and show it
+        DialogFragment dialog = new DecryptSuccessDialog();
+        dialog.show(getFragmentManager(), "NoticeDialogFragment");
+    }
 
+    //code below for future improvements
+/*    @Override
+    public void onDialogYesClick(DialogFragment dialog) {
+
+        passwordEnter.setEnabled(false);
+        decryptButton.setEnabled(false);
+    }
+
+    @Override
+    public void onDialogNoClick(DialogFragment dialog) {
+
+
+    }
+*/
 
 }

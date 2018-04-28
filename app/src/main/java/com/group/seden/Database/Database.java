@@ -19,7 +19,9 @@ public class Database {
 
     private static DatabaseReference mDatabase;   // reference to the Firebase Database
 
-    private static String lastMessageRecipient;   // Username of the last recipient
+    private static String lastMessageRecipient;   // UniqueID of the last recipient
+
+    private static String lastMessageSender;   // UniqueID of the last sender
 
     /**
      * Stores user info when they create an account. They will have a unique ID which stores in the database as well.
@@ -50,16 +52,21 @@ public class Database {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         HashMap<String, String> childInfo = new HashMap<>();
-        childInfo.put("SenderID", message.getSenderID());
         childInfo.put("Message", message.getMsgText());
+        childInfo.put("SenderID", message.getSenderID());
+        childInfo.put("RecipientID", message.getSenderID());
         childInfo.put("DeleteTime", Integer.toString(message.getDeleteTime()));
         childInfo.put("Encrypted", String.valueOf(message.getIsEncrypted()));
 
-        // set the username of the last recipient
+        // set the last sender,only one sender in the current app instance
+        if(lastMessageSender != null)
+            lastMessageSender = message.getSenderID();
+
+        // set the last recipient to be sent a message
         lastMessageRecipient = message.getRecipientID();
 
-        // send the message to the recipient's Inbox
-        mDatabase.child("MessageInbox").child(lastMessageRecipient).setValue(childInfo, new DatabaseReference.CompletionListener() {
+        // title the username
+        mDatabase.child("messages").child(message.getRecipientID()).child(message.getSenderID()).setValue(childInfo, new DatabaseReference.CompletionListener() {
 
             @Override
             public void onComplete(DatabaseError error, DatabaseReference ref)
@@ -81,7 +88,7 @@ public class Database {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         //delete the message
-        mDatabase.child("MessageInbox").child(lastMessageRecipient).removeValue(
+        mDatabase.child("messages").child(lastMessageRecipient).child(lastMessageSender).removeValue(
                 new DatabaseReference.CompletionListener() {
 
                     // throw an error if unable to delete the last message
