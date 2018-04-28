@@ -117,12 +117,19 @@ public class SendMessageActivity extends AppCompatActivity{
 
                 //If encryption key is used, constructs message with key is tru.
                 //Otherwise, constructs message with key false.
+
                 if (usePassword == true) {
-                    message = new Message(session.getUniqueID(), recipientID,
+
+                    message = new Message(senderID, recipientID,
+
                             messageString, usePassword);
+
                     Encryption.encrypt(message, password);
+
                 }else
-                    message = new Message(session.getUniqueID(), recipientID,
+
+                    message = new Message(senderID, recipientID,
+
                             messageString);
 
                 //Tries to send message to database
