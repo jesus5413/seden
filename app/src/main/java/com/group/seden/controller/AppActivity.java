@@ -35,7 +35,6 @@ public class AppActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
     private Intent intent;
     private String uID;
-    private MessageReceiver youGotMail;
     private static final String TAG  = "AppActivity";
 
 
@@ -49,21 +48,6 @@ public class AppActivity extends AppCompatActivity {
         setSupportActionBar(mToolBar); // sets the toolbar layout to the main ap so it can be used
         getSupportActionBar().setTitle("Seden"); // sets the view title
         mAuth = FirebaseAuth.getInstance();
-
-        intent = getIntent();
-
-        youGotMail = new MessageReceiver(intent.getExtras().getString("Username"));
-
-        try {
-
-            youGotMail.pollMessages();
-        } catch (DatabaseException e)
-        {
-            Log.e(TAG, e.getMessage());
-        } finally {
-            System.out.println(youGotMail.inbox.getMessageList().toString());
-        }
-
 
         intent = getIntent();
 

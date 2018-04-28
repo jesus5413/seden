@@ -36,7 +36,7 @@ public class MessageReceiver
      */
     public MessageReceiver(String username)
     {
-        myRef = FirebaseDatabase.getInstance().getReference().child("MessageInbox").child(username);
+        myRef = FirebaseDatabase.getInstance().getReference().child("messages").child(username);
 
         inbox = MessageList.getInstance();
     }
