@@ -40,8 +40,8 @@ public class RecieveMessage {
         return this.RecipientId;
     }
 
-    public void setRecipientId(String recipientID) {
-        this.RecipientId = recipientID;
+    public void setRecipientId(String recipientId) {
+        this.RecipientId = recipientId;
     }
 
     public String getSenderID() {
