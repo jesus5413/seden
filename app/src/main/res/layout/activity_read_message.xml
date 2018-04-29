@@ -28,13 +28,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:text="From:" />
+            android:autoText="false"
+            android:text="From:"
+            android:textSize="20dp"/>
 
         <Button
             android:id="@+id/replyButton1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="3"
+            android:autoText="true"
             android:text="Reply" />
     </LinearLayout>
 
@@ -50,6 +53,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="top"
             android:orientation="vertical">
 
             <TextView
@@ -57,9 +61,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
-                android:layout_weight="1"
+                android:layout_weight="10"
+                android:autoText="true"
                 android:minHeight="200dp"
-                android:text="Message Content" />
+                android:text="Message Content"
+                android:textSize="20dp" />
         </LinearLayout>
     </ScrollView>
 
