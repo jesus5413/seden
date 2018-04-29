@@ -6,12 +6,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:divider="@drawable/line"
+
     android:fitsSystemWindows="true"
     android:gravity="top|fill"
     android:orientation="vertical"
     android:padding="0dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
     android:paddingTop="20dp">
 
     <LinearLayout
@@ -20,22 +22,24 @@
         android:layout_weight="1"
         android:gravity="center|fill"
         android:orientation="horizontal"
-        android:padding="0dp"
+        android:padding="10dp"
         android:paddingTop="0dp">
 
         <TextView
             android:id="@+id/senderNameTextView1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="5dp"
             android:layout_weight="2"
             android:autoText="false"
             android:text="From:"
-            android:textSize="20dp"/>
+            android:textSize="20dp" />
 
         <Button
             android:id="@+id/replyButton1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="59dp"
+            android:layout_margin="5dp"
             android:layout_weight="3"
             android:autoText="true"
             android:text="Reply" />
@@ -45,10 +49,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_vertical"
+        android:layout_margin="10dp"
         android:layout_weight="10"
-        android:background="@drawable/back"
         android:fillViewport="false"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:paddingBottom="0dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:paddingTop="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -74,7 +82,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="10dp">
 
         <EditText
             android:id="@+id/enterPasswordEditText1"
@@ -86,8 +95,8 @@
 
         <Button
             android:id="@+id/decryptButton1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="114dp"
+            android:layout_height="59dp"
             android:layout_weight="1"
             android:text="Decrypt" />
     </LinearLayout>
