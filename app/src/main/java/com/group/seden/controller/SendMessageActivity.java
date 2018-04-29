@@ -35,10 +35,10 @@ import java.util.Iterator;
 public class SendMessageActivity extends AppCompatActivity{
 
     private Button sendMessageButton;
-    private Button encryptButton;
-    private EditText messageContent;
+    public static Button encryptButton;
+    public static EditText messageContent;
     private TextView messageRecipient;
-    private Message outGoingMessage;
+    public static Message message = new Message();
     private Button acceptButton;
 
     //dialog box variables
@@ -51,7 +51,6 @@ public class SendMessageActivity extends AppCompatActivity{
     public static Long password;
 
     private AlertDialog dialog;
-    private Message message;
     private UserSession session;
     private FirebaseUser currentuser;
 
@@ -65,6 +64,7 @@ public class SendMessageActivity extends AppCompatActivity{
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_message);
+        messageContent = (EditText) findViewById(R.id.messageField);
 
         //initialize global variables for dialog
         //usePassword = false;
@@ -102,16 +102,13 @@ public class SendMessageActivity extends AppCompatActivity{
             public void onClick(View view) {
 
                 //pulls the text from text input and converts it to a string
-                EditText messageContent = (EditText) findViewById(R.id.messageField);
+
                 String messageString = messageContent.getText().toString();
 
                 //Declares values for message success/fail toast
                 Context context = getApplicationContext();
                 CharSequence text = "";
                 int duration = Toast.LENGTH_SHORT;
-
-                //Message object to send
-                Message message;
 
                 //if (password == null)
                     //usePassword = false;
@@ -121,7 +118,7 @@ public class SendMessageActivity extends AppCompatActivity{
                 if (password != null) {
                     message = new Message(senderID, recipientID,
                             messageString, true);
-                    Encryption.encrypt(message, password);
+                    //Encryption.encrypt(message, password);
                 }else
                     message = new Message(senderID, recipientID,
                             messageString);
@@ -157,6 +154,7 @@ public class SendMessageActivity extends AppCompatActivity{
 
                 EncryptOptionsDialog encryptOptionsDialog = new EncryptOptionsDialog();
                 encryptOptionsDialog.show(getFragmentManager(), null);
+
 
                 System.out.println("Encrypt options");
             }

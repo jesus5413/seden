@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.group.seden.R;
+import com.group.seden.model.Encryption;
 
 import static com.group.seden.controller.SendMessageActivity.password;
 //import static com.group.seden.controller.SendMessageActivity.usePassword;
@@ -52,8 +53,28 @@ public class EncryptOptionsDialog extends DialogFragment {
                 System.out.println("accept pressed");
                 //usePassword = isEncrypted.isChecked();
 
-                if (!passwardET.getText().toString().isEmpty())
+                if (!passwardET.getText().toString().isEmpty()) {
+                    if (password != null) {
+                        Encryption.decrypt(SendMessageActivity.message, password);
+                        SendMessageActivity.messageContent.setText(SendMessageActivity.message.getMsgText());
+                    }
                     password = Long.parseLong(passwardET.getText().toString());
+                    SendMessageActivity.messageContent.setEnabled(false);
+                    SendMessageActivity.message.setMsgText(SendMessageActivity.messageContent.getText().toString());
+                    Encryption.encrypt(SendMessageActivity.message, password);
+                    SendMessageActivity.messageContent.setText(SendMessageActivity.message.getMsgText());
+                    //SendMessageActivity.encryptButton.setVisibility(View.GONE);
+                }
+                else {
+                    SendMessageActivity.message.setMsgText(SendMessageActivity.messageContent.getText().toString());
+                    if (password != null) {
+                        Encryption.decrypt(SendMessageActivity.message, password);
+                        SendMessageActivity.messageContent.setText(SendMessageActivity.message.getMsgText());
+                    }
+                    SendMessageActivity.messageContent.setEnabled(true);
+                    password = null;
+
+                }
 
 
                 dialog.dismiss();
