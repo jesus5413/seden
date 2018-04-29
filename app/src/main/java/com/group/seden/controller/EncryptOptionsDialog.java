@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.group.seden.R;
 
 import static com.group.seden.controller.SendMessageActivity.password;
-import static com.group.seden.controller.SendMessageActivity.usePassword;
+//import static com.group.seden.controller.SendMessageActivity.usePassword;
 
 public class EncryptOptionsDialog extends DialogFragment {
     public View.OnClickListener onButtonAccept;
@@ -24,7 +24,7 @@ public class EncryptOptionsDialog extends DialogFragment {
     private View view;
     private AlertDialog.Builder builder;
     private Dialog dialog;
-    public CheckBox isEncrypted;
+    //public CheckBox isEncrypted;
     public EditText passwardET;
     public Button buttonAccept;
     @Override
@@ -35,7 +35,7 @@ public class EncryptOptionsDialog extends DialogFragment {
 
         //find edit text and checkbox by id
         passwardET = view.findViewById(R.id.keyInput);
-        isEncrypted = view.findViewById(R.id.keyCheckBox);
+        //isEncrypted = view.findViewById(R.id.keyCheckBox);
         buttonAccept = view.findViewById(R.id.acceptButton1);
 
         FinishEncryptHandle(buttonAccept);
@@ -50,9 +50,9 @@ public class EncryptOptionsDialog extends DialogFragment {
             public void onClick(View view) {
 
                 System.out.println("accept pressed");
-                usePassword = isEncrypted.isChecked();
+                //usePassword = isEncrypted.isChecked();
 
-                if (!passwardET.getText().toString().equals(""))
+                if (!passwardET.getText().toString().isEmpty())
                     password = Long.parseLong(passwardET.getText().toString());
 
 

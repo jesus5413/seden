@@ -47,7 +47,7 @@ public class SendMessageActivity extends AppCompatActivity{
     private String keyString;
 
     //pass into dialog to return
-    public static Boolean usePassword;
+    //public static Boolean usePassword;
     public static Long password;
 
     private AlertDialog dialog;
@@ -67,7 +67,7 @@ public class SendMessageActivity extends AppCompatActivity{
         setContentView(R.layout.activity_send_message);
 
         //initialize global variables for dialog
-        usePassword = false;
+        //usePassword = false;
         password = null;
 
         //Get the Intent that started this activity and extract the string
@@ -113,14 +113,14 @@ public class SendMessageActivity extends AppCompatActivity{
                 //Message object to send
                 Message message;
 
-                if (password == null)
-                    usePassword = false;
+                //if (password == null)
+                    //usePassword = false;
 
                 //If encryption key is used, constructs message with key is tru.
                 //Otherwise, constructs message with key false.
-                if (usePassword == true) {
+                if (password != null) {
                     message = new Message(senderID, recipientID,
-                            messageString, usePassword);
+                            messageString, true);
                     Encryption.encrypt(message, password);
                 }else
                     message = new Message(senderID, recipientID,
