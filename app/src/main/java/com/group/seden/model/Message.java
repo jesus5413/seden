@@ -5,7 +5,7 @@
  */
 package com.group.seden.model;
 
-public class Message{
+public class Message {
 
     private String msgText;  // the users message
 
@@ -15,30 +15,31 @@ public class Message{
 
     private boolean isEncrypted = false;
 
-    private int timer = 5*60;
+    private int timer = 5 * 60;
+
     /**
      * Constructor that accepts an initial Message
+     *
      * @param msgText message to be sent
      */
-    public Message(String msgText)
-    {
+    public Message(String msgText) {
         this.msgText = msgText;
     }
 
     /**
      * Default constructor
      */
-    public Message(){}
+    public Message() {
+    }
 
 
-
-    public Message(String senderID, String recipientID, String message){
+    public Message(String senderID, String recipientID, String message) {
         this.msgText = message;
         this.senderID = senderID;
         this.recipientID = recipientID;
     }
 
-    public Message(String senderID, String recipientID, String message, boolean isEncrypted){
+    public Message(String senderID, String recipientID, String message, boolean isEncrypted) {
         this.msgText = message;
         this.senderID = senderID;
         this.recipientID = recipientID;
@@ -46,7 +47,7 @@ public class Message{
     }
 
     public String getSenderID() {
-        return this.senderID;
+        return senderID;
     }
 
     public void setSenderID(String senderID) {
@@ -54,7 +55,7 @@ public class Message{
     }
 
     public String getRecipientID() {
-        return this.recipientID;
+        return recipientID;
     }
 
     public void setRecipientID(String senderID) {
@@ -62,7 +63,7 @@ public class Message{
     }
 
     public boolean getIsEncrypted() {
-        return this.isEncrypted;
+        return isEncrypted;
     }
 
     public void setIsEncrypted(boolean isEncrypted) {
@@ -70,35 +71,27 @@ public class Message{
     }
 
     public String getMsgText() {
-        return this.msgText;
+        return msgText;
     }
 
     public void setMsgText(String text) {
         this.msgText = text;
     }
 
-    public void setDeleteTime(int timer)
-    {
+    public void setDeleteTime(int timer) {
         this.timer = timer;
     }
 
-    public int getDeleteTime()
-    {
+    public int getDeleteTime() {
         return this.timer;
     }
 
-    public String toString(){
-        return getSenderID() + getMsgText() + getRecipientID() + getDeleteTime() + getIsEncrypted();
-    }//END toString()
-
-
-    /**
-     *  Deletes a message
-     */
-    public Boolean delete() {
-        new TimeOut(this, timer);
-        return this.getMsgText() == null;
+    public void TimeOutDelete(Message message) {
+        new TimeOut(this);
     }
 
+    public void deleteMessage(Message message) {
+
+    }
 
 }

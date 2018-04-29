@@ -18,34 +18,30 @@ import com.group.seden.R;
 import static com.group.seden.controller.SendMessageActivity.password;
 import static com.group.seden.controller.SendMessageActivity.usePassword;
 
-public class DecryptOptionsDialog extends DialogFragment {
+public class EncryptOptionsDialog extends DialogFragment {
     public View.OnClickListener onButtonAccept;
     public EditText edit_text;
     private View view;
     private AlertDialog.Builder builder;
     private Dialog dialog;
-    private CheckBox isEncrypted;
-    private EditText passwardET;
+    public CheckBox isEncrypted;
+    public EditText passwardET;
+    public Button buttonAccept;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         builder = new AlertDialog.Builder(getActivity());
         LayoutInflater li = LayoutInflater.from(builder.getContext());
         View view = li.inflate(R.layout.activity_decrypt_options_dialog, null);
+
+        //find edit text and checkbox by id
         passwardET = view.findViewById(R.id.keyInput);
         isEncrypted = view.findViewById(R.id.keyCheckBox);
-        Button buttonAccept = view.findViewById(R.id.acceptButton1);
-        //   edit_text = view.findViewById(R.id.keyInput);
-        //   buttonAccept.setOnClickListener(onButtonAccept);
+        buttonAccept = view.findViewById(R.id.acceptButton1);
+
         FinishEncryptHandle(buttonAccept);
         builder.setView(view);
         dialog = builder.create();
         return dialog;
-    }
-
-    public Button returnAccept(){
-        Button buttonAccept = view.findViewById(R.id.acceptButton1);
-
-        return buttonAccept;
     }
 
     private void FinishEncryptHandle(Button button){
@@ -53,13 +49,11 @@ public class DecryptOptionsDialog extends DialogFragment {
             @Override
             public void onClick(View view) {
 
-
-                System.out.println("create alter");
-
-
                 System.out.println("accept pressed");
                 usePassword = isEncrypted.isChecked();
-                password = Long.parseLong(passwardET.getText().toString());
+
+                if (!passwardET.getText().toString().equals(""))
+                    password = Long.parseLong(passwardET.getText().toString());
 
 
                 dialog.dismiss();

@@ -10,11 +10,12 @@ import java.util.TimerTask;
 public class TimeOut {
     private Timer timer;
     private Message message;
-    public TimeOut(Message message, int seconds) {
+
+    public TimeOut(Message message) {
 
         timer = new Timer();
         this.message = message;
-        timer.schedule(new deleteTask(message), seconds*1000);
+        timer.schedule(new deleteTask(message), message.getDeleteTime()*1000);
     }
 
     class deleteTask extends TimerTask {

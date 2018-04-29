@@ -9,19 +9,33 @@ import static org.junit.Assert.*;
  */
 public class MessageTest {
     @Test
-    public void delete() throws Exception {
-        int seconds = 5;
-        Message message = new Message("test");
-        message.setDeleteTime(seconds);
-        System.out.println("Message: " + message.getMsgText());
-        message.delete();
+    public void TimeOutDelete() throws Exception {
+        int seconds = 2;
+        Message message1 = new Message("test");
+        message1.setDeleteTime(seconds);
+        Message message2 = new Message("another test");
+        message2.setDeleteTime(seconds);
+        Message message3 = new Message("a third test");
+        message3.setDeleteTime(seconds);
+        MessageList messages = new MessageList();
+        messages.addMessage(message1);
+        messages.addMessage(message2);
+        messages.addMessage(message3);
+        int i = 0;
+        for (Message msg : messages) {
+            i++;
+            System.out.println("Message " + i + ": " + msg.getMsgText());
+        }
+        messages.TimeOutDelete(message1);
+        Thread.sleep(1);
+        messages.TimeOutDelete(message3);
         System.out.println("Deleting Message");
-        Thread.sleep((seconds + 1) * 1000);
-        if (message.getMsgText() != null)
-            System.out.println("Message failed to delete: " + message.getMsgText());
-        else
-            System.out.println("Message Deleted: " + message.getMsgText());
-        assert(message.getMsgText() == null);
+        Thread.sleep((seconds + 2) * 1000);
+        i = 0;
+        for (Message msg : messages) {
+            i++;
+            System.out.println("Message " + i + ": " + msg.getMsgText());
+        }
     }
 
 }

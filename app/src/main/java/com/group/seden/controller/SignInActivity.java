@@ -2,10 +2,12 @@ package com.group.seden.controller;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -29,6 +32,7 @@ import com.group.seden.model.UserSession;
  *
  * This is the controller class for the sign in UI
  * @author jesusnieto
+ * @author Isaac Buitrago
  */
 public class SignInActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -41,6 +45,7 @@ public class SignInActivity extends AppCompatActivity {
     private UserSession userInfo;
     private String uID;
     private int counter = 0;
+    private final static String TAG = "SingInActivity";
 
 
     @Override
@@ -70,14 +75,14 @@ public class SignInActivity extends AppCompatActivity {
         super.onStart();
         currentUser =  mAuth.getCurrentUser();
         // checks to see if there is a user, and if there is, go to the main app.
-        if(currentUser != null){
-            uID = currentUser.getUid();
-
-            Intent startIntent = new Intent(SignInActivity.this, AppActivity.class);
-            startIntent.putExtra("uID", uID);
-            startActivity(startIntent);
-            finish();
-        }
+//        if(currentUser != null){
+//            uID = currentUser.getUid();
+//
+//            Intent startIntent = new Intent(SignInActivity.this, AppActivity.class);
+//            startIntent.putExtra("uID", uID);
+//            startActivity(startIntent);
+//            finish();
+//        }
 
     }
 
@@ -95,10 +100,24 @@ public class SignInActivity extends AppCompatActivity {
                 System.out.println("tapped");
                 // logging in database code here
 
+                // lock the user out of the account
                 if(counter >= 2 ){
-                    button.setEnabled(false);
-                    Toast.makeText(SignInActivity.this, "You've been locked out of the app for failed attempts. Restart the app.", Toast.LENGTH_LONG).show();
+                    //button.setEnabled(false);
+                    Toast.makeText(SignInActivity.this, "You've been locked out of the app for failed attempts. Contact your system administrator.",
+                            Toast.LENGTH_LONG).show();
 
+                    try {
+
+                        String username =  userName.getText().toString();
+
+                        boolean lock = true;
+
+                        Database.controlAccountAccess(username, lock);
+
+                    } catch(DatabaseException e) {
+
+                        Log.e(TAG, e.getMessage());
+                    }
                 }
 
                 if(!TextUtils.isEmpty(userName.getText().toString()) && !TextUtils.isEmpty(password.getText().toString())){
