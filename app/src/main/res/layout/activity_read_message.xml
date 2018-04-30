@@ -45,6 +45,11 @@
             android:text="Reply" />
     </LinearLayout>
 
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#bebebe" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
