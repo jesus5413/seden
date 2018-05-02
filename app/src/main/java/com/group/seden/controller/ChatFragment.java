@@ -98,9 +98,9 @@ public class ChatFragment extends Fragment {
                     holder.mView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            CharSequence options[] = new CharSequence[]{"Reply"};
+                            CharSequence options[] = new CharSequence[]{"View Message"};
                             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                            builder.setTitle("Reply?");
+                            builder.setTitle("View Message?");
                             builder.setItems(options, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
