@@ -10,34 +10,24 @@ import java.util.TimerTask;
 public class TimeOut {
     private Timer timer;
     private Message message;
-    private MessageList messages;
 
-    public TimeOut(Message message, int seconds, MessageList messages) {
+    public TimeOut(Message message) {
 
         timer = new Timer();
         this.message = message;
-        this.messages = messages;
-        timer.schedule(new deleteTask(message, messages), seconds*1000);
+        timer.schedule(new deleteTask(message), message.getDeleteTime()*1000);
     }
 
     class deleteTask extends TimerTask {
 
         Message message;
-        MessageList messages;
 
-        deleteTask(Message message, MessageList messages){
+        deleteTask(Message message){
             this.message = message;
-            this.messages = messages;
         }
 
         public void run() {
             this.message.setMsgText(null);
-            for (Message msg : this.messages){
-                if (msg.getMsgText() == null) {
-                    this.messages.getMessageList().remove(msg);
-                    break;
-                }
-            }
             timer.cancel(); //Terminate the timer thread
         }
     }

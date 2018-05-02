@@ -86,4 +86,12 @@ public class Message {
         return this.timer;
     }
 
+    public void TimeOutDelete(Message message) {
+        new TimeOut(this);
+    }
+
+    public void deleteMessage(Message message) {
+
+    }
+
 }
